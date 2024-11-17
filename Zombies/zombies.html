@@ -93,8 +93,8 @@
         let offsetX = 0; 
         let offsetY = 0; 
         let isDragging = false; 
-        let lastX = 0; 
-        let lastY = 0; 
+        // let lastX = 0; 
+        //let lastY = 0; 
         let maxX = canvas.width/20-1;
         let maxY = canvas.height/20-1;
         class Letter { 
@@ -109,6 +109,8 @@
                 this.originalY = this.y;
                 this.dead = 0;
                 this.id = id;
+                this.lastX =0;
+                this.lastY = 0;
                 id++;
             } 
             draw() {
@@ -328,6 +330,9 @@
             letters.forEach(letter => { letter.update(); letter.draw(); }); 
 
             }
+        function resolveZombies() {
+            
+        }
         function move(x,y) {
             
             if (done) {
