@@ -331,16 +331,25 @@
 
             }
         function resolveZombies() {
-            for (let i=0; i < letters.length; i++) {
-                z = letters[i];
-                z.resolved = 0;
-                found = 0;
-                if (z.dead || (z.letter != 'Z')) {
-                    continue;
+            let zombies = [];
+            for (const l of letters) {
+                if (l.letter == "Z" && !l.dead) {
+                    l.resolved = false;
+                    zombies.push(l);
                 }
+            }
+            for (let i=0; i < zombies.length; i++) {
+                z = zombies[i];
+                found = 0;
                 for (let j =0; j < i; j++) {
-                    y = letters[j];
-
+                    y = zombies[j];
+                    if ((z.x == y.x) && (z.y == y.y) &&
+                        z.resolved) {
+                            z.resolved = true;
+                            z.x = z.lastX;
+                            z.y = z.lastY;
+                            break;
+                    }
                 }
             }
         }
