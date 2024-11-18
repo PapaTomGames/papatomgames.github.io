@@ -199,7 +199,7 @@
                 //this.x = random(0, canvas.width/20-2);
                 //this.y = random(0, canvas.height/20-2);
                 this.newLocation(0);
-               
+                this.resolved = 0;
                 }
                 
             chase(x,y) {
@@ -331,7 +331,18 @@
 
             }
         function resolveZombies() {
-            
+            for (let i=0; i < letters.length; i++) {
+                z = letters[i];
+                z.resolved = 0;
+                found = 0;
+                if (z.dead || (z.letter != 'Z')) {
+                    continue;
+                }
+                for (let j =0; j < i; j++) {
+                    y = letters[j];
+
+                }
+            }
         }
         function move(x,y) {
             
