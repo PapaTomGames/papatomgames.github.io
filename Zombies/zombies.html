@@ -345,6 +345,9 @@
             // if no blocks then move
             resolvedZombies = 0;
             while (resolvedZombies < zombies.length) {
+                if (resolveZombies) {
+                    debugOut("resolve: " + resolveZombies);
+                }
                 for (let i=0; i < zombies.length; i++) {
                     z = zombies[i];
                     if (z.resolved) {
