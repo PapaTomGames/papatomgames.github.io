@@ -337,8 +337,7 @@
                             }
                         }
                         else {
-                            if (/*((z.x == y.x) && (z.y == y.y)) || */
-                                ((z.x == y.lastX) && (z.y == y.lastY))) {
+                            if (((z.x == y.lastX) && (z.y == y.lastY))) {
                                 found = true;
                             }
                         }
@@ -391,7 +390,6 @@
         }
         function gameOver(success) {
             done = 1;
-            //person.dead = 1;
             if (success == 1) {
                 m = "You won!";
             }
