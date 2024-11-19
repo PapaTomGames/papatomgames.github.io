@@ -438,42 +438,6 @@
                 }
             }
         }
-        
-        // Zoom control with mouse wheel 
-        canvas.addEventListener('wheel', (e) => 
-        { 
-            e.preventDefault(); 
-            const delta = e.deltaY > 0 ? 0.9 : 1.1; 
-            const mouseX = e.offsetX; 
-            const mouseY = e.offsetY; // Zoom around mouse position 
-            const newScale = scale * delta; 
-            if (newScale >= 0.1 && newScale <= 5) { 
-                offsetX = mouseX - (mouseX - offsetX) * delta; 
-                offsetY = mouseY - (mouseY - offsetY) * delta; 
-                scale = newScale; // Update zoom slider 
-                document.getElementById('zoomSlider').value = scale; 
-                updateZoomLevel(); 
-                animate(); 
-            } 
-        }); 
-        
-            // Pan control with mouse drag 
-        canvas.addEventListener('mousedown', (e) => { isDragging = true; lastX = e.offsetX; lastY = e.offsetY; }); 
-        canvas.addEventListener('mousemove', (e) => 
-        { 
-          if (isDragging) { 
-            const deltaX = e.offsetX - lastX; 
-            const deltaY = e.offsetY - lastY; 
-            offsetX += deltaX; 
-            offsetY += deltaY; 
-            lastX = e.offsetX; 
-            lastY = e.offsetY; 
-            animate(); 
-          } 
-        }); 
-        canvas.addEventListener('mouseup', () => { isDragging = false; }); 
-        canvas.addEventListener('mouseleave', () => { isDragging = false; });
-        testFile();
         newGame();
     </script>
 </body>
