@@ -203,14 +203,10 @@
                 }
                 
             chase(x,y) {
-                //statusMessage.innerHTML += "<br>chase " + this.x + " "+ this.y;
                 const dx = Math.floor(x - this.x);
                 const dy = Math.floor(y - this.y);
-                //statusMessage.innerHTML += "<br>chase " + dx + " " + dy + " " + this.x  + " " + this.y;
                 let sx = Math.sign(dx);
                 let sy = Math.sign(dy);
-                //statusMessage.innerHTML += "<br> " + sx + " " + sy;
-                //statusMessage.innerHTML = "chase " + ${dx} + " " + ${dy};
                 let found = 0;
                 
 
@@ -244,41 +240,15 @@
                         return;
                     }
                 }
-                /*
-                for (const z of zombies) {
-
-                    if ((z.letter == 'Y') ||
-                        (z.letter == 'O')) {
-                            continue;
-                    }
-                    
-                    
-                    if ((z.x == newX)&&(z.y == newY)) {
-                        found = 1;
-                        sx = 0;
-                        sy = 0;
-                
-                    }
-                      
-                        //debugOut("" + z.x + " " + z.y + " " + this.x + " " + this.y + " found " + found);
-                }
-                */
                 
                 this.move(sx,sy);
-                //zombies.push(this);
                 
             }
             
         }
-        /*
-        printStatus(m) {
-            document.getElementById("status").innerHTML = m;
-
+        function debugOut(m) {
+            console.log(m);
         }
-        */
-       function debugOut(m) {
-        console.log(m);
-       }
         function random(min, max) { 
             return Math.floor(Math.random() * (max - min + 1)) + min; 
         } 
@@ -341,14 +311,11 @@
                 }
             }
             //
-            // if y is resolved then check last position
-            // else if y is not resolved then check next and last position
-            // if no blocks then move
             resolvedZombies = 0;
             while (resolvedZombies < zombies.length) {
-                if (resolvedZombies) {
-                    debugOut("resolve: " + resolvedZombies);
-                }
+                // if (resolvedZombies) {
+                //     debugOut("resolve: " + resolvedZombies);
+                // }
                 for (let i=0; i < zombies.length; i++) {
                     z = zombies[i];
                     if (z.resolved) {
@@ -464,7 +431,7 @@
                 }
                 for (let j = i+1; j < letters.length; j++) {
                     y = letters[j];
-                    if ((y.letter == 'Y') || (y.letter == 'O') || y.dead) {
+                    if ((y.letter != 'Z') || y.dead) {
                         continue;
                     }
                     if ((z.x == y.x) && (z.y == y.y)) {
