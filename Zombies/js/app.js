@@ -5,6 +5,18 @@ function testFile() {
 
 }
 
+class App {
+    constructor() {
+
+    }
+
+    function isMobile() {
+        const userAgent = navigator.userAgent.toLowerCase();
+        return /android|webos|iphone|ipad|ipod|blackberry|windows phone/.test(userAgent);
+    }
+      
+}
+
 /*
 function isMobile() {
   const userAgent = navigator.userAgent.toLowerCase();
