@@ -7,13 +7,17 @@ function testFile() {
 
 class App {
     constructor() {
-
+      debugOut("app init");
+      if (this.isMobile()) {
+        debugOut("mobile!");
+      }
     }
 
-    function isMobile() {
+    isMobile() {
+        debugOut("isMobile");
         const userAgent = navigator.userAgent.toLowerCase();
         return /android|webos|iphone|ipad|ipod|blackberry|windows phone/.test(userAgent);
-    }
+      }
       
 }
 
