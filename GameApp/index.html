@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .canvas-container {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid black;
+            width: 400px;
+            height: 400px;
+        }
+
+        canvas {
+            background: white;
+        }
+
+        #controls {
+            margin: 10px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        select,
+        button {
+            padding: 5px;
+            height: 50px;
+            width: 50px;
+        }
+
+        .zoom-controls {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+    
+        .arrow-button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: 2px solid #0073e6;
+        background-color: white;
+        color: #0073e6;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        }
+
+        .arrow-button:hover {
+        background-color: #0073e6;
+        color: white;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="controls"> 
+        <button onclick="newGame()">New Game</button> 
+    </div>
+    <div class="canvas-container"> <canvas id="letterCanvas" width="400" height="400"></canvas> </div>
+    <div>
+        <br>
+        <button onclick="move(-1,-1);" class="arrow-button">&#x2196;</button>
+        <button onclick="move(0,-1);" class="arrow-button">&#x2191;</button>
+        <button onclick="move(1,-1);" class="arrow-button">&#x2197;</button>
+        <br>
+        <button onclick="move(-1,0);" class="arrow-button">&#x2190;</button>
+        <button onclick="move(0,0);" class="arrow-button">&#x25A1;</button>
+        <button onclick="move(1,0);" class="arrow-button">&#x2192;</button>
+        <br>
+        <button onclick="move(-1,1);" class="arrow-button">&#x2199;</button>
+        <button onclick="move(0,1);" class="arrow-button">&#x2193;</button>
+        <button onclick="move(1,1);" class="arrow-button">&#x2198;</button>
+        <br>
+    </div>
+    <div id="statusMessage">Ready</div>
+    
+    <script type = "text/javascript" src = "js/app.js"></script>
+    <script> 
+    /*
+    fetch('styles.css')
+        .then(response => response.text())
+        .then(css => {
+            const style = document.createElement('style');
+            style.textContent = css;
+            document.head.appendChild(style);
+        });
+
+    fetch('dynamic_content.html')
+        .then(response => response.text())
+        .then(html => {
+            const div = document.createElement('div');
+            div.innerHTML = html;
+            document.body.appendChild(div);
+        });
+        */
+    </script>
+    <footer>
+        <p>&copy; 2024 Thomas Baker</p>
+    </footer>
+    </body>
+    </html>
