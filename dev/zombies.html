@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .canvas-container {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid black;
+            width: 400px;
+            height: 400px;
+        }
+
+        canvas {
+            background: white;
+        }
+
+        #controls {
+            margin: 10px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        select,
+        button {
+            padding: 5px;
+            height: 50px;
+            width: 50px;
+        }
+
+        .zoom-controls {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+    
+.arrow-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 2px solid #0073e6;
+  background-color: white;
+  color: #0073e6;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+}
+
+.arrow-button:hover {
+  background-color: #0073e6;
+  color: white;
+}
+
+    </style>
+</head>
+
+<body>
+    <div id="controls"> 
+        <button onclick="newGame()">New Game</button> 
+    </div>
+    <div class="canvas-container"> <canvas id="letterCanvas" width="400" height="400"></canvas> </div>
+    <div>
+        <br>
+        <button onclick="move(-1,-1);" class="arrow-button">&#x2196;</button>
+        <button onclick="move(0,-1);" class="arrow-button">&#x2191;</button>
+        <button onclick="move(1,-1);" class="arrow-button">&#x2197;</button>
+        <br>
+        <button onclick="move(-1,0);" class="arrow-button">&#x2190;</button>
+        <button onclick="move(0,0);" class="arrow-button">&#x25A1;</button>
+        <button onclick="move(1,0);" class="arrow-button">&#x2192;</button>
+        <br>
+        <button onclick="move(-1,1);" class="arrow-button">&#x2199;</button>
+        <button onclick="move(0,1);" class="arrow-button">&#x2193;</button>
+        <button onclick="move(1,1);" class="arrow-button">&#x2198;</button>
+        <br>
+    </div>
+    <div id="statusMessage">Ready</div>
+    
+    <script type = "text/javascript" src = "js/app.js"></script>
+    <script> 
+        const canvas = document.getElementById('letterCanvas'); 
+        const ctx = canvas.getContext('2d'); 
+        const statusMessage = document.getElementById("statusMessage");
+        let letters = []; 
+        let holes = [];
+        //let zombies = [];
+        let id = 0;
+        let done = 0;
+        let animationId; // Zoom and pan variables 
+        let scale = 1; 
+        let offsetX = 0; 
+        let offsetY = 0; 
+        let isDragging = false; 
+        // let lastX = 0; 
+        //let lastY = 0; 
+        let maxX = canvas.width/20-1;
+        let maxY = canvas.height/20-1;
+        class Letter { 
+            constructor() { 
+                this.letter = 'Z'; 
+                this.fontSize = 20;  
+                this.hue = 0;  
+                this.lightness = 50;
+                this.opacity = 1; 
+                this.rotation = 0; 
+                this.yVelocity = random(-2, 2); 
+                this.originalY = this.y;
+                this.dead = 0;
+                this.id = id;
+                this.lastX =0;
+                this.lastY = 0;
+                id++;
+            } 
+            draw() {
+                if (this.dead) {
+                    return;
+                }
+                ctx.save(); 
+                ctx.translate(offsetX, offsetY); 
+                ctx.scale(scale, scale); 
+                let px = (this.x * 20) + 10;
+                let py = (this.y * 20) + 10;
+                ctx.translate(px,py); 
+                
+                ctx.font = `${this.fontSize}px Courier New`; 
+                ctx.fillStyle = `hsla(${this.hue}, 70%, ${this.lightness}%, ${this.opacity})`; 
+                ctx.textAlign = 'center'; 
+                ctx.textBaseline = 'middle'; 
+                ctx.fillText(this.letter, 0, 0, 20); 
+                ctx.restore(); 
+                //statusMessage.innerHTML += "<br>draw " + this.letter + " " + this.x + " " + this.y + " " + px + " " + py;
+            }
+            newLocation(pad) {
+                this.x = random(pad, maxX-(pad+1)); 
+                this.y = random(pad, maxY-(pad+1));  
+                this.lastX = this.x;
+                this.lastY = this.y;
+            }
+            update() { 
+                
+            } 
+            move(x,y) {
+                this.lastX = this.x;
+                this.lastY = this.y;
+                this.x += x;
+                this.y += y;
+                if (this.x < 0) {
+                    this.x = 0;
+                }
+                if (this.x > maxX) {
+                    this.x = maxX;
+                }
+                if (this.y < 0) {
+                    this.y = 0;
+                }
+                if (this.y > maxY) {
+                    this. y = maxY;
+                }
+                debugOut(`move: id = ${this.id} ${this.letter} x= ${this.x},y= ${this.y}, ${x}, ${y}`);
+            }
+            chase(x,y) {}
+        } 
+        class Person extends Letter {
+            constructor() {
+                super();
+                this.letter='Y';
+                this.lightness = 0;
+                this.x = Math.floor(maxX/2);
+                this.y = Math.floor(maxY/2);
+                }
+            }
+        class Hole extends Letter {
+            constructor() {
+                super();
+                this.letter='O';
+                this.hue = 240;
+                this.lightness = 50;
+                //this.x = random(1, canvas.width/20-2);
+                //this.y = random(1, canvas.height/20-2);
+                this.newLocation(1);
+                this.space = 5;
+                }
+                fill() {
+                    this.space--;
+                    if (this.space <= 0) {
+                        this.dead = 1;
+                    }
+                    //statusMessage.innerHTML += "<br>hole " + this.x + " " + this.y + " " + this.space + " " + this.dead;
+                    
+                }
+            }
+        class Zombie extends Letter {
+            constructor() {
+                super();
+                this.letter='Z';
+                this.lightness = 50;
+                //this.x = random(0, canvas.width/20-2);
+                //this.y = random(0, canvas.height/20-2);
+                this.newLocation(0);
+                this.resolved = 0;
+                }
+                
+            chase(x,y) {
+                const dx = Math.floor(x - this.x);
+                const dy = Math.floor(y - this.y);
+                let sx = Math.sign(dx);
+                let sy = Math.sign(dy);
+                let found = 0;
+                
+
+                if ((this.letter == 'Y') ||
+                        (this.letter == 'O') ||
+                        this.dead) {
+                            return;
+                    }
+                if (Math.abs(dx) >= Math.abs(dy)) {
+                    sy = 0;
+                }
+                else {
+                    sx = 0;
+                }
+
+                let newX = this.x + sx;
+                let newY = this.y + sy;
+
+                if (newX == person.x && newY == person.y) {
+                    debugOut("person: " + x + " " + y + " zombie: " + this.x + " " + this.y + " move to: " + newX + " " + newY);
+                    this.move(sx,sy);
+                    updateFrame();
+                    gameOver(0);
+                    return;
+                }
+                for (const h of holes) {
+                    if ((h.x == newX) && (h.y == newY) && !h.dead) {
+                        this.dead = 1;
+                        h.fill();
+                        debugOut( " zombie dies " + this.id);
+                        return;
+                    }
+                }
+                
+                this.move(sx,sy);
+                
+            }
+            
+        }
+        function debugOut(m) {
+            console.log(m);
+        }
+        function random(min, max) { 
+            return Math.floor(Math.random() * (max - min + 1)) + min; 
+        } 
+        function addPerson() {
+            person = new Person;
+            letters.push(person);
+        }
+        function addHole() {
+            let h = new Hole;
+            while (true) {
+                let openSpace = true;
+                for (let letter of letters) {
+                    if ((letter.x == h.x) && (letter.y == h.y)) {
+                        h.newLocation(1);
+                        openSpace = false;
+                        break;
+                    }
+                }
+                if (openSpace) {
+                    break;
+                }
+             }
+            holes.push(h);
+            letters.push(h);
+        }
+        function addZombie() { 
+            let z = new Zombie();
+            while (true) {
+                let openSpace = true;
+                for (let letter of letters) {
+                    if ((letter.x == z.x) && (letter.y == z.y)) {
+                        z.newLocation(0);
+                        openSpace = false;
+                        break;
+                    }
+                }
+                if (openSpace) {
+                    break;
+                }
+             }
+            letters.push(z); 
+        } 
+        function clearCanvas() { 
+            letters = []; 
+            ctx.clearRect(0, 0, canvas.width, canvas.height); 
+        } 
+        
+        
+        function updateFrame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); 
+            letters.forEach(letter => { letter.update(); letter.draw(); }); 
+
+            }
+        function resolveZombies() {
+            let zombies = [];
+            for (const l of letters) {
+                if (l.letter == "Z" && !l.dead) {
+                    l.resolved = false;
+                    zombies.push(l);
+                }
+            }
+            //
+            resolvedZombies = 0;
+            while (resolvedZombies < zombies.length) {
+                // if (resolvedZombies) {
+                //     debugOut("resolve: " + resolvedZombies);
+                // }
+                for (let i=0; i < zombies.length; i++) {
+                    z = zombies[i];
+                    if (z.resolved) {
+                        continue;
+                    }
+                    found = 0;
+                    for (let j =0; j < zombies.length; j++) {
+                        if (i == j) {
+                            continue;
+                        }
+                        y = zombies[j];
+                        if (y.resolved) {
+                            if ((z.x == y.x) && (z.y == y.y)) {
+                                z.resolved = true;
+                                z.x = z.lastX;
+                                z.y = z.lastY;
+                                resolvedZombies++;
+                                continue;
+                            }
+                        }
+                        else {
+                            if (((z.x == y.lastX) && (z.y == y.lastY))) {
+                                found = true;
+                            }
+                        }
+                    }
+                    if (!z.resolved && !found) {
+                        z.resolved = true;
+                        resolvedZombies++;
+                    }
+                }
+            }
+        }
+        function move(x,y) {
+            
+            if (done) {
+                return;
+            }
+            
+            let prevX = person.x;
+            let prevY = person.y;
+            person.move(x,y);
+            let newX = person.x;
+            let newY = person.y;
+            let zombies = [];
+            let liveZombies = 0;
+            
+            for (let letter of letters) {
+                if (!done) {
+                    if (!letter.dead &&
+                        (letter.letter != 'Y') &&
+                        (newX == letter.x) &&
+                        (newY == letter.y)){
+                            debugOut("" + letter.id + " " + letter.letter + " " + prevX + " " + prevY + " " + newX + " " + newY +" " + letter.x + " " + letter.y);
+                            gameOver(0);
+                            updateFrame();
+                            return;
+                    }
+                    letter.chase(newX, newY);
+                    if ((letter.letter == 'Z') &&
+                        !letter.dead) {
+                        liveZombies++;
+                    }
+                }
+            }
+            if (!liveZombies) {
+                gameOver(1);
+            }
+            resolveZombies();
+            updateFrame();
+            checkForOverlap();
+        }
+        function gameOver(success) {
+            done = 1;
+            if (success == 1) {
+                m = "You won!";
+            }
+            else {
+                m = "Better luck next time";
+            }
+            statusMessage.innerHTML = m;
+        }
+        function newGame() {
+            let numZombies = random(5,10);
+            let numHoles = Math.ceil(numZombies/5);
+            id = 0;
+            done = 0;
+            holes=[];
+            letters = [];
+            addPerson();
+            for (let i = 0; i < numHoles; i++) {
+                 addHole();
+            }
+            for (let i = 0; i < numZombies; i++) { 
+                addZombie(); 
+            }
+            updateFrame(); 
+            
+            statusMessage.innerHTML = "New Game! " +
+                                        "<br>Y - you" +
+                                        "<br>Z - zombies" +
+                                        "<br>O - holes" +
+                                        "<br>Try to get the zombies to fall in the holes before they get you!" +
+                                        "<br>A hole can only hold 5 zombies.";
+        }
+        function checkForOverlap() {
+            for (let i = 0; i < letters.length; i++) {
+                z = letters[i];
+                if ((z.letter == 'Y') || (z.letter == 'O') || z.dead) {
+                    continue;
+                }
+                for (let j = i+1; j < letters.length; j++) {
+                    y = letters[j];
+                    if ((y.letter != 'Z') || y.dead) {
+                        continue;
+                    }
+                    if ((z.x == y.x) && (z.y == y.y)) {
+                        debugOut("------ Overlap id: " + z.id + " " + y.id + " " + z.letter + " " + y.letter + " " + z.x + " " + z.y);
+                    }
+                }
+            }
+        }
+        newGame();
+        testFile();
+        app = new App();
+    </script>
+    <footer>
+        <p>&copy; 2024 Thomas Baker</p>
+    </footer>
+</body>
+
+</html>
