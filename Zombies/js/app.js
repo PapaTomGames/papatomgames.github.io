@@ -99,3 +99,54 @@ resizeCanvas();
 // Resize on window resize
 window.addEventListener('resize', resizeCanvas);
 */
+/*
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Example</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent scrolling */
+            height: 100%; /* Ensure the body takes full height */
+        }
+        canvas {
+            display: block; /* Remove default canvas padding */
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    <script>
+        function isMobile() {
+            return /Mobi|Android/i.test(navigator.userAgent);
+        }
+
+        function resizeCanvas() {
+            const canvas = document.getElementById('myCanvas');
+            const context = canvas.getContext('2d');
+
+            if (isMobile()) {
+                // Full screen for mobile devices
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            } else {
+                // Fixed size for non-mobile devices
+                canvas.width = 800;
+                canvas.height = 600;
+            }
+
+            // Example drawing
+            context.fillStyle = 'lightblue';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('load', resizeCanvas);
+    </script>
+</body>
+</html>
+*/
