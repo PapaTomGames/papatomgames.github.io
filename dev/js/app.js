@@ -1,14 +1,17 @@
-
 class App {
     constructor() {
-      debugOut("app init");
+      this.debugOut("app init");
       if (this.isMobile()) {
-        debugOut("mobile!");
+        this.debugOut("mobile!");
       }
     }
 
+    debugOut(m) {
+        console.log(m);
+    }
+
     isMobile() {
-        debugOut("isMobile");
+        this.debugOut("isMobile");
         const userAgent = navigator.userAgent.toLowerCase();
         return /android|webos|iphone|ipad|ipod|blackberry|windows phone/.test(userAgent);
       }
