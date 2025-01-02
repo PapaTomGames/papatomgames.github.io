@@ -15,7 +15,6 @@ class App {
     }
 
     isMobile() {
-        return true;
         this.debugOut("isMobile");
         const userAgent = navigator.userAgent.toLowerCase();
         return /android|webos|iphone|ipad|ipod|blackberry|windows phone/.test(userAgent);
