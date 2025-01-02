@@ -1,8 +1,12 @@
 class App {
     constructor() {
       this.debugOut("app init");
+      this.canvasWidth = 400;
+      this.canvasHeight = 400;
+      
       if (this.isMobile()) {
         this.debugOut("mobile!");
+        this.resizeCanvas();
       }
     }
 
@@ -11,11 +15,35 @@ class App {
     }
 
     isMobile() {
+        return true;
         this.debugOut("isMobile");
         const userAgent = navigator.userAgent.toLowerCase();
         return /android|webos|iphone|ipad|ipod|blackberry|windows phone/.test(userAgent);
       }
       
+      
+      resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      
+        // Adjust canvas size to maintain aspect ratio (optional)
+        const aspectRatio = this.canvasWidth / this.canvasHeight;
+        if (window.innerWidth / window.innerHeight > aspectRatio) {
+          canvas.width = window.innerHeight * aspectRatio;
+          canvas.height = window.innerHeight;
+        } else {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerWidth / aspectRatio;
+        }
+      
+        // Center the canvas on the screen (optional)
+        canvas.style.position = 'absolute';
+        canvas.style.left = (window.innerWidth - canvas.width) / 2 + 'px';
+        canvas.style.top = (window.innerHeight - canvas.height) / 2 + 'px';
+      
+        // Redraw your canvas content here, adjusting for the new size
+        // ...
+      }
 }
 
 /*
