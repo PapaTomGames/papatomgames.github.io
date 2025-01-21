@@ -43,6 +43,22 @@ class App {
         // Redraw your canvas content here, adjusting for the new size
         // ...
       }
+    
+    drawLetter(letter) {
+                        ctx.save(); 
+                ctx.translate(offsetX, offsetY); 
+                ctx.scale(scale, scale); 
+                let px = (letter.x * 20) + 10;
+                let py = (letter.y * 20) + 10;
+                ctx.translate(px,py); 
+                
+                ctx.font = `${letter.fontSize}px Courier New`; 
+                ctx.fillStyle = `hsla(${letter.hue}, 70%, ${letter.lightness}%, ${letter.opacity})`; 
+                ctx.textAlign = 'center'; 
+                ctx.textBaseline = 'middle'; 
+                ctx.fillText(letter.letter, 0, 0, 20); 
+                ctx.restore(); 
+        }
 }
 
 /*
