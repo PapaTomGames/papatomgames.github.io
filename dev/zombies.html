@@ -389,7 +389,7 @@
                 gameOver(1);
             }
             resolveZombies();
-            updateFrame();
+            theApp.updateFrame();
             checkForOverlap();
         }
         function gameOver(success) {
@@ -416,7 +416,7 @@
             for (let i = 0; i < numZombies; i++) { 
                 addZombie(); 
             }
-            updateFrame(); 
+            theApp.updateFrame(); 
             
             statusMessage.innerHTML = "New Game! " +
                                         "<br>Y - you" +
@@ -444,6 +444,7 @@
         }
         //newGame();
         theApp = new App();
+        theApp.newGame();
         updateFrame();
     </script>
     <footer>
