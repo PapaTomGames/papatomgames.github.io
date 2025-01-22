@@ -59,18 +59,18 @@ class App {
                 ctx.fillText(letter.letter, 0, 0, 20); 
                 ctx.restore(); 
         }
-        function clearCanvas() { 
+         clearCanvas() { 
             letters = []; 
             ctx.clearRect(0, 0, canvas.width, canvas.height); 
         } 
         
         
-        function updateFrame() {
+         updateFrame() {
             ctx.clearRect(0, 0, canvas.width, canvas.height); 
             letters.forEach(letter => { letter.update(); letter.draw(); }); 
 
         }
-        function newGame() {
+         newGame() {
             let numZombies = random(5,10);
             let numHoles = Math.ceil(numZombies/5);
             id = 0;
