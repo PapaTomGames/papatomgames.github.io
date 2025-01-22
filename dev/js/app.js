@@ -59,6 +59,17 @@ class App {
                 ctx.fillText(letter.letter, 0, 0, 20); 
                 ctx.restore(); 
         }
+        function clearCanvas() { 
+            letters = []; 
+            ctx.clearRect(0, 0, canvas.width, canvas.height); 
+        } 
+        
+        
+        function updateFrame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); 
+            letters.forEach(letter => { letter.update(); letter.draw(); }); 
+
+        }
 }
 
 /*
