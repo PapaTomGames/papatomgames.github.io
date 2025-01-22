@@ -70,6 +70,29 @@ class App {
             letters.forEach(letter => { letter.update(); letter.draw(); }); 
 
         }
+        function newGame() {
+            let numZombies = random(5,10);
+            let numHoles = Math.ceil(numZombies/5);
+            id = 0;
+            done = 0;
+            holes=[];
+            letters = [];
+            addPerson();
+            for (let i = 0; i < numHoles; i++) {
+                 addHole();
+            }
+            for (let i = 0; i < numZombies; i++) { 
+                addZombie(); 
+            }
+            theApp.updateFrame(); 
+            
+            statusMessage.innerHTML = "New Game! " +
+                                        "<br>Y - you" +
+                                        "<br>Z - zombies" +
+                                        "<br>O - holes" +
+                                        "<br>Try to get the zombies to fall in the holes before they get you!" +
+                                        "<br>A hole can only hold 5 zombies.";
+        }
 }
 
 /*
