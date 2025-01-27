@@ -55,7 +55,7 @@ class App {
         this.scaleY = this.canvasHeight/this.boardHeight;
         this.offsetX = this.scaleX/2;
         this.offsetY = this.scaleY/2;
-        this.debugOut("resize " + this.cavasWidth);
+        this.debugOut("resize ${this.cavasWidth} ${this.canvasHeight}");
       }
     
     drawLetter(letter) {
@@ -72,6 +72,7 @@ class App {
                 ctx.textBaseline = 'middle'; 
                 ctx.fillText(letter.letter, 0, 0, 20); 
                 ctx.restore(); 
+                this.debugOut("draw ${px},${py}");
         }
         function clearCanvas() { 
             letters = []; 
