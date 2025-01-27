@@ -18,7 +18,8 @@ class App {
     }
 
     debugOut(m) {
-        console.log(m);
+        //console.log(m);
+        debugOut(m);
     }
 
     isMobile() {
