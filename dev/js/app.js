@@ -14,6 +14,7 @@ class App {
         this.debugOut("mobile!");
         this.resizeCanvas();
       }
+      this.debugOut("app init done");
     }
 
     debugOut(m) {
@@ -54,7 +55,7 @@ class App {
         this.scaleY = this.canvasHeight/this.boardHeight;
         this.offsetX = this.scaleX/2;
         this.offsetY = this.scaleY/2;
-
+        this.debugOut("resize " + this.cavasWidth);
       }
     
     drawLetter(letter) {
