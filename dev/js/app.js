@@ -1,6 +1,7 @@
 class App {
     constructor() {
       debugOut("app init");
+    /*
       this.canvasWidth = 400;
       this.canvasHeight = 400;
       this.boardWidth = 20;
@@ -14,6 +15,7 @@ class App {
         debugOut("mobile!");
         this.resizeCanvas();
       }
+*/
       debugOut("app init done");
     }
 
