@@ -30,6 +30,7 @@ class App {
       
       
       resizeCanvas() {
+        /*
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         this.canvasWidth = canvas.width;
@@ -57,9 +58,11 @@ class App {
         this.offsetX = this.scaleX/2;
         this.offsetY = this.scaleY/2;
         this.debugOut("resize ${this.cavasWidth} ${this.canvasHeight}");
+*/
       }
     
     drawLetter(letter) {
+         /*
                         ctx.save(); 
                 ctx.translate(this.offsetX, this.offsetY); 
                 ctx.scale(this.scaleX, this.scaleY); 
@@ -74,6 +77,7 @@ class App {
                 ctx.fillText(letter.letter, 0, 0, 20); 
                 ctx.restore(); 
                 this.debugOut("draw ${px},${py}");
+*/
         }
         function clearCanvas() { 
             letters = []; 
@@ -87,6 +91,7 @@ class App {
 
         }
         function newGame() {
+            /*
             let numZombies = random(5,10);
             let numHoles = Math.ceil(numZombies/5);
             id = 0;
@@ -108,6 +113,7 @@ class App {
                                         "<br>O - holes" +
                                         "<br>Try to get the zombies to fall in the holes before they get you!" +
                                         "<br>A hole can only hold 5 zombies.";
+*/
         }
 }
 
