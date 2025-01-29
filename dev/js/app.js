@@ -1,6 +1,6 @@
 class App {
     constructor() {
-      this.debugOut("app init");
+      debugOut("app init");
       this.canvasWidth = 400;
       this.canvasHeight = 400;
       this.boardWidth = 20;
@@ -11,15 +11,15 @@ class App {
       this.offsetY = this.scaleY/2;
       
       if (this.isMobile()) {
-        this.debugOut("mobile!");
+        debugOut("mobile!");
         this.resizeCanvas();
       }
-      this.debugOut("app init done");
+      debugOut("app init done");
     }
 
     debugOut(m) {
-        //console.log(m);
-        debugOut(m);
+        console.log(m);
+        //debugOut(m);
     }
 
     isMobile() {
