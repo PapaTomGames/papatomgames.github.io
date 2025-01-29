@@ -26,8 +26,9 @@ class App {
 
     isMobile() {
         this.debugOut("isMobile");
-        const userAgent = navigator.userAgent.toLowerCase();
-        return /android|webos|iphone|ipad|ipod|blackberry|windows phone/.test(userAgent);
+        //const userAgent = navigator.userAgent.toLowerCase();
+        //return /android|webos|iphone|ipad|ipod|blackberry|windows phone/.test(userAgent);
+        return 1;
       }
       
       
@@ -82,15 +83,15 @@ class App {
 */
         }
         function clearCanvas() { 
-            letters = []; 
-            ctx.clearRect(0, 0, canvas.width, canvas.height); 
+            //letters = []; 
+            //ctx.clearRect(0, 0, canvas.width, canvas.height); 
         } 
         
         
         function updateFrame() {
             debugOut("update frame");
-            ctx.clearRect(0, 0, canvas.width, canvas.height); 
-            letters.forEach(letter => { letter.update(); letter.draw(); }); 
+            //ctx.clearRect(0, 0, canvas.width, canvas.height); 
+            //letters.forEach(letter => { letter.update(); letter.draw(); }); 
 
         }
         function newGame() {
