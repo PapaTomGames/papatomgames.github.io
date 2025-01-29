@@ -86,6 +86,7 @@ class App {
         
         
         function updateFrame() {
+            debugOut("update frame");
             ctx.clearRect(0, 0, canvas.width, canvas.height); 
             letters.forEach(letter => { letter.update(); letter.draw(); }); 
 
