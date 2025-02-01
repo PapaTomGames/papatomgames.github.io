@@ -1,7 +1,7 @@
+
 class App {
     constructor() {
       debugOut("app init");
-    /*
       this.canvasWidth = 400;
       this.canvasHeight = 400;
       this.boardWidth = 20;
@@ -15,7 +15,6 @@ class App {
         debugOut("mobile!");
         this.resizeCanvas();
       }
-*/
       debugOut("app init done");
     }
 
@@ -26,14 +25,14 @@ class App {
 
     isMobile() {
         this.debugOut("isMobile");
-        //const userAgent = navigator.userAgent.toLowerCase();
-        //return /android|webos|iphone|ipad|ipod|blackberry|windows phone/.test(userAgent);
+        const userAgent = navigator.userAgent.toLowerCase();
+        return /android|webos|iphone|ipad|ipod|blackberry|windows phone/.test(userAgent);
         return 1;
       }
       
       
       resizeCanvas() {
-        /*
+
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         this.canvasWidth = canvas.width;
@@ -61,12 +60,10 @@ class App {
         this.offsetX = this.scaleX/2;
         this.offsetY = this.scaleY/2;
         this.debugOut("resize ${this.cavasWidth} ${this.canvasHeight}");
-*/
       }
     
     drawLetter(letter) {
-         /*
-                        ctx.save(); 
+                ctx.save(); 
                 ctx.translate(this.offsetX, this.offsetY); 
                 ctx.scale(this.scaleX, this.scaleY); 
                 let px = (letter.x * this.scaleX) + this.offsetX;
@@ -80,22 +77,20 @@ class App {
                 ctx.fillText(letter.letter, 0, 0, 20); 
                 ctx.restore(); 
                 this.debugOut("draw ${px},${py}");
-*/
         }
-        function clearCanvas() { 
-            //letters = []; 
-            //ctx.clearRect(0, 0, canvas.width, canvas.height); 
+        clearCanvas() { 
+            letters = []; 
+            ctx.clearRect(0, 0, canvas.width, canvas.height); 
         } 
         
         
-        function updateFrame() {
+        updateFrame() {
             debugOut("update frame");
-            //ctx.clearRect(0, 0, canvas.width, canvas.height); 
-            //letters.forEach(letter => { letter.update(); letter.draw(); }); 
+            ctx.clearRect(0, 0, canvas.width, canvas.height); 
+            letters.forEach(letter => { letter.update(); letter.draw(); }); 
 
         }
-        function newGame() {
-            /*
+        newGame() {
             let numZombies = random(5,10);
             let numHoles = Math.ceil(numZombies/5);
             id = 0;
@@ -117,7 +112,6 @@ class App {
                                         "<br>O - holes" +
                                         "<br>Try to get the zombies to fall in the holes before they get you!" +
                                         "<br>A hole can only hold 5 zombies.";
-*/
         }
 }
 
