@@ -26,12 +26,14 @@ class App {
     isMobile() {
         this.debugOut("isMobile");
         const userAgent = navigator.userAgent.toLowerCase();
-        return /android|webos|iphone|ipad|ipod|blackberry|windows phone/.test(userAgent);
-        return 1;
+        //return /android|webos|iphone|ipad|ipod|blackberry|windows phone/.test(userAgent);
+        return 0;
       }
       
       
       resizeCanvas() {
+        const canvas = document.getElementById('letterCanvas'); 
+        const ctx = canvas.getContext('2d'); 
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -59,11 +61,13 @@ class App {
         this.scaleY = this.canvasHeight/this.boardHeight;
         this.offsetX = this.scaleX/2;
         this.offsetY = this.scaleY/2;
-        this.debugOut("resize ${this.cavasWidth} ${this.canvasHeight}");
+        this.debugOut(`resize ${this.canvasWidth} ${this.canvasHeight}`);
       }
     
     drawLetter(letter) {
-                ctx.save(); 
+              const canvas = document.getElementById('letterCanvas'); 
+              const ctx = canvas.getContext('2d'); 
+              ctx.save(); 
                 ctx.translate(this.offsetX, this.offsetY); 
                 ctx.scale(this.scaleX, this.scaleY); 
                 let px = (letter.x * this.scaleX) + this.offsetX;
@@ -76,7 +80,7 @@ class App {
                 ctx.textBaseline = 'middle'; 
                 ctx.fillText(letter.letter, 0, 0, 20); 
                 ctx.restore(); 
-                this.debugOut("draw ${px},${py}");
+                this.debugOut(`draw ${px},${py} ${this.scaleX} ${ctx.font} ${letter}`);
         }
         clearCanvas() { 
             letters = []; 
@@ -85,9 +89,13 @@ class App {
         
         
         updateFrame() {
-            debugOut("update frame");
+          const canvas = document.getElementById('letterCanvas'); 
+          const ctx = canvas.getContext('2d'); 
+          debugOut("update frame");
             ctx.clearRect(0, 0, canvas.width, canvas.height); 
-            letters.forEach(letter => { letter.update(); letter.draw(); }); 
+            //letters.forEach(letter => { letter.update(); letter.draw(); }); 
+            let letter = letters[0];
+            letter.update(); letter.draw();
 
         }
         newGame() {
