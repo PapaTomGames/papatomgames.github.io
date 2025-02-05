@@ -302,15 +302,14 @@
         }
         function debugOut(m) {
             console.log(m);
+        }
+        function handleItemClick(selection) {
+            theApp.debugOut("dropdown " + selection);
             const dropdownContent = document.getElementById("myDropdown");
             dropdownContent.style.display = "none"; // Hide the 
 
 const dropdownButton = document.querySelector('.dropbtn');
   dropdownButton.textContent = itemName; // This sets the button text
-
-        }
-        function handleItemClick(selection) {
-            theApp.debugOut("dropdown " + selection);
             }
         function random(min, max) { 
             return Math.floor(Math.random() * (max - min + 1)) + min; 
