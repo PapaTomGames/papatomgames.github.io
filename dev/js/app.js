@@ -134,7 +134,7 @@ class App {
 <head>
 <title>Dropdown Menu with JavaScript Events</title>
 <style>
-  /* Basic styling for the dropdown */
+  /* Basic styling for the dropdown 
   .dropdown {
     position: relative;
     display: inline-block;
@@ -153,7 +153,7 @@ class App {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-    color: #333; /* Darker text for better readability */
+    color: #333; /* Darker text for better readability 
   }
 
   .dropdown-content a:hover {background-color: #f1f1f1;}
@@ -163,12 +163,12 @@ class App {
   }
 
   .dropbtn {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50; /* Green 
     color: white;
     padding: 10px 16px;
     font-size: 16px;
     border: none;
-    cursor: pointer; /* Make it look clickable */
+    cursor: pointer; /* Make it look clickable 
   }
 </style>
 </head>
@@ -227,9 +227,9 @@ if (isMobile()) {
 } else {
   console.log("This is a desktop device.");
 }
-    */
+    
 
-    /*
+
     const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 
