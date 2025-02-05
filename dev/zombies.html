@@ -52,8 +52,42 @@
   background-color: #0073e6;
   color: white;
 }
+ .dropdown {
+    position: relative;
+    display: inline-block;
+  }
 
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
 
+  .dropdown-content a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    color: #333; /* Darker text for better readability */
+  }
+
+  .dropdown-content a:hover {background-color: #f1f1f1;}
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropbtn {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer; /* Make it look clickable */
+  }
+ 
     </style>
 </head>
 
@@ -61,6 +95,17 @@
     <div id="controls"> 
         <button onclick="newGame()">New Game</button> 
     </div>
+    
+
+<div class="dropdown">
+  <button class="dropbtn">Dropdown</button>
+  <div class="dropdown-content" id="myDropdown">
+    <a href="#" onclick="handleItemClick(0)">Zombies</a>
+    <a href="#" onclick="handleItemClick(1)">Super Zombies</a>
+ 
+  </div>
+</div>
+
     <div class="canvas-container"> <canvas id="letterCanvas" width="400" height="400"></canvas> </div>
     <div>
         <br>
@@ -258,6 +303,9 @@
         function debugOut(m) {
             console.log(m);
         }
+        function handleItemClick(selection) {
+            theApp.debugOut("dropdown " + selection);
+            }
         function random(min, max) { 
             return Math.floor(Math.random() * (max - min + 1)) + min; 
         } 
