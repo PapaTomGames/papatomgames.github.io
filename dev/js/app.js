@@ -129,6 +129,93 @@ class App {
 }
 
 /*
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dropdown Menu with JavaScript Events</title>
+<style>
+  /* Basic styling for the dropdown */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    color: #333; /* Darker text for better readability */
+  }
+
+  .dropdown-content a:hover {background-color: #f1f1f1;}
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropbtn {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer; /* Make it look clickable */
+  }
+</style>
+</head>
+<body>
+
+<div class="dropdown">
+  <button class="dropbtn">Dropdown</button>
+  <div class="dropdown-content" id="myDropdown">
+    <a href="#" onclick="handleItemClick('Item 1')">Item 1</a>
+    <a href="#" onclick="handleItemClick('Item 2')">Item 2</a>
+    <a href="#" onclick="handleItemClick('Item 3')">Item 3</a>
+    <a href="#" onclick="handleItemClick('Item 4')">Item 4</a>
+  </div>
+</div>
+
+<script>
+function handleItemClick(itemName) {
+  // Get the dropdown content element to close it after a selection
+  const dropdownContent = document.getElementById("myDropdown");
+  dropdownContent.style.display = "none"; // Hide the dropdown
+
+  // Option 1: Alert the selected item
+  alert("You selected: " + itemName);
+
+  // Option 2:  Update content on the page (more common use case)
+  const selectedItemDisplay = document.getElementById("selectedItem"); // You would need to add this element to your HTML
+  if (selectedItemDisplay) {
+    selectedItemDisplay.textContent = "Selected: " + itemName;
+  }
+
+  // Option 3: Redirect to a different page (if your links are actual URLs)
+  // window.location.href = "/page/" + itemName; // Example
+
+  // Option 4:  Send data to a server (using fetch or XMLHttpRequest) - More advanced
+  // ... your code to send data to server ...
+
+  // Example showing how to get the currently selected item text
+  const dropdownButton = document.querySelector('.dropbtn');
+  dropdownButton.textContent = itemName; // This sets the button text
+}
+
+
+</script>
+
+<p id="selectedItem"></p>  </body>
+</html>
+
 function isMobile() {
   const userAgent = navigator.userAgent.toLowerCase();
   return /android|webos|iphone|ipad|ipod|blackberry|windows phone/.test(userAgent);
