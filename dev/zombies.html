@@ -94,6 +94,17 @@
     <div id="controls"> 
         <button onclick="newGame()">New Game</button> 
     </div>
+    
+
+<div class="dropdown">
+  <button class="dropbtn">Dropdown</button>
+  <div class="dropdown-content" id="myDropdown">
+    <a href="#" onclick="handleItemClick(0)">Zombies</a>
+    <a href="#" onclick="handleItemClick(1)">Super Zombies</a>
+ 
+  </div>
+</div>
+
     <div class="canvas-container"> <canvas id="letterCanvas" width="400" height="400"></canvas> </div>
     <div>
         <br>
@@ -291,6 +302,9 @@
         function debugOut(m) {
             console.log(m);
         }
+        function handleItemClick(selection) {
+            theApp.debugOut("dropdown " + selection);
+            }
         function random(min, max) { 
             return Math.floor(Math.random() * (max - min + 1)) + min; 
         } 
