@@ -139,8 +139,8 @@
             newLocation(pad) {
                 const canvas = document.getElementById('letterCanvas'); 
 
-                let maxX = canvas.width/20-1;
-                let maxY = canvas.height/20-1;
+                //let maxX = theApp.boardWidth-1; //canvas.width/20-1;
+                //let maxY = theApp.boardHeight-1; //canvas.height/20-1;
                 this.x = random(pad, maxX-(pad+1)); 
                 this.y = random(pad, maxY-(pad+1));  
                 this.lastX = this.x;
@@ -175,8 +175,8 @@
                 super();
                 this.letter='Y';
                 this.lightness = 0;
-                this.x = 0; //Math.floor(maxX/2);
-                this.y = 0; //Math.floor(maxY/2);
+                this.x = Math.floor(maxX/2-1);
+                this.y = Math.floor(maxY/2-1);
                 }
             }
         class Hole extends Letter {
@@ -456,6 +456,8 @@
         //newGame();
         debugOut("loading");
         theApp = new App();
+        let maxX = theApp.boardWidth - 1;
+        let maxY = theApp.boardHeight - 1;
         theApp.newGame();
         //theApp.updateFrame();
         debugOut("loaded");

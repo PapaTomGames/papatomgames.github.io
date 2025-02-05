@@ -35,6 +35,10 @@ class App {
         const canvas = document.getElementById('letterCanvas'); 
         const ctx = canvas.getContext('2d'); 
 
+        this.scaleX = 20;
+        this.scaleY = 20;
+        return;
+
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         this.canvasWidth = canvas.width;
@@ -42,13 +46,14 @@ class App {
       
         // Adjust canvas size to maintain aspect ratio (optional)
         const aspectRatio = this.canvasWidth / this.canvasHeight;
-        if (window.innerWidth / window.innerHeight > aspectRatio) {
+        /*if (canvas.width / canvas.height > aspectRatio) {
           canvas.width = window.innerHeight * aspectRatio;
           canvas.height = window.innerHeight;
         } else {
           canvas.width = window.innerWidth;
           canvas.height = window.innerWidth / aspectRatio;
         }
+          */
       
         // Center the canvas on the screen (optional)
         canvas.style.position = 'absolute';
@@ -61,15 +66,15 @@ class App {
         this.scaleY = this.canvasHeight/this.boardHeight;
         this.offsetX = this.scaleX/2;
         this.offsetY = this.scaleY/2;
-        this.debugOut(`resize ${this.canvasWidth} ${this.canvasHeight}`);
+        this.debugOut(`resize ${this.canvasWidth} ${this.canvasHeight} ${this.scaleX} ${canvas.style.left}`);
       }
     
     drawLetter(letter) {
               const canvas = document.getElementById('letterCanvas'); 
               const ctx = canvas.getContext('2d'); 
               ctx.save(); 
-                ctx.translate(this.offsetX, this.offsetY); 
-                ctx.scale(this.scaleX, this.scaleY); 
+                // ctx.translate(0,0); //this.offsetX, this.offsetY); 
+                ctx.scale(1,1); //this.scaleX, this.scaleY); 
                 let px = (letter.x * this.scaleX) + this.offsetX;
                 let py = (letter.y * this.scaleY) + this.offsetY;
                 ctx.translate(px,py); 
@@ -93,9 +98,9 @@ class App {
           const ctx = canvas.getContext('2d'); 
           debugOut("update frame");
             ctx.clearRect(0, 0, canvas.width, canvas.height); 
-            //letters.forEach(letter => { letter.update(); letter.draw(); }); 
-            let letter = letters[0];
-            letter.update(); letter.draw();
+            letters.forEach(letter => { letter.update(); letter.draw(); }); 
+            //let letter = letters[0];
+            //letter.update(); letter.draw();
 
         }
         newGame() {
