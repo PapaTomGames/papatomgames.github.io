@@ -55,6 +55,8 @@
  .dropdown {
     position: relative;
     display: inline-block;
+    width: 200px;
+    border: 2px solid black;
   }
 
   .dropdown-content {
@@ -80,8 +82,8 @@
   }
 
   .dropbtn {
-    background-color: #4CAF50; /* Green */
-    color: white;
+    background-color: white;  /* Green */
+    color: #333;
     padding: 10px 16px;
     font-size: 16px;
     border: none;
@@ -98,7 +100,7 @@
     
 
 <div class="dropdown">
-  <button class="dropbtn">Dropdown</button>
+  <button class="dropbtn">Zombies</button>
   <div class="dropdown-content" id="myDropdown">
     <a href="#" onclick="handleItemClick(0)">Zombies</a>
     <a href="#" onclick="handleItemClick(1)">Super Zombies</a>
@@ -302,12 +304,13 @@
         }
         function debugOut(m) {
             console.log(m);
+            /*
             const dropdownContent = document.getElementById("myDropdown");
             dropdownContent.style.display = "none"; // Hide the 
 
 const dropdownButton = document.querySelector('.dropbtn');
   dropdownButton.textContent = itemName; // This sets the button text
-
+*/
         }
         function handleItemClick(selection) {
             theApp.debugOut("dropdown " + selection);
