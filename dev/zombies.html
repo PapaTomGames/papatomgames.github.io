@@ -23,7 +23,6 @@
             align-items: center;
         }
 
-        select,
         button {
             padding: 5px;
             height: 50px;
@@ -43,7 +42,7 @@
   border: 2px solid #0073e6;
   background-color: white;
   color: #0073e6;
-  border-radius: 5px;
+  border-radius: 0px;
   cursor: pointer;
   position: relative;
 }
@@ -52,6 +51,7 @@
   background-color: #0073e6;
   color: white;
 }
+/*
  .dropdown {
     position: relative;
     display: inline-block;
@@ -72,7 +72,7 @@
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-    color: #333; /* Darker text for better readability */
+    color: #333; /* Darker text for better readability 
   }
 
   .dropdown-content a:hover {background-color: #f1f1f1;}
@@ -80,14 +80,25 @@
   .dropdown:hover .dropdown-content {
     display: block;
   }
-
+*/
   .dropbtn {
     background-color: white;  /* Green */
     color: #333;
     padding: 10px 16px;
     font-size: 16px;
-    border: none;
+    border: 1px solid black;
+    border-radius: 0;
     cursor: pointer; /* Make it look clickable */
+    width: 200;
+    height: 50;
+  }
+
+  .newbtn {
+    background-color: white;
+    color: #333;
+    border: 1px solid black;
+    width: 50;
+    height: 50;
   }
  
     </style>
@@ -96,17 +107,23 @@
 <body>
     
     <div id="controls"> 
-        <button onclick="newGame()">New Game</button> 
-    </div>
+        <button class="newbtn" onclick="newGame()">New Game</button> 
+    <!-- </div>
     
 
-<div class="dropdown">
+<div class="dropdown"> -->
+    <select name="game-select" id="myDropdown" class="dropbtn" onchange="theApp.selectGame(0);">
+        <option value=0>Zombies</option>
+        <option value=1>Super Zombies</option>
+    </select>
+    <!--
   <button class="dropbtn">Zombies</button>
   <div class="dropdown-content" id="myDropdown">
     <a href="#" onclick="handleItemClick(0)">Zombies</a>
     <a href="#" onclick="handleItemClick(1)">Super Zombies</a>
  
   </div>
+-->
 </div>
 
     <div class="canvas-container"> <canvas id="letterCanvas" width="400" height="400"></canvas> </div>
@@ -307,6 +324,7 @@
         function debugOut(m) {
             console.log(m);
         }
+        /*
         function handleItemClick(selection) {
             theApp.debugOut("dropdown " + selection);
             //const dropdownContent = document.getElementById("myDropdown");
@@ -315,9 +333,8 @@ theApp.debugOut("hide");
 //const dropdownButton = document.querySelector('.dropbtn');
 let itemName = (selection == 0) ? "Zombies" : "Super Zombies";
 theApp.debugOut(itemName);
-  //dropdownButton.textContent = itemName; // This sets the button text
-
-        }
+  //dropdownButton.textConte
+  */
         function handleItemClick(selection) {
             theApp.debugOut("dropdown " + selection);
             }
@@ -522,6 +539,7 @@ theApp.debugOut(itemName);
         theApp = new App();
         let maxX = theApp.boardWidth - 1;
         let maxY = theApp.boardHeight - 1;
+        theApp.selectGame(0);
         theApp.newGame();
         //theApp.updateFrame();
         debugOut("loaded");

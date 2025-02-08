@@ -15,6 +15,9 @@ class App {
         debugOut("mobile!");
         this.resizeCanvas();
       }
+
+      // events
+      
       debugOut("app init done");
     }
 
@@ -102,6 +105,10 @@ class App {
             //let letter = letters[0];
             //letter.update(); letter.draw();
 
+        }
+        selectGame(g) {
+          this.debugOut("game selected " + g);
+          this.newGame();
         }
         newGame() {
             let numZombies = random(5,10);
