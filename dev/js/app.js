@@ -10,6 +10,7 @@ class App {
       this.scaleY = this.canvasHeight/this.boardHeight;
       this.offsetX = this.scaleX/2;
       this.offsetY = this.scaleY/2;
+      this.game = 0;
       
       if (this.isMobile()) {
         debugOut("mobile!");
@@ -17,7 +18,7 @@ class App {
       }
 
       // events
-      
+
       debugOut("app init done");
     }
 
@@ -108,6 +109,18 @@ class App {
         }
         selectGame(g) {
           this.debugOut("game selected " + g);
+
+          this.game = g;
+          switch (g) {
+            case 0:
+              document.getElementById('dig').style.visibility = 'hidden';
+              //this.newSingleGame();
+              break;
+            case 1:
+              document.getElementById('dig').style.visibility = 'visible';
+              //this.newSuperGame();
+              break;
+          }
           this.newGame();
         }
         newGame() {
@@ -133,6 +146,10 @@ class App {
                                         "<br>Try to get the zombies to fall in the holes before they get you!" +
                                         "<br>A hole can only hold 5 zombies.";
         }
+
+        //newSuperGame() {
+        //  theApp.debugOut("newSuperGame");
+        //}
 }
 
 /*

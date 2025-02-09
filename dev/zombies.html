@@ -37,7 +37,7 @@
         
     
 .arrow-button {
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
   font-size: 16px;
   border: 2px solid #0073e6;
   background-color: white;
@@ -45,6 +45,7 @@
   border-radius: 0px;
   cursor: pointer;
   position: relative;
+  justify-content: center;
 }
 
 .arrow-button:hover {
@@ -132,6 +133,7 @@
         <button onclick="move(-1,-1);" class="arrow-button">&#x2196;</button>
         <button onclick="move(0,-1);" class="arrow-button">&#x2191;</button>
         <button onclick="move(1,-1);" class="arrow-button">&#x2197;</button>
+        <button onclick="dig();" class="arrow-button" id="dig">dig</button>
         <br>
         <button onclick="move(-1,0);" class="arrow-button">&#x2190;</button>
         <button onclick="move(0,0);" class="arrow-button">&#x25A1;</button>
@@ -143,8 +145,7 @@
         <br>
     </div>
     <div id="statusMessage">Ready</div>
-    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-<script>eruda.init();</script>
+    
     <script type = "text/javascript" src = "js/app.js"></script>
     <script> 
         let theApp = null;
@@ -478,6 +479,9 @@ theApp.debugOut(itemName);
             resolveZombies();
             theApp.updateFrame();
             checkForOverlap();
+        }
+        function dig() {
+            theApp.debugOut("dig");
         }
         function gameOver(success) {
             done = 1;
