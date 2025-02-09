@@ -132,6 +132,7 @@ class App {
             done = 0;
             holes=[];
             letters = [];
+            this.resetScore();
             addPerson();
             for (let i = 0; i < numHoles; i++) {
                  addHole();
@@ -154,11 +155,11 @@ class App {
         //}
   resetScore() {
     this.score = 0;
-    writeScore();
+    this.writeScore();
   }
   addScore(p) {
     this.score += p;
-    writeScore();
+    this.writeScore();
   }
   writeScore() {
     scoreMessage.innerHTML = `Score: ${this.score}`;
