@@ -11,6 +11,8 @@ class App {
       this.offsetX = this.scaleX/2;
       this.offsetY = this.scaleY/2;
       this.game = 0;
+      this.score = 0;
+      this.resetScore();
       
       if (this.isMobile()) {
         debugOut("mobile!");
@@ -150,6 +152,17 @@ class App {
         //newSuperGame() {
         //  theApp.debugOut("newSuperGame");
         //}
+  resetScore() {
+    this.score = 0;
+    writeScore();
+  }
+  addScore(p) {
+    this.score += p;
+    writeScore();
+  }
+  writeScore() {
+    scoreMessage.innerHTML = `Score: ${this.score}`;
+  }
 }
 
 /*
