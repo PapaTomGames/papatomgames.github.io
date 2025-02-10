@@ -34,25 +34,26 @@
             align-items: center;
             gap: 5px;
         }
-        
-    
-.arrow-button {
-  /* padding: 10px 20px; */
-  font-size: 16px;
-  border: 2px solid #0073e6;
-  background-color: white;
-  color: #0073e6;
-  border-radius: 0px;
-  cursor: pointer;
-  position: relative;
-  justify-content: center;
-}
 
-.arrow-button:hover {
-  background-color: #0073e6;
-  color: white;
-}
-/*
+
+        .arrow-button {
+            /* padding: 10px 20px; */
+            font-size: 16px;
+            border: 2px solid #0073e6;
+            background-color: white;
+            color: #0073e6;
+            border-radius: 0px;
+            cursor: pointer;
+            position: relative;
+            justify-content: center;
+        }
+
+        .arrow-button:hover {
+            background-color: #0073e6;
+            color: white;
+        }
+
+        /*
  .dropdown {
     position: relative;
     display: inline-block;
@@ -82,42 +83,43 @@
     display: block;
   }
 */
-  .dropbtn {
-    background-color: white;  /* Green */
-    color: #333;
-    padding: 10px 16px;
-    font-size: 16px;
-    border: 1px solid black;
-    border-radius: 0;
-    cursor: pointer; /* Make it look clickable */
-    width: 200;
-    height: 50;
-  }
+        .dropbtn {
+            background-color: white;
+            /* Green */
+            color: #333;
+            padding: 10px 16px;
+            font-size: 16px;
+            border: 1px solid black;
+            border-radius: 0;
+            cursor: pointer;
+            /* Make it look clickable */
+            width: 200;
+            height: 50;
+        }
 
-  .newbtn {
-    background-color: white;
-    color: #333;
-    border: 1px solid black;
-    width: 50;
-    height: 50;
-  }
- 
+        .newbtn {
+            background-color: white;
+            color: #333;
+            border: 1px solid black;
+            width: 50;
+            height: 50;
+        }
     </style>
 </head>
 
 <body>
-    
-    <div id="controls"> 
-        <button class="newbtn" onclick="newGame()">New Game</button> 
-    <!-- </div>
+
+    <div id="controls">
+        <button class="newbtn" onclick="newGame()">New Game</button>
+        <!-- </div>
     
 
 <div class="dropdown"> -->
-    <select name="game-select" id="myDropdown" class="dropbtn" onchange="theApp.selectGame(this.selectedIndex);">
-        <option value=0>Zombies</option>
-        <option value=1>Super Zombies</option>
-    </select>
-    <!--
+        <select name="game-select" id="myDropdown" class="dropbtn" onchange="theApp.selectGame(this.selectedIndex);">
+            <option value=0>Zombies</option>
+            <option value=1>Super Zombies</option>
+        </select>
+        <!--
   <button class="dropbtn">Zombies</button>
   <div class="dropdown-content" id="myDropdown">
     <a href="#" onclick="handleItemClick(0)">Zombies</a>
@@ -125,7 +127,7 @@
  
   </div>
 -->
-</div>
+    </div>
     <div id="scoreMessage"></div>
 
     <div class="canvas-container"> <canvas id="letterCanvas" width="400" height="400"></canvas> </div>
@@ -147,43 +149,43 @@
     </div>
     <div id="statusMessage">Ready</div>
 
-    <script type = "text/javascript" src = "js/app.js"></script>
-    <script> 
+    <script type="text/javascript" src="js/app.js"></script>
+    <script>
         let theApp = null;
         //const canvas = document.getElementById('letterCanvas'); 
         //const ctx = canvas.getContext('2d'); 
         const statusMessage = document.getElementById("statusMessage");
         const scoreMessage = document.getElementById('scoreMessage');
-        let letters = []; 
+        let letters = [];
         let holes = [];
         //let zombies = [];
         let id = 0;
         let done = 0;
         let animationId; // Zoom and pan variables 
-        let scale = 1; 
-        let offsetX = 0; 
-        let offsetY = 0; 
-        let isDragging = false; 
+        let scale = 1;
+        let offsetX = 0;
+        let offsetY = 0;
+        let isDragging = false;
         // let lastX = 0; 
         //let lastY = 0; 
         //let maxX = canvas.width/20-1;
         //let maxY = canvas.height/20-1;
-        class Letter { 
-            constructor() { 
-                this.letter = 'Z'; 
-                this.fontSize = 20;  
-                this.hue = 0;  
+        class Letter {
+            constructor() {
+                this.letter = 'Z';
+                this.fontSize = 20;
+                this.hue = 0;
                 this.lightness = 50;
-                this.opacity = 1; 
-                this.rotation = 0; 
-                this.yVelocity = random(-2, 2); 
+                this.opacity = 1;
+                this.rotation = 0;
+                this.yVelocity = random(-2, 2);
                 this.originalY = this.y;
                 this.dead = 0;
                 this.id = id;
-                this.lastX =0;
+                this.lastX = 0;
                 this.lastY = 0;
                 id++;
-            } 
+            }
             draw() {
                 if (this.dead) {
                     return;
@@ -206,20 +208,43 @@
                 */
                 //statusMessage.innerHTML += "<br>draw " + this.letter + " " + this.x + " " + this.y + " " + px + " " + py;
             }
-            newLocation(pad) {
-                const canvas = document.getElementById('letterCanvas'); 
+            newLocation(pad, edge) {
+                const canvas = document.getElementById('letterCanvas');
 
                 //let maxX = theApp.boardWidth-1; //canvas.width/20-1;
                 //let maxY = theApp.boardHeight-1; //canvas.height/20-1;
-                this.x = random(pad, maxX-(pad+1)); 
-                this.y = random(pad, maxY-(pad+1));  
+                if (edge) {
+                    let e = random(0, 3);
+                    switch (e) {
+                        case 0:
+                            this.x = 0;
+                            this.y = random(pad, maxY - (pad));
+                            break;
+                        case 1:
+                            this.x = maxX;
+                            this.y = random(pad, maxY - (pad));
+                            break;
+                        case 2:
+                            this.x = random(pad, maxX - (pad));
+                            this.y = 0;
+                            break;
+                        case 3:
+                            this.x = random(pad, maxX - (pad));
+                            this.y = maxY;
+                            break;
+                    }
+                }
+                else {
+                    this.x = random(pad, maxX - (pad));
+                    this.y = random(pad, maxY - (pad));
+                }
                 this.lastX = this.x;
                 this.lastY = this.y;
             }
-            update() { 
-                
-            } 
-            move(x,y) {
+            update() {
+
+            }
+            move(x, y) {
                 this.lastX = this.x;
                 this.lastY = this.y;
                 this.x += x;
@@ -234,66 +259,66 @@
                     this.y = 0;
                 }
                 if (this.y > maxY) {
-                    this. y = maxY;
+                    this.y = maxY;
                 }
                 debugOut(`move: id = ${this.id} ${this.letter} x= ${this.x},y= ${this.y}, ${x}, ${y}`);
             }
-            chase(x,y) {}
-        } 
+            chase(x, y) { }
+        }
         class Person extends Letter {
             constructor() {
                 super();
-                this.letter='Y';
+                this.letter = 'Y';
                 this.lightness = 0;
-                this.x = Math.floor(maxX/2-1);
-                this.y = Math.floor(maxY/2-1);
-                }
+                this.x = Math.floor(maxX / 2 - 1);
+                this.y = Math.floor(maxY / 2 - 1);
             }
+        }
         class Hole extends Letter {
             constructor() {
                 super();
-                this.letter='O';
+                this.letter = 'O';
                 this.hue = 240;
                 this.lightness = 50;
                 //this.x = random(1, canvas.width/20-2);
                 //this.y = random(1, canvas.height/20-2);
-                this.newLocation(1);
+                this.newLocation(1, 0);
                 this.space = 5;
-                }
-                fill() {
-                    this.space--;
-                    if (this.space <= 0) {
-                        this.dead = 1;
-                    }
-                    theApp.addScore(1);
-                    //statusMessage.innerHTML += "<br>hole " + this.x + " " + this.y + " " + this.space + " " + this.dead;
-                    
-                }
             }
+            fill() {
+                this.space--;
+                if (this.space <= 0) {
+                    this.dead = 1;
+                }
+                theApp.addScore(1);
+                //statusMessage.innerHTML += "<br>hole " + this.x + " " + this.y + " " + this.space + " " + this.dead;
+
+            }
+        }
         class Zombie extends Letter {
-            constructor() {
+            constructor(edge) {
                 super();
-                this.letter='Z';
+                this.letter = 'Z';
                 this.lightness = 50;
                 //this.x = random(0, canvas.width/20-2);
                 //this.y = random(0, canvas.height/20-2);
-                this.newLocation(0);
+                this.newLocation(0, edge);
                 this.resolved = 0;
-                }
-                
-            chase(x,y) {
+            }
+
+            chase(x, y) {
                 const dx = Math.floor(x - this.x);
                 const dy = Math.floor(y - this.y);
                 let sx = Math.sign(dx);
                 let sy = Math.sign(dy);
                 let found = 0;
-                
+
 
                 if ((this.letter == 'Y') ||
-                        (this.letter == 'O') ||
-                        this.dead) {
-                            return;
-                    }
+                    (this.letter == 'O') ||
+                    this.dead) {
+                    return;
+                }
                 if (Math.abs(dx) >= Math.abs(dy)) {
                     sy = 0;
                 }
@@ -306,7 +331,7 @@
 
                 if (newX == person.x && newY == person.y) {
                     debugOut("person: " + x + " " + y + " zombie: " + this.x + " " + this.y + " move to: " + newX + " " + newY);
-                    this.move(sx,sy);
+                    this.move(sx, sy);
                     theApp.updateFrame();
                     gameOver(0);
                     return;
@@ -315,15 +340,15 @@
                     if ((h.x == newX) && (h.y == newY) && !h.dead) {
                         this.dead = 1;
                         h.fill();
-                        debugOut( " zombie dies " + this.id);
+                        debugOut(" zombie dies " + this.id);
                         return;
                     }
                 }
-                
-                this.move(sx,sy);
-                
+
+                this.move(sx, sy);
+
             }
-            
+
         }
         function debugOut(m) {
             console.log(m);
@@ -341,10 +366,10 @@ theApp.debugOut(itemName);
   */
         function handleItemClick(selection) {
             theApp.debugOut("dropdown " + selection);
-            }
-        function random(min, max) { 
-            return Math.floor(Math.random() * (max - min + 1)) + min; 
-        } 
+        }
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
         function addPerson() {
             person = new Person;
             letters.push(person);
@@ -355,7 +380,7 @@ theApp.debugOut(itemName);
                 let openSpace = true;
                 for (let letter of letters) {
                     if ((letter.x == h.x) && (letter.y == h.y)) {
-                        h.newLocation(1);
+                        h.newLocation(1, 0);
                         openSpace = false;
                         break;
                     }
@@ -363,17 +388,17 @@ theApp.debugOut(itemName);
                 if (openSpace) {
                     break;
                 }
-             }
+            }
             holes.push(h);
             letters.push(h);
         }
-        function addZombie() { 
-            let z = new Zombie();
+        function addZombie(edge) {
+            let z = new Zombie(edge);
             while (true) {
                 let openSpace = true;
                 for (let letter of letters) {
                     if ((letter.x == z.x) && (letter.y == z.y)) {
-                        z.newLocation(0);
+                        z.newLocation(0, edge);
                         openSpace = false;
                         break;
                     }
@@ -381,9 +406,9 @@ theApp.debugOut(itemName);
                 if (openSpace) {
                     break;
                 }
-             }
-            letters.push(z); 
-        } 
+            }
+            letters.push(z);
+        }
         /*
         function clearCanvas() { 
             letters = []; 
@@ -411,13 +436,13 @@ theApp.debugOut(itemName);
                 // if (resolvedZombies) {
                 //     debugOut("resolve: " + resolvedZombies);
                 // }
-                for (let i=0; i < zombies.length; i++) {
+                for (let i = 0; i < zombies.length; i++) {
                     z = zombies[i];
                     if (z.resolved) {
                         continue;
                     }
                     found = 0;
-                    for (let j =0; j < zombies.length; j++) {
+                    for (let j = 0; j < zombies.length; j++) {
                         if (i == j) {
                             continue;
                         }
@@ -444,30 +469,30 @@ theApp.debugOut(itemName);
                 }
             }
         }
-        function move(x,y) {
-            
+        function move(x, y) {
+
             if (done) {
                 return;
             }
-            
+
             let prevX = person.x;
             let prevY = person.y;
-            person.move(x,y);
+            person.move(x, y);
             let newX = person.x;
             let newY = person.y;
             let zombies = [];
             let liveZombies = 0;
-            
+
             for (let letter of letters) {
                 if (!done) {
                     if (!letter.dead &&
                         (letter.letter != 'Y') &&
                         (newX == letter.x) &&
-                        (newY == letter.y)){
-                            debugOut("" + letter.id + " " + letter.letter + " " + prevX + " " + prevY + " " + newX + " " + newY +" " + letter.x + " " + letter.y);
-                            gameOver(0);
-                            theApp.updateFrame();
-                            return;
+                        (newY == letter.y)) {
+                        debugOut("" + letter.id + " " + letter.letter + " " + prevX + " " + prevY + " " + newX + " " + newY + " " + letter.x + " " + letter.y);
+                        gameOver(0);
+                        theApp.updateFrame();
+                        return;
                     }
                     letter.chase(newX, newY);
                     if ((letter.letter == 'Z') &&
@@ -480,6 +505,9 @@ theApp.debugOut(itemName);
                 gameOver(1);
             }
             resolveZombies();
+            if (theApp.game == 1) {
+                addZombie(1);
+            }
             theApp.updateFrame();
             checkForOverlap();
         }
@@ -530,7 +558,7 @@ theApp.debugOut(itemName);
                 if ((z.letter == 'Y') || (z.letter == 'O') || z.dead) {
                     continue;
                 }
-                for (let j = i+1; j < letters.length; j++) {
+                for (let j = i + 1; j < letters.length; j++) {
                     y = letters[j];
                     if ((y.letter != 'Z') || y.dead) {
                         continue;
