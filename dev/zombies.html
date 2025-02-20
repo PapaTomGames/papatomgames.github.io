@@ -133,18 +133,18 @@
     <div class="canvas-container"> <canvas id="letterCanvas" width="400" height="400"></canvas> </div>
     <div>
         <br>
-        <button onclick="move(-1,-1,0);" class="arrow-button">&#x2196;</button>
-        <button onclick="move(0,-1,0);" class="arrow-button">&#x2191;</button>
-        <button onclick="move(1,-1,0);" class="arrow-button">&#x2197;</button>
+        <button onclick="move(-1,-1);" class="arrow-button">&#x2196;</button>
+        <button onclick="move(0,-1);" class="arrow-button">&#x2191;</button>
+        <button onclick="move(1,-1);" class="arrow-button">&#x2197;</button>
         <button onclick="dig();" class="arrow-button" id="dig">dig</button>
         <br>
-        <button onclick="move(-1,0,0);" class="arrow-button">&#x2190;</button>
-        <button onclick="move(0,0,0);" class="arrow-button">&#x25A1;</button>
-        <button onclick="move(1,0,0);" class="arrow-button">&#x2192;</button>
+        <button onclick="move(-1,0);" class="arrow-button">&#x2190;</button>
+        <button onclick="move(0,0);" class="arrow-button">&#x25A1;</button>
+        <button onclick="move(1,0);" class="arrow-button">&#x2192;</button>
         <br>
-        <button onclick="move(-1,1,0);" class="arrow-button">&#x2199;</button>
-        <button onclick="move(0,1,0);" class="arrow-button">&#x2193;</button>
-        <button onclick="move(1,1,0);" class="arrow-button">&#x2198;</button>
+        <button onclick="move(-1,1);" class="arrow-button">&#x2199;</button>
+        <button onclick="move(0,1);" class="arrow-button">&#x2193;</button>
+        <button onclick="move(1,1);" class="arrow-button">&#x2198;</button>
         <br>
     </div>
     <div id="statusMessage">Ready</div>
@@ -521,7 +521,7 @@
 
             // Add depth
             person.digging = true;
-            move(0,0,1);
+            move(0,0);
             person.digging = false;
         }
         function gameOver(success) {
