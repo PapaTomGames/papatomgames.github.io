@@ -133,18 +133,18 @@
     <div class="canvas-container"> <canvas id="letterCanvas" width="400" height="400"></canvas> </div>
     <div>
         <br>
-        <button onclick="move(-1,-1);" class="arrow-button">&#x2196;</button>
-        <button onclick="move(0,-1);" class="arrow-button">&#x2191;</button>
-        <button onclick="move(1,-1);" class="arrow-button">&#x2197;</button>
+        <button onclick="move(-1,-1,0);" class="arrow-button">&#x2196;</button>
+        <button onclick="move(0,-1,0);" class="arrow-button">&#x2191;</button>
+        <button onclick="move(1,-1,0);" class="arrow-button">&#x2197;</button>
         <button onclick="dig();" class="arrow-button" id="dig">dig</button>
         <br>
-        <button onclick="move(-1,0);" class="arrow-button">&#x2190;</button>
-        <button onclick="move(0,0);" class="arrow-button">&#x25A1;</button>
-        <button onclick="move(1,0);" class="arrow-button">&#x2192;</button>
+        <button onclick="move(-1,0,0);" class="arrow-button">&#x2190;</button>
+        <button onclick="move(0,0,0);" class="arrow-button">&#x25A1;</button>
+        <button onclick="move(1,0,0);" class="arrow-button">&#x2192;</button>
         <br>
-        <button onclick="move(-1,1);" class="arrow-button">&#x2199;</button>
-        <button onclick="move(0,1);" class="arrow-button">&#x2193;</button>
-        <button onclick="move(1,1);" class="arrow-button">&#x2198;</button>
+        <button onclick="move(-1,1,0);" class="arrow-button">&#x2199;</button>
+        <button onclick="move(0,1,0);" class="arrow-button">&#x2193;</button>
+        <button onclick="move(1,1,0);" class="arrow-button">&#x2198;</button>
         <br>
     </div>
     <div id="statusMessage">Ready</div>
@@ -353,17 +353,7 @@
         function debugOut(m) {
             console.log(m);
         }
-        /*
-        function handleItemClick(selection) {
-            theApp.debugOut("dropdown " + selection);
-            //const dropdownContent = document.getElementById("myDropdown");
-            //dropdownContent.style.display = "none";
-theApp.debugOut("hide");
-//const dropdownButton = document.querySelector('.dropbtn');
-let itemName = (selection == 0) ? "Zombies" : "Super Zombies";
-theApp.debugOut(itemName);
-  //dropdownButton.textConte
-  */
+
         function handleItemClick(selection) {
             theApp.debugOut("dropdown " + selection);
         }
@@ -469,7 +459,7 @@ theApp.debugOut(itemName);
                 }
             }
         }
-        function move(x, y) {
+        function move(x, y, nomove) {
 
             if (done) {
                 return;
@@ -477,7 +467,9 @@ theApp.debugOut(itemName);
 
             let prevX = person.x;
             let prevY = person.y;
-            person.move(x, y);
+            if (!nomove) {
+                person.move(x, y);
+            }
             let newX = person.x;
             let newY = person.y;
             let zombies = [];
@@ -490,6 +482,9 @@ theApp.debugOut(itemName);
                         (newX == letter.x) &&
                         (newY == letter.y)) {
                         debugOut("" + letter.id + " " + letter.letter + " " + prevX + " " + prevY + " " + newX + " " + newY + " " + letter.x + " " + letter.y);
+                        if (letter.letter == 'O' && nomove) {
+                            continue;
+                        }
                         gameOver(0);
                         theApp.updateFrame();
                         return;
@@ -513,6 +508,31 @@ theApp.debugOut(itemName);
         }
         function dig() {
             theApp.debugOut("dig");
+
+            // Search for holes
+            let found = false;
+            for (let h of holes) {
+                if ((person.x == h.x) && (person.y == h.y) && !h.dead) {
+                    if (h.depth < 5) {
+                        h.depth += 1;
+                    }
+                    found = true;
+                    break;
+                }
+            }
+
+            // add hole
+            if (!found) {
+                let h = new Hole;
+                h.x = person.x;
+                h.y = person.y;
+                h.depth = 1;
+                holes.push(h);
+                letters.push(h);
+            }
+
+            // Add depth
+            move(0,0,1);
         }
         function gameOver(success) {
             done = 1;
