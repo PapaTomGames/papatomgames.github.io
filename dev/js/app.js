@@ -13,6 +13,7 @@ class App {
     this.game = 0;
     this.score = 0;
     this.resetScore();
+    this.moveCounter = 0;
 
     if (this.isMobile()) {
       debugOut("mobile!");
@@ -125,6 +126,7 @@ class App {
     holes = [];
     letters = [];
     this.resetScore();
+    this.moveCounter = 0;
     addPerson();
     for (let i = 0; i < numHoles; i++) {
       addHole();
