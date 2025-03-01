@@ -488,10 +488,10 @@
                 gameOver(1);
             }
             resolveZombies();
-            theApp.moveCounter += 1;
-            if ((theApp.game == 1) && (theApp.moveCounter % 4 == 0)) {
-                addZombie(1);
-            }
+            theApp.gameStep();
+            // if ((theApp.game == 1) && (theApp.moveCounter % 4 == 0)) {
+            //     addZombie(1);
+            // }
             theApp.updateFrame();
             checkForOverlap();
         }

@@ -158,5 +158,24 @@ class App {
   writeScore() {
     scoreMessage.innerHTML = `Score: ${this.score}`;
   }
+
+  gameStep() {
+    this.moveCounter += 1;
+    let addStep = 0;
+    switch (true) {
+      case this.moveCounter <= 10:
+        addStep = 4;
+        break;
+      case this.moveCounter <= 20:
+        addStep = 2;
+        break;
+
+      default:
+        addStep = 1;
+    }
+    if ((this.game == 1) && (this.moveCounter % addStep == 0)) {
+      addZombie(1);
+    }
+  }
 }
 
