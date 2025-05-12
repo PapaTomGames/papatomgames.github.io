@@ -21,7 +21,13 @@ class App {
     }
 
     // events
+    document.getElementById('fullscreenButton').addEventListener('click', () => {
+      this.goFullscreen();
+    });
 
+  document.addEventListener('fullscreenchange', () => {
+      this.resizeCanvas();
+    });
     debugOut("app init done");
   }
 
@@ -66,6 +72,19 @@ class App {
     this.offsetX = this.scaleX / 2;
     this.offsetY = this.scaleY / 2;
     this.debugOut(`resize ${this.canvasWidth} ${this.canvasHeight} ${this.scaleX} ${canvas.style.left}`);
+  }
+  goFullscreen() {
+    const canvas = document.getElementById('letterCanvas');
+
+    if (canvas.requestFullscreen) {
+        canvas.requestFullscreen();
+    } else if (canvas.mozRequestFullScreen) { /* Firefox */
+        canvas.mozRequestFullScreen();
+    } else if (canvas.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+        canvas.webkitRequestFullscreen();
+    } else if (canvas.msRequestFullscreen) { /* IE/Edge */
+        canvas.msRequestFullscreen();
+    }
   }
 
   drawLetter(letter) {
