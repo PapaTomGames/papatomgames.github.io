@@ -45,7 +45,7 @@ class App {
 
 
   resizeCanvas() {
-    const canvas = document.getElementById('letterCanvas');
+    const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
     this.scaleX = 20;
@@ -74,7 +74,7 @@ class App {
     this.debugOut(`resize ${this.canvasWidth} ${this.canvasHeight} ${this.scaleX} ${canvas.style.left}`);
   }
   goFullscreen() {
-    const canvas = document.getElementById('letterCanvas');
+    const canvas = document.getElementById('gameCanvas');
 
     if (canvas.requestFullscreen) {
         canvas.requestFullscreen();
@@ -88,7 +88,7 @@ class App {
   }
 
   drawLetter(letter) {
-    const canvas = document.getElementById('letterCanvas');
+    const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     ctx.save();
     // ctx.translate(0,0); //this.offsetX, this.offsetY); 
@@ -112,7 +112,7 @@ class App {
 
 
   updateFrame() {
-    const canvas = document.getElementById('letterCanvas');
+    const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     debugOut("update frame");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -127,11 +127,11 @@ class App {
     this.game = g;
     switch (g) {
       case 0:
-        document.getElementById('dig').style.visibility = 'hidden';
+        document.getElementById('dig-key').style.visibility = 'hidden';
         //this.newSingleGame();
         break;
       case 1:
-        document.getElementById('dig').style.visibility = 'visible';
+        document.getElementById('dig-key').style.visibility = 'visible';
         //this.newSuperGame();
         break;
     }
