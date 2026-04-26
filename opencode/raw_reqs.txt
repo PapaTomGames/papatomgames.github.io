@@ -1,0 +1,49 @@
+title, game, turn-based, 
+heading, top level, architecture, 
+Bullet, there will be several modules built independent of the others. 
+All software will be written in typescript, 
+all configuration files will be JSON. 
+Major modules will include. The game engine, the user interface, the player characters, and game state. 
+The players can be either human, or AI. 
+The, there is a API for players that all players will interface to, will write, play decisions, and can read All game state. 
+All game modules can run on a server with a web interface or run locally as a single page. Web application. 
+A server based game can receive commands or interact with the API, serve the API as with local running processes. Or remote processes. This goes for both human and AI players. 
+
+heading game engine. 
+The game engine would will administer all rules of the game and enforce correct gameplay.
+all configurations for the game engine, and all rules for the game will be contained and downloaded dynamically as a As JSON files. 
+The game engine will be turn based or each player, human or AI, will will take a turn in order. 
+The game engine can run has a server or locally in the web application. 
+Security for the game and security for the game will be administered by the game engine, 
+each player will have to login. as a user with some, a password , 
+the game engine will not allow players. to connect without proper security. 
+
+heading  Human player interface. 
+The human interface will be mastered through a webpage or optionally a web app single page. 
+Each player, human player must enter the proper security credentials in order to interact with the game engine. 
+The human player software will interact with the game engine through the player APL. 
+The human interface will display a map and controls. 
+The UI will be a combination of typescript, HTML, and CSSS. 
+There will be settings of the human player that allow the user or player to make configurations, which were saved in a JSON file. 
+The user interface will receive game state from the game engine on 
+the game state will be showing as a current map. and state of all visible players. 
+There will be controls for the human to interact with the game. and allow the get player to make move decisions. 
+The human player will have a display and make player movements and commands, which will be sent to the game engine through the player API. 
+
+heading AI artificial intelligence. 
+The AI will interact with the game engine in the same way that the player human player user interface does. 
+The AI can be running locally within the web application or can connect to the game engine remotely through. The player API interface. 
+
+Heading. Random notes. 
+The game can have fog of war in which a player can only see a limited view of the game map. 
+Each player can pick up objects in the game, which may or may not give them additional capability. 
+game configuration number, for example, number of players, objects, maps, capabilities, and rules will be part of one or more Jason files. 
+At the start of a game, the game engine, and all software modules, such as human player interface, and AI. Will load game configuration from JSON files and do dynamic configuration. 
+Human players can select different games to play. and start playing either as a single user with AI or with other human players or a mixture of human players in AI. 
+players can form teams within the game.
+A human player can select. whether a game is solo with only one human player or multiple players. 
+The human user can identify friends within players within the group of players, and chose, whether a game will only be with friends or is open to all. 
+The game engine will keep a database of all known players, human or AI, access those as part of the security input for The game. 
+Before a player can play in a game, they must register with the game engine.
+Different game engines. Can run different games using the same basic game engine software, 
+the different games will be defined by the JSON files that get loaded at start up. Or the game engine can Download and dynamically reconfigure or add games, rules, players, AI, etc..
