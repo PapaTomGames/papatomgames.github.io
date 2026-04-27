@@ -5,6 +5,7 @@ A turn-based strategic game platform with dynamic configuration via JSON files.
 ## Documentation
 
 - [Requirements](docs/Requirements.md) - Project requirements and specifications
+- [Architecture](docs/Architecture.md) - High-level software architecture
 - [Project Guidelines](docs/AGENTS.md) - Development guidelines and architecture
 
 ## Quick Start
