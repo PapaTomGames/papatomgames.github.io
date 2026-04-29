@@ -12,6 +12,11 @@ The Player API provides a unified interface for both Human and AI players to int
 ### Gameplay Endpoints
 | Endpoint | Method | Description | Request Body | Response Body |
 | :--- | :--- | :--- | :--- | :--- |
+| `/games` | `GET` | List available game types from config | N/A | `GameType[]` |
+| `/games/create` | `POST` | Create a new game room | `CreateGameRequest` | `CreateGameResponse` |
+| `/games/join` | `POST` | Join an existing game room | `JoinGameRequest` | `JoinGameResponse` |
+| `/games/{gameId}` | `GET` | Get game room details | N/A | `GameRoom` |
+| `/games/{gameId}/leave` | `POST` | Leave a game room | N/A | `{ "status": "success" }` |
 | `/state` | `GET` | Get current game state | N/A | `GameState` (Filtered) |
 | `/actions` | `POST` | Submit multiple unit actions for the turn | `TurnActionsRequest` | `TurnActionsResponse` |
 | `/turn/complete` | `POST` | Signal that the player has finished their turn | N/A | `{ "status": "success", "nextPlayer": string }` |
@@ -23,6 +28,58 @@ The Player API provides a unified interface for both Human and AI players to int
 A player can control multiple units and submit multiple actions in a single turn. Each action is applied sequentially to the game state, and subsequent actions may be affected by the results of earlier actions.
 
 ```typescript
+interface CreateGameRequest {
+  gameType: string;
+  maxPlayers: number;
+  isSolo: boolean;
+  friendsOnly: boolean;
+  teamMode: boolean;
+}
+
+interface CreateGameResponse {
+  gameId: string;
+  joinCode?: string;
+  status: 'waiting' | 'active' | 'finished';
+}
+
+interface JoinGameRequest {
+  gameId: string;
+  playerId: string;
+}
+
+interface JoinGameResponse {
+  gameId: string;
+  playerSlot: number;
+  teamId?: string;
+  status: 'joined' | 'game_full' | 'game_started';
+}
+
+interface GameRoom {
+  gameId: string;
+  gameType: string;
+  hostId: string;
+  players: Array<{
+    playerId: string;
+    teamId?: string;
+    isReady: boolean;
+  }>;
+  maxPlayers: number;
+  isSolo: boolean;
+  friendsOnly: boolean;
+  teamMode: boolean;
+  status: 'waiting' | 'active' | 'finished';
+  currentTurn?: number;
+}
+
+interface GameType {
+  name: string;
+  description: string;
+  minPlayers: number;
+  maxPlayers: number;
+  supportsSolo: boolean;
+  supportsTeams: boolean;
+}
+
 interface TurnActionsRequest {
   playerId: string;
   actions: UnitAction[];
@@ -88,7 +145,7 @@ interface GameStateResponse {
 ## 3. Authentication Flow
 1. **Credential Submission**: Player sends username/password (Human) or token (AI) to `/auth/login`.
 2. **Token Issuance**: The API validates credentials via the Game Engine and returns a session token (JWT).
-3. **Authorized Requests**: For all subsequent requests (`/state`, `/actions`, `/config`), the player must include the token in the HTTP header:
+3. **Authorized Requests**: For all subsequent requests (`/games`, `/state`, `/actions`, `/config`), the player must include the token in the HTTP header:
    `Authorization: Bearer <token>`
 4. **Validation**: The API extracts the `playerId` from the token and passes it to the Game Engine for authorization.
 
