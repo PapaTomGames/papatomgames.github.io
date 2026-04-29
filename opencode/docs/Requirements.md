@@ -73,21 +73,27 @@
 58. Each player will have a health state.
 59. A player should get their state through the Player API.
 
+## Game End Conditions
+
+60. The game will end when only one player or team remains.
+61. The player that started the game can manually end it.
+62. For games with human players, the game ends when all humans have been eliminated.
+
 ## Data Persistence
 
-60. Data persistence is an implementation detail and not a requirement.
+63. Data persistence is an implementation detail and not a requirement.
 
 ## Random Notes
 
-61. The game can have fog of war in which a player can only see a limited view of the game map.
-62. Each player can pick up objects in the game, which may or may not give them additional capability.
-63. Game configuration such as number of players, objects, maps, capabilities, and rules will be part of one or more JSON files.
-64. At the start of a game, the game engine and all software modules such as human player interface and AI will load game configuration from JSON files and do dynamic configuration.
-65. Human players can select different games to play and start playing either as a single user with AI or with other human players or a mixture of human players and AI.
-66. Players can form teams within the game.
-67. A human player can select whether a game is solo with only one human player or multiple players.
-68. The human user can identify friends within the group of players and choose whether a game will only be with friends or is open to all.
-69. The game engine will keep a database of all known players, human or AI, to access those as part of the security input for the game.
-70. Before a player can play in a game, they must register with the game engine.
-71. Different game engines can run different games using the same basic game engine software.
-72. The different games will be defined by the JSON files that get loaded at start up. Or the game engine can download and dynamically reconfigure or add games, rules, players, AI, etc.
+64. The game can have fog of war in which a player can only see a limited view of the game map.
+65. Each player can pick up objects in the game, which may or may not give them additional capability.
+66. Game configuration such as number of players, objects, maps, capabilities, and rules will be part of one or more JSON files.
+67. At the start of a game, the game engine and all software modules such as human player interface and AI will load game configuration from JSON files and do dynamic configuration.
+68. Human players can select different games to play and start playing either as a single user with AI or with other human players or a mixture of human players and AI.
+69. Players can form teams within the game.
+70. A human player can select whether a game is solo with only one human player or multiple players.
+71. The human user can identify friends within the group of players and choose whether a game will only be with friends or is open to all.
+72. The game engine will keep a database of all known players, human or AI, to access those as part of the security input for the game.
+73. Before a player can play in a game, they must register with the game engine.
+74. Different game engines can run different games using the same basic game engine software.
+75. The different games will be defined by the JSON files that get loaded at start up. Or the game engine can download and dynamically reconfigure or add games, rules, players, AI, etc.

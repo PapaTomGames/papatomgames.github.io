@@ -10,6 +10,9 @@ interface GameState {
   currentTurn: number;
   activePlayerId: string;
   gamePhase: 'SETUP' | 'ACTIVE' | 'FINISHED';
+  endReason?: 'last_standing' | 'host_ended' | 'all_humans_eliminated';
+  winnerId?: string; // playerId or teamId
+  winnerType?: 'player' | 'team';
   players: Map<string, PlayerState>;
   mapState: GridMap;
   objects: Map<string, GameObject>;
@@ -103,14 +106,28 @@ interface FogOfWarConfig {
 
 **When disabled:** The full game state is sent to all players without visibility restrictions.
 
-## 6. State Serialization
+## 6. Game End Conditions
+The game ends when any of the following conditions are met:
+
+1. **Last Standing**: Only one player or team remains active (all others eliminated).
+2. **Host Ended**: The player who started the game (`hostId`) manually ends it via `/games/{gameId}/end`.
+3. **All Humans Eliminated**: For games with human players, the game ends when all humans have been eliminated (AI players may remain).
+
+When a game ends:
+- `gamePhase` transitions to `'FINISHED'`
+- `endReason` is set to the condition that triggered the end
+- `winnerId` and `winnerType` are set (if applicable)
+- No further actions can be submitted
+- The game result is available via `/games/{gameId}/result`
+
+## 7. State Serialization
 The state is serialized to JSON for API responses and potential save-game functionality.
 
 - **Serialization**: `JSON.stringify(gameState)`
 - **Deserialization**: `JSON.parse(jsonString)`
 - **Optimization**: To reduce bandwidth, the API may send "Delta Updates" (only the changes since the last turn) instead of the full state.
 
-## 7. Thread Safety Considerations
+## 8. Thread Safety Considerations
 Since the game is implemented in TypeScript (Node.js or Browser), it operates on a single-threaded event loop. However, state integrity must be maintained:
 
 - **Atomic Mutations**: State changes are performed in a single synchronous block within the `GameEngine` to prevent race conditions between asynchronous API requests.

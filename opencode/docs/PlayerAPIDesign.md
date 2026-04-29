@@ -44,6 +44,8 @@ interface MockServer {
 | `/games/{gameId}` | `GET` | Get game room details | N/A | `GameRoom` |
 | `/games/{gameId}/leave` | `POST` | Leave a game room | N/A | `{ "status": "success" }` |
 | `/games/{gameId}/teams` | `POST` | Create or join a team | `TeamRequest` | `TeamResponse` |
+| `/games/{gameId}/end` | `POST` | Manually end the game (host only) | N/A | `{ "status": "success", "result": GameResult }` |
+| `/games/{gameId}/result` | `GET` | Get game result/winner | N/A | `GameResult` |
 | `/state` | `GET` | Get current game state | N/A | `GameState` (Filtered) |
 | `/player` | `GET` | Get current player's state (inventory, strengths, health) | N/A | `PlayerStateResponse` |
 | `/actions` | `POST` | Submit multiple unit actions for the turn | `TurnActionsRequest` | `TurnActionsResponse` |
@@ -102,12 +104,12 @@ interface JoinGameResponse {
 interface GameRoom {
   gameId: string;
   gameType: string;
-  hostId: string;
+  hostId: string; // Player who can manually end the game
   players: Array<{
     playerId: string;
     teamId?: string;
     isReady: boolean;
-    turnTimeout?: number; // Configured timeout for this player's turn
+    turnTimeout?: number;
   }>;
   maxPlayers: number;
   isSolo: boolean;
@@ -115,8 +117,18 @@ interface GameRoom {
   teamMode: boolean;
   status: 'waiting' | 'active' | 'finished';
   currentTurn?: number;
-  turnTimeout?: number; // Default timeout in seconds for human players
-  aiTurnTimeout?: number; // Optional timeout for AI players
+  turnTimeout?: number;
+  aiTurnTimeout?: number;
+  winner?: GameResult; // Present when game ends
+}
+
+interface GameResult {
+  gameId: string;
+  status: 'finished';
+  winnerType: 'player' | 'team';
+  winnerId: string; // playerId or teamId
+  endReason: 'last_standing' | 'host_ended' | 'all_humans_eliminated';
+  endTime: number;
 }
 
 interface GameType {
