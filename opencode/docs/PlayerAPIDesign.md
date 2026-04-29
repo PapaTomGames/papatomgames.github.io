@@ -12,11 +12,15 @@ The Player API provides a unified interface for both Human and AI players to int
 ### Gameplay Endpoints
 | Endpoint | Method | Description | Request Body | Response Body |
 | :--- | :--- | :--- | :--- | :--- |
+| `/friends` | `GET` | List player's friends | N/A | `FriendList` |
+| `/friends/add` | `POST` | Add a friend | `{ "friendId": string }` | `{ "status": "success" }` |
+| `/friends/remove` | `POST` | Remove a friend | `{ "friendId": string }` | `{ "status": "success" }` |
 | `/games` | `GET` | List available game types from config | N/A | `GameType[]` |
 | `/games/create` | `POST` | Create a new game room | `CreateGameRequest` | `CreateGameResponse` |
 | `/games/join` | `POST` | Join an existing game room | `JoinGameRequest` | `JoinGameResponse` |
 | `/games/{gameId}` | `GET` | Get game room details | N/A | `GameRoom` |
 | `/games/{gameId}/leave` | `POST` | Leave a game room | N/A | `{ "status": "success" }` |
+| `/games/{gameId}/teams` | `POST` | Create or join a team | `TeamRequest` | `TeamResponse` |
 | `/state` | `GET` | Get current game state | N/A | `GameState` (Filtered) |
 | `/actions` | `POST` | Submit multiple unit actions for the turn | `TurnActionsRequest` | `TurnActionsResponse` |
 | `/turn/complete` | `POST` | Signal that the player has finished their turn | N/A | `{ "status": "success", "nextPlayer": string }` |
@@ -93,6 +97,26 @@ interface GameType {
   maxPlayers: number;
   supportsSolo: boolean;
   supportsTeams: boolean;
+}
+
+interface FriendList {
+  friends: Array<{
+    playerId: string;
+    username: string;
+    status: 'online' | 'offline' | 'in_game';
+  }>;
+}
+
+interface TeamRequest {
+  gameId: string;
+  teamId?: string; // If omitted, creates new team
+  playerIds?: string[]; // Players to add to team (must be friends for friends-only games)
+}
+
+interface TeamResponse {
+  teamId: string;
+  members: string[];
+  status: 'created' | 'joined' | 'team_full';
 }
 
 interface TurnActionsRequest {
