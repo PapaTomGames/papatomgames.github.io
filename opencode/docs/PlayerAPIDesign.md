@@ -3,6 +3,29 @@
 ## 1. REST Endpoints
 The Player API provides a unified interface for both Human and AI players to interact with the Game Engine. All endpoints use JSON for requests and responses.
 
+### Deployment Modes
+
+#### Server Mode
+The API runs on a server and is accessed via HTTP/HTTPS. All players (human and AI) connect remotely to the server endpoints.
+
+#### Local Mode (Single Page Application)
+When running locally, the application uses an **in-memory mock server** that intercepts REST API calls and processes them in-memory without making actual HTTP requests. This allows the entire stack (Engine, API, UI) to run within the browser.
+
+**Local Mode Implementation:**
+- The mock server maintains an in-memory `GameState` object
+- All API endpoints are intercepted and handled by local functions
+- No network requests are made
+- Game Engine runs in the same JavaScript context as the UI
+- State is preserved in memory for the duration of the browser session
+
+```typescript
+interface MockServer {
+  gameState: GameState;
+  config: GameConfig;
+  processRequest(endpoint: string, method: string, body?: any): any;
+}
+```
+
 ### Authentication Endpoints
 | Endpoint | Method | Description | Request Body | Response Body |
 | :--- | :--- | :--- | :--- | :--- |

@@ -120,5 +120,5 @@ A comprehensive testing suite is required to ensure stability:
 ## 10. Deployment
 - **Target Platform**: GitHub Pages.
 - **Execution Modes**:
-    - **Local Mode**: The entire stack (Engine, API, UI) runs within the browser as a Single Page Application.
-    - **Server Mode**: The Game Engine and API run on a server, with the UI acting as a client.
+    - **Local Mode**: The entire stack (Engine, API, UI) runs within the browser as a Single Page Application. An **in-memory mock server** intercepts REST API calls and processes them locally without HTTP requests.
+    - **Server Mode**: The Game Engine and API run on a server, with the UI acting as a client. All players connect remotely via HTTP/HTTPS.
