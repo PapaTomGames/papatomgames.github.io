@@ -44,7 +44,7 @@ interface RegisterResponse {
 ```
 
 ### Turn Actions Request
-A player can control multiple units and submit multiple actions in a single turn. Each action is applied sequentially to the game state, and subsequent actions may be affected by the results of earlier actions.
+A player can control multiple units and submit multiple actions in a single turn. Each action is applied sequentially to the game state. **All actions execute regardless of whether earlier actions succeed or fail.** Subsequent actions may be affected by the results of earlier actions (e.g., if a unit is eliminated, subsequent actions targeting it will fail gracefully).
 
 ```typescript
 interface CreateGameRequest {
@@ -133,7 +133,7 @@ interface UnitAction {
 ```
 
 ### Turn Actions Response
-The response indicates whether each action was successful and includes any state changes that occurred as a result of the actions. This allows the player to understand the final state after all actions have been processed.
+The response indicates whether each action was successful and includes any state changes that occurred as a result of the actions. **All actions are executed regardless of individual failures.** This allows the player to understand the final state after all actions have been processed.
 
 ```typescript
 interface TurnActionsResponse {
@@ -208,8 +208,8 @@ To prevent API abuse (especially by AI agents), the following limits are impleme
 ### Turn Flow
 1. Player receives updated game state via `/state`
 2. Player submits all unit actions via `/actions` (can include MOVE + ATTACK for same unit)
-3. Each action is applied sequentially; state changes are tracked
-4. Response includes `actionResults` (per-action success) and `stateChanges` (board-wide effects)
+3. **All actions execute sequentially regardless of failures**; state changes are tracked
+4. Response includes `actionResults` (per-action success/failure) and `stateChanges` (board-wide effects)
 5. Player calls `/turn/complete` to pass turn to next player
 
 ## 5. Error Responses
