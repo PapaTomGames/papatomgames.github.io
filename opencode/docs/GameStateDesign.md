@@ -68,13 +68,24 @@ interface GameObject {
 ```
 
 ## 5. Visibility and Fog of War
-Visibility is calculated dynamically based on the active player's position and capabilities.
+Visibility is **configurable per game** via `FogOfWarConfig` in the game configuration. When enabled, visibility is calculated dynamically based on the active player's position and capabilities.
 
-**Visibility Logic:**
-1. **Base Radius**: Every player has a default visibility radius (e.g., 3 cells).
+**Configuration:**
+```typescript
+interface FogOfWarConfig {
+  enabled: boolean;
+  visibilityRadius?: number; // Cells visible around each unit (if enabled)
+  revealOnMove: boolean; // Whether moving reveals new areas
+}
+```
+
+**Visibility Logic (when enabled):**
+1. **Base Radius**: Every player has a default visibility radius (e.g., 3 cells) from `FogOfWarConfig.visibilityRadius`.
 2. **Terrain Modifiers**: Forests may reduce visibility; mountains may block it.
 3. **Capabilities**: Certain abilities (e.g., "Scout") increase the visibility radius.
 4. **Calculation**: For a given `playerId`, the engine calculates which cells are within their current visibility range. All other cells are marked as "hidden" in the filtered state sent to the player.
+
+**When disabled:** The full game state is sent to all players without visibility restrictions.
 
 ## 6. State Serialization
 The state is serialized to JSON for API responses and potential save-game functionality.
