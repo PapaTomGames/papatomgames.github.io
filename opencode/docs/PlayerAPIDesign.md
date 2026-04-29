@@ -22,6 +22,7 @@ The Player API provides a unified interface for both Human and AI players to int
 | `/games/{gameId}/leave` | `POST` | Leave a game room | N/A | `{ "status": "success" }` |
 | `/games/{gameId}/teams` | `POST` | Create or join a team | `TeamRequest` | `TeamResponse` |
 | `/state` | `GET` | Get current game state | N/A | `GameState` (Filtered) |
+| `/player` | `GET` | Get current player's state (inventory, strengths, health) | N/A | `PlayerStateResponse` |
 | `/actions` | `POST` | Submit multiple unit actions for the turn | `TurnActionsRequest` | `TurnActionsResponse` |
 | `/turn/complete` | `POST` | Signal that the player has finished their turn | N/A | `{ "status": "success", "nextPlayer": string }` |
 | `/config` | `GET` | Get game configuration | N/A | `GameConfig` |
@@ -137,6 +138,38 @@ interface TeamResponse {
   teamId: string;
   members: string[];
   status: 'created' | 'joined' | 'team_full';
+}
+
+interface PlayerStateResponse {
+  playerId: string;
+  teamId: string;
+  position: { x: number, y: number };
+  health: number;
+  movementPoints: number;
+  capabilities: string[];
+  inventory: InventoryItem[];
+  strengths: Strength[];
+  statusEffects: StatusEffect[];
+}
+
+interface InventoryItem {
+  itemId: string;
+  type: string;
+  properties: Record<string, any>;
+  equipped: boolean;
+}
+
+interface Strength {
+  name: string;
+  value: number;
+  source: string;
+  duration?: number;
+}
+
+interface StatusEffect {
+  name: string;
+  duration: number;
+  modifier: Record<string, number>;
 }
 
 interface TurnActionsRequest {
