@@ -47,8 +47,23 @@ interface PlayerState {
   health: number;
   movementPoints: number;
   capabilities: string[]; // List of unlocked abilities
-  inventory: string[]; // IDs of picked-up objects
+  inventory: InventoryItem[]; // Items carried by the player
+  strengths: Strength[]; // Active strengths/bonuses from items or abilities
   statusEffects: StatusEffect[];
+}
+
+interface InventoryItem {
+  itemId: string;
+  type: string;
+  properties: Record<string, any>;
+  equipped: boolean; // Whether the item is currently active
+}
+
+interface Strength {
+  name: string;
+  value: number; // Magnitude of the strength (e.g., +5 attack)
+  source: string; // What granted this strength (item, ability, terrain)
+  duration?: number; // Turns remaining, undefined = permanent
 }
 ```
 
@@ -62,6 +77,7 @@ interface GameObject {
   type: string;
   position: { x: number, y: number };
   properties: Record<string, any>;
+  grantsStrength?: Strength; // Strength granted when picked up
   isPickedUp: boolean;
   ownerId?: string;
 }

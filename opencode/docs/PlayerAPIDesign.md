@@ -146,7 +146,7 @@ interface TurnActionsRequest {
 
 interface UnitAction {
   unitId: string;
-  actionType: 'MOVE' | 'ATTACK' | 'USE_ITEM' | 'WAIT';
+  actionType: 'MOVE' | 'ATTACK' | 'USE_ITEM' | 'PICKUP' | 'WAIT';
   target?: { x: number, y: number };
   itemId?: string;
 }
@@ -172,6 +172,8 @@ interface ActionResult {
   newPosition?: { x: number, y: number };
   damageDealt?: number;
   targetEliminated?: boolean;
+  itemPickedUp?: string; // ID of item picked up (for PICKUP action)
+  newStrength?: string; // Strength granted by picked up item
 }
 
 interface StateChange {
