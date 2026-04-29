@@ -6,8 +6,8 @@ The Player API provides a unified interface for both Human and AI players to int
 ### Authentication Endpoints
 | Endpoint | Method | Description | Request Body | Response Body |
 | :--- | :--- | :--- | :--- | :--- |
-| `/auth/register` | `POST` | Register a new player | `{ "username": string, "password": string }` | `{ "status": "success", "playerId": uuid }` |
-| `/auth/login` | `POST` | Authenticate a player | `{ "username": string, "password": string }` | `{ "status": "success", "token": string }` |
+| `/auth/register` | `POST` | Register a new player (human or AI) | `RegisterRequest` | `RegisterResponse` |
+| `/auth/login` | `POST` | Authenticate a human player | `{ "username": string, "password": string }` | `{ "status": "success", "token": string }` |
 
 ### Gameplay Endpoints
 | Endpoint | Method | Description | Request Body | Response Body |
@@ -23,6 +23,21 @@ The Player API provides a unified interface for both Human and AI players to int
 | `/config` | `GET` | Get game configuration | N/A | `GameConfig` |
 
 ## 2. Request/Response Schemas
+
+```typescript
+interface RegisterRequest {
+  username: string;
+  type: 'HUMAN' | 'AI';
+  password?: string; // Required for HUMAN
+}
+
+interface RegisterResponse {
+  status: 'success' | 'error';
+  playerId: string;
+  token?: string; // Pre-registered token for AI players
+  message?: string;
+}
+```
 
 ### Turn Actions Request
 A player can control multiple units and submit multiple actions in a single turn. Each action is applied sequentially to the game state, and subsequent actions may be affected by the results of earlier actions.
@@ -143,11 +158,21 @@ interface GameStateResponse {
 ```
 
 ## 3. Authentication Flow
-1. **Credential Submission**: Player sends username/password (Human) or token (AI) to `/auth/login`.
-2. **Token Issuance**: The API validates credentials via the Game Engine and returns a session token (JWT).
-3. **Authorized Requests**: For all subsequent requests (`/games`, `/state`, `/actions`, `/config`), the player must include the token in the HTTP header:
+
+### Human Player Flow
+1. **Registration**: Player sends `RegisterRequest` with `type: 'HUMAN'` and password to `/auth/register`.
+2. **Credential Submission**: Player sends username/password to `/auth/login`.
+3. **Token Issuance**: The API validates credentials via the Game Engine and returns a session token (JWT).
+4. **Authorized Requests**: For all subsequent requests (`/games`, `/state`, `/actions`, `/config`), the player must include the token in the HTTP header:
    `Authorization: Bearer <token>`
-4. **Validation**: The API extracts the `playerId` from the token and passes it to the Game Engine for authorization.
+5. **Validation**: The API extracts the `playerId` from the token and passes it to the Game Engine for authorization.
+
+### AI Player Flow
+1. **Pre-Registration**: AI players are pre-registered before game creation by sending `RegisterRequest` with `type: 'AI'` (no password required).
+2. **Token Issuance**: The API returns a permanent token in the `RegisterResponse` that the AI player will use for all subsequent requests.
+3. **Authorized Requests**: The AI player includes the token in the HTTP header for all requests:
+   `Authorization: Bearer <token>`
+4. **No Login Required**: AI players skip the `/auth/login` step and use their pre-registered token directly.
 
 ## 4. Rate Limiting Considerations
 To prevent API abuse (especially by AI agents), the following limits are implemented:
