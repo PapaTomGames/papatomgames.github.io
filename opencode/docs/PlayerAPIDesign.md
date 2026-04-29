@@ -102,6 +102,21 @@ interface GameType {
   maxPlayers: number;
   supportsSolo: boolean;
   supportsTeams: boolean;
+  defaultConfig: GameConfig;
+}
+
+interface GameConfig {
+  fogOfWar: FogOfWarConfig;
+  gridSize: { width: number; height: number };
+  turnTimeout: number;
+  aiTurnTimeout?: number;
+  rules: object; // Game-specific rules from JSON config
+}
+
+interface FogOfWarConfig {
+  enabled: boolean;
+  visibilityRadius?: number; // Cells visible around each unit (if enabled)
+  revealOnMove: boolean; // Whether moving reveals new areas
 }
 
 interface FriendList {
