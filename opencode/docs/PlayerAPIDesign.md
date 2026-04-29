@@ -53,6 +53,8 @@ interface CreateGameRequest {
   isSolo: boolean;
   friendsOnly: boolean;
   teamMode: boolean;
+  turnTimeout?: number; // Seconds, required for multi-player games with human players
+  aiTurnTimeout?: number; // Optional, seconds, for AI player turns
 }
 
 interface CreateGameResponse {
@@ -81,6 +83,7 @@ interface GameRoom {
     playerId: string;
     teamId?: string;
     isReady: boolean;
+    turnTimeout?: number; // Configured timeout for this player's turn
   }>;
   maxPlayers: number;
   isSolo: boolean;
@@ -88,6 +91,8 @@ interface GameRoom {
   teamMode: boolean;
   status: 'waiting' | 'active' | 'finished';
   currentTurn?: number;
+  turnTimeout?: number; // Default timeout in seconds for human players
+  aiTurnTimeout?: number; // Optional timeout for AI players
 }
 
 interface GameType {
@@ -211,6 +216,7 @@ To prevent API abuse (especially by AI agents), the following limits are impleme
 3. **All actions execute sequentially regardless of failures**; state changes are tracked
 4. Response includes `actionResults` (per-action success/failure) and `stateChanges` (board-wide effects)
 5. Player calls `/turn/complete` to pass turn to next player
+6. **Turn Timeout**: If the current player (human) does not complete their turn within `turnTimeout` seconds, the turn is automatically skipped and passed to the next player. AI players use `aiTurnTimeout` if configured; otherwise they are expected to respond immediately.
 
 ## 5. Error Responses
 The API uses standard HTTP status codes to indicate the outcome of requests.
