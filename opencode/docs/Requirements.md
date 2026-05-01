@@ -18,6 +18,14 @@
 
 1.8. A server based game can receive commands or interact with the API, serve the API as with local running processes or remote processes. This goes for both human and AI players.
 
+1.9. Human players can select different games to play and start playing either as a single user with AI or with other human players or a mixture of human players and AI.
+
+1.10. Players can form teams within the game.
+
+1.11. A human player can select whether a game is solo with only one human player or multiple players.
+
+1.12. The human user can identify friends within the group of players and choose whether a game will only be with friends or is open to all.
+
 ## 2. Game Engine
 
 2.1. The game engine will administer all rules of the game and enforce correct gameplay.
@@ -33,6 +41,16 @@
 2.6. Each player will have to login as a user with a password.
 
 2.7. The game engine will not allow players to connect without proper security.
+
+2.8. At the start of a game, the game engine and all software modules such as human player interface and AI will load game configuration from JSON files and do dynamic configuration.
+
+2.9. The game engine will keep a database of all known players, human or AI, to access those as part of the security input for the game.
+
+2.10. Before a player can play in a game, they must register with the game engine.
+
+2.11. Different game engines can run different games using the same basic game engine software.
+
+2.12. The different games will be defined by the JSON files that get loaded at start up. Or the game engine can download and dynamically reconfigure or add games, rules, players, AI, etc.
 
 ## 3. Human Player Interface
 
@@ -92,6 +110,10 @@
 
 7.2. Each cell in the grid can have different properties.
 
+7.3. The game can have fog of war in which a player can only see a limited view of the game map.
+
+7.4. Game configuration such as number of players, objects, maps, capabilities, and rules will be part of one or more JSON files.
+
 ## 8. Authentication
 
 8.1. Human players will authenticate by password.
@@ -99,6 +121,8 @@
 8.2. AI players will authenticate by tokens.
 
 8.3. The player API will require authentication for all requests.
+
+8.4. Each player can pick up objects in the game, which may or may not give them additional capability.
 
 ## 9. Player State
 
@@ -131,29 +155,3 @@
 ## 12. Data Persistence
 
 12.1. Data persistence is an implementation detail and not a requirement.
-
-## 13. Random Notes
-
-13.1. The game can have fog of war in which a player can only see a limited view of the game map.
-
-13.2. Each player can pick up objects in the game, which may or may not give them additional capability.
-
-13.3. Game configuration such as number of players, objects, maps, capabilities, and rules will be part of one or more JSON files.
-
-13.4. At the start of a game, the game engine and all software modules such as human player interface and AI will load game configuration from JSON files and do dynamic configuration.
-
-13.5. Human players can select different games to play and start playing either as a single user with AI or with other human players or a mixture of human players and AI.
-
-13.6. Players can form teams within the game.
-
-13.7. A human player can select whether a game is solo with only one human player or multiple players.
-
-13.8. The human user can identify friends within the group of players and choose whether a game will only be with friends or is open to all.
-
-13.9. The game engine will keep a database of all known players, human or AI, to access those as part of the security input for the game.
-
-13.10. Before a player can play in a game, they must register with the game engine.
-
-13.11. Different game engines can run different games using the same basic game engine software.
-
-13.12. The different games will be defined by the JSON files that get loaded at start up. Or the game engine can download and dynamically reconfigure or add games, rules, players, AI, etc.
