@@ -50,6 +50,8 @@
 
 2.15. The human user can identify friends within the group of players and choose whether a game will only be with friends or is open to all.
 
+2.16. Game state is persistent between pauses in game play.
+
 ## 3. Human Player Interface
 
 3.1. The human interface will be accessed through a webpage or optionally a web app single page.
@@ -149,7 +151,3 @@
 11.3. Players may pay subscriptions to get access to games.
 
 11.4. Some game servers will require a subscription for some or all games.
-
-## 12. Data Persistence
-
-12.1. Data persistence is an implementation detail and not a requirement.
