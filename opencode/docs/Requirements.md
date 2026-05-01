@@ -18,14 +18,6 @@
 
 1.8. A server based game can receive commands or interact with the API, serve the API as with local running processes or remote processes. This goes for both human and AI players.
 
-1.9. Human players can select different games to play and start playing either as a single user with AI or with other human players or a mixture of human players and AI.
-
-1.10. Players can form teams within the game.
-
-1.11. A human player can select whether a game is solo with only one human player or multiple players.
-
-1.12. The human user can identify friends within the group of players and choose whether a game will only be with friends or is open to all.
-
 ## 2. Game Engine
 
 2.1. The game engine will administer all rules of the game and enforce correct gameplay.
@@ -38,41 +30,45 @@
 
 2.5. Security for the game will be administered by the game engine.
 
-2.6. Each player will have to login as a user with a password.
+2.6. The game engine will not allow players to connect without proper security.
 
-2.7. The game engine will not allow players to connect without proper security.
+2.7. At the start of a game, the game engine and all software modules such as human player interface and AI will load game configuration from JSON files and do dynamic configuration.
 
-2.8. At the start of a game, the game engine and all software modules such as human player interface and AI will load game configuration from JSON files and do dynamic configuration.
+2.8. The game engine will keep a database of all known players, human or AI, to access those as part of the security input for the game.
 
-2.9. The game engine will keep a database of all known players, human or AI, to access those as part of the security input for the game.
+2.9. Before a player can play in a game, they must register with the game engine.
 
-2.10. Before a player can play in a game, they must register with the game engine.
+2.10. Different game engines can run different games using the same basic game engine software.
 
-2.11. Different game engines can run different games using the same basic game engine software.
+2.11. The different games will be defined by the JSON files that get loaded at start up. Or the game engine can download and dynamically reconfigure or add games, rules, players, AI, etc.
 
-2.12. The different games will be defined by the JSON files that get loaded at start up. Or the game engine can download and dynamically reconfigure or add games, rules, players, AI, etc.
+2.12. Human players can select different games to play and start playing either as a single user with AI or with other human players or a mixture of human players and AI.
+
+2.13. Players can form teams within the game.
+
+2.14. A human player can select whether a game is solo with only one human player or multiple players.
+
+2.15. The human user can identify friends within the group of players and choose whether a game will only be with friends or is open to all.
 
 ## 3. Human Player Interface
 
 3.1. The human interface will be accessed through a webpage or optionally a web app single page.
 
-3.2. Each human player must enter the proper security credentials in order to interact with the game engine.
+3.2. The human player software will interact with the game engine through the player API.
 
-3.3. The human player software will interact with the game engine through the player API.
+3.3. The human interface will display a map and controls.
 
-3.4. The human interface will display a map and controls.
+3.4. The UI will be a combination of TypeScript, HTML, and CSS.
 
-3.5. The UI will be a combination of TypeScript, HTML, and CSS.
+3.5. There will be settings for the human player that allow the user to make configurations, which will be saved in a JSON file.
 
-3.6. There will be settings for the human player that allow the user to make configurations, which will be saved in a JSON file.
+3.6. The user interface will receive game state from the game engine.
 
-3.7. The user interface will receive game state from the game engine.
+3.7. The game state will be shown as a current map and state of all visible players.
 
-3.8. The game state will be shown as a current map and state of all visible players.
+3.8. There will be controls for the human to interact with the game and allow the player to make move decisions.
 
-3.9. There will be controls for the human to interact with the game and allow the player to make move decisions.
-
-3.10. The human player will have a display to make player movements and commands, which will be sent to the game engine through the player API.
+3.9. The human player will have a display to make player movements and commands, which will be sent to the game engine through the player API.
 
 ## 4. AI Artificial Intelligence
 
@@ -122,7 +118,7 @@
 
 8.3. The player API will require authentication for all requests.
 
-8.4. Each player can pick up objects in the game, which may or may not give them additional capability.
+8.4. Each human player must enter the proper security credentials in order to interact with the game engine.
 
 ## 9. Player State
 
@@ -133,6 +129,8 @@
 9.3. Each player will have a health state.
 
 9.4. A player should get their state through the Player API.
+
+9.5. Each player can pick up objects in the game, which may or may not give them additional capability.
 
 ## 10. Game End Conditions
 
