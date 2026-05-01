@@ -39,6 +39,9 @@ interface MockServer {
 | `/friends/add` | `POST` | Add a friend | `{ "friendId": string }` | `{ "status": "success" }` |
 | `/friends/remove` | `POST` | Remove a friend | `{ "friendId": string }` | `{ "status": "success" }` |
 | `/games` | `GET` | List available game types from config | N/A | `GameType[]` |
+| `/games/{gameId}/purchase` | `POST` | Purchase access to a game | `PurchaseRequest` | `PurchaseResponse` |
+| `/subscription` | `GET` | Get current player's subscription status | N/A | `SubscriptionStatus` |
+| `/subscription/purchase` | `POST` | Purchase or renew subscription | `SubscriptionRequest` | `SubscriptionResponse` |
 | `/games/create` | `POST` | Create a new game room | `CreateGameRequest` | `CreateGameResponse` |
 | `/games/join` | `POST` | Join an existing game room | `JoinGameRequest` | `JoinGameResponse` |
 | `/games/{gameId}` | `GET` | Get game room details | N/A | `GameRoom` |
@@ -139,6 +142,38 @@ interface GameType {
   supportsSolo: boolean;
   supportsTeams: boolean;
   defaultConfig: GameConfig;
+  price?: number; // Cost to play (undefined = free)
+  requiresSubscription: boolean; // Whether a subscription is needed
+}
+
+interface PurchaseRequest {
+  gameId: string;
+  paymentMethod: string; // Implementation detail (credit card, etc.)
+}
+
+interface PurchaseResponse {
+  status: 'success' | 'insufficient_funds' | 'already_purchased';
+  transactionId?: string;
+  message?: string;
+}
+
+interface SubscriptionStatus {
+  active: boolean;
+  expiresAt?: number; // Timestamp
+  tier: 'free' | 'basic' | 'premium';
+  accessibleGames: string[]; // Game IDs accessible via subscription
+}
+
+interface SubscriptionRequest {
+  tier: 'basic' | 'premium';
+  paymentMethod: string;
+  duration: number; // Months
+}
+
+interface SubscriptionResponse {
+  status: 'success' | 'insufficient_funds';
+  expiresAt: number;
+  tier: string;
 }
 
 interface GameConfig {

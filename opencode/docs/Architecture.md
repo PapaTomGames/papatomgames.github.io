@@ -11,7 +11,7 @@ The system follows a layered architecture to ensure separation of concerns:
 - **Domain Layer**: 
     - **Game Engine**: The core logic responsible for rule enforcement, turn management, and security.
     - **Game State**: The representation of the current game world, including the map and player statuses.
-- **Infrastructure Layer**: Handles JSON-based configuration loading, network communication (REST), and optional data persistence.
+- **Infrastructure Layer**: Handles JSON-based configuration loading, network communication (REST), optional data persistence, and **monetization** (game purchases, subscriptions).
 
 ## 3. Major Components
 
@@ -116,6 +116,16 @@ A comprehensive testing suite is required to ensure stability:
 - **Integration Testing**: Verifying the interaction between the UI, API, and Game Engine.
 - **End-to-End (E2E) Testing**: Simulating complete game flows from registration to game completion.
 - **Tooling**: Tests must be runnable via command line with code coverage reporting.
+
+## 11. Monetization
+The system supports multiple monetization models:
+
+- **Free Initial Solo Games**: New players can try solo games at no cost.
+- **Paid Games**: Some game types have a price (`GameType.price`) that players must pay before joining.
+- **Subscriptions**: Players may purchase subscriptions (`/subscription/purchase`) to get access to a catalog of games. Subscription tiers (`basic`, `premium`) determine which games are accessible.
+- **Server Subscriptions**: Some game servers require a subscription for some or all games hosted on that server. The server checks the player's subscription status before allowing game creation or joining.
+
+Monetization is handled at the API layer, with the Game Engine enforcing access based on the player's purchase/subscription status.
 
 ## 10. Deployment
 - **Target Platform**: GitHub Pages.
