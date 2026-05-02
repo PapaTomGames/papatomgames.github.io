@@ -52,6 +52,12 @@
 
 2.16. Game state is persistent between pauses in game play.
 
+2.17. Games can have multiple levels organized as a campaign.
+
+2.18. Levels can have intermediate objectives such as reaching a specific location.
+
+2.19. Completing all objectives in a level advances the player to the next level.
+
 ## 3. Human Player Interface
 
 3.1. The human interface will be accessed through a webpage or optionally a web app single page.

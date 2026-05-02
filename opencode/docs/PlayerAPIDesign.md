@@ -39,6 +39,9 @@ interface MockServer {
 | `/friends/add` | `POST` | Add a friend | `{ "friendId": string }` | `{ "status": "success" }` |
 | `/friends/remove` | `POST` | Remove a friend | `{ "friendId": string }` | `{ "status": "success" }` |
 | `/games` | `GET` | List available game types from config | N/A | `GameType[]` |
+| `/games/{gameId}/levels` | `GET` | Get campaign levels for a game | N/A | `Level[]` |
+| `/games/{gameId}/level/{levelId}/start` | `POST` | Start or restart a level | N/A | `{ "status": "success", "levelState": LevelState }` |
+| `/games/{gameId}/level/{levelId}/complete` | `POST` | Mark level as completed | N/A | `{ "status": "success", "nextLevelId?": string }` |
 | `/games/{gameId}/purchase` | `POST` | Purchase access to a game | `PurchaseRequest` | `PurchaseResponse` |
 | `/subscription` | `GET` | Get current player's subscription status | N/A | `SubscriptionStatus` |
 | `/subscription/purchase` | `POST` | Purchase or renew subscription | `SubscriptionRequest` | `SubscriptionResponse` |
@@ -144,6 +147,39 @@ interface GameType {
   defaultConfig: GameConfig;
   price?: number; // Cost to play (undefined = free)
   requiresSubscription: boolean; // Whether a subscription is needed
+  campaign?: CampaignConfig; // Optional campaign with multiple levels
+}
+
+interface CampaignConfig {
+  levels: Level[];
+  sequential: boolean; // Must complete levels in order
+}
+
+interface Level {
+  levelId: string;
+  name: string;
+  description: string;
+  objectives: Objective[];
+  mapConfig: GameConfig;
+  unlockRequirements?: string[]; // Level IDs that must be completed first
+}
+
+interface Objective {
+  type: 'REACH_LOCATION' | 'ELIMINATE_TARGET' | 'COLLECT_ITEMS' | 'SURVIVE_TURNS';
+  target?: { x: number; y: number }; // For REACH_LOCATION
+  targetId?: string; // For ELIMINATE_TARGET
+  itemType?: string; // For COLLECT_ITEMS
+  count?: number; // For COLLECT_ITEMS or SURVIVE_TURNS
+  completed: boolean;
+}
+
+interface LevelState {
+  levelId: string;
+  gameId: string;
+  currentTurn: number;
+  objectives: Objective[];
+  completed: boolean;
+  completedAt?: number;
 }
 
 interface PurchaseRequest {

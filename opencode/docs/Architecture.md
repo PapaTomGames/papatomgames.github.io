@@ -1,4 +1,4 @@
-# Software Architecture Document: Turn-based Strategic Game
+,# Software Architecture Document: Turn-based Strategic Game
 
 ## 1. System Overview
 The system is a modular, turn-based strategic game designed to support both human and AI players. It is built with a focus on flexibility, allowing it to run either as a server-based application with a web interface or as a local single-page application (SPA). The game's behavior, rules, and environment are dynamically configured using JSON files, enabling the same core engine to support multiple different game types.
@@ -21,6 +21,7 @@ The Game Engine is the central authority of the system. Its primary responsibili
 - **Turn Management**: Managing the sequence of turns for all active players.
 - **Security**: Handling authentication and authorizing API requests.
 - **Dynamic Configuration**: Loading game rules and settings from JSON files at startup.
+- **Campaign Management**: Managing multiple levels with objectives (e.g., reach a location) for campaign-style games.
 
 ### 3.2 UI (TypeScript + HTML + CSS)
 The UI provides the human player's window into the game:
