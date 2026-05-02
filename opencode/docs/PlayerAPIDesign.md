@@ -160,7 +160,8 @@ interface Level {
   name: string;
   description: string;
   objectives: Objective[];
-  mapConfig: GameConfig;
+  mapConfig: GameConfig; // Unique map for this level
+  objects: GameObject[]; // Unique objects for this level
   unlockRequirements?: string[]; // Level IDs that must be completed first
 }
 

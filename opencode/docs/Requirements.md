@@ -58,6 +58,10 @@
 
 2.19. Completing all objectives in a level advances the player to the next level.
 
+2.20. Each level may have a unique map.
+
+2.21. Each level may have unique objects.
+
 ## 3. Human Player Interface
 
 3.1. The human interface will be accessed through a webpage or optionally a web app single page.
