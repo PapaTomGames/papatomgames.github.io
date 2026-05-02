@@ -16,6 +16,9 @@ A turn-based strategic game platform with dynamic configuration via JSON files.
 - [Game State Design](docs/GameStateDesign.md) - Data structures and state management
 - [Authentication Design](docs/AuthenticationDesign.md) - Security and authentication flows
 
+### Games
+- [Zombies](docs/games/Zombies.md) - Turn-based zombie survival game
+
 ## Quick Start
 
 (Coming soon)
