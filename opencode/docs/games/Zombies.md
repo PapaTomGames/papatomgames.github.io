@@ -60,15 +60,15 @@ Z.22. Each zombie moves in the direction of the player, choosing the shortest di
 
 Z.23. If the distance in x and y is the same, the zombie will always choose the x direction.
 
-Z.24. If a zombie reaches the player's position, the player dies and the game is over (loss).
+Z.24. Zombies can attack player units when in range.
 
-Z.25. Zombies can attack player units when in range.
-
-Z.26. Eliminating zombies may grant rewards or experience.
+Z.25. Eliminating zombies may grant rewards or experience.
 
 ### Objectives
 
-Z.27. The primary objective is to survive for a set number of turns.
+Z.26. The primary objective is to eliminate all zombies in the level.
+
+Z.27. When all zombies have died, the player moves to the next level.
 
 Z.28. Secondary objectives may include reaching specific locations on the map.
 
@@ -76,32 +76,38 @@ Z.29. Collecting certain objects may be required to complete a level.
 
 ### Combat
 
-Z.30. The player can attack zombies within range.
+Z.31. The player can attack zombies within range.
+
+Z.32. Combat is turn-based and resolved immediately when the action is submitted.
+
+Z.33. Damage dealt depends on the player's strengths and equipped items.
 
 Z.31. Combat is turn-based and resolved immediately when the action is submitted.
 
-Z.32. Damage dealt depends on the player's strengths and equipped items.
+Z.33. Damage dealt depends on the player's strengths and equipped items.
 
 ### Items and Objects
 
-Z.33. The map contains pick-up-able objects (weapons, health packs, tools).
+Z.34. The map contains pick-up-able objects (weapons, health packs, tools).
 
-Z.34. Picking up objects grants strengths or restores health.
+Z.35. Picking up objects grants strengths or restores health.
 
-Z.35. Some objects may be required to complete level objectives.
+Z.36. Some objects may be required to complete level objectives.
 
 ### Fog of War
 
-Z.36. Fog of war is enabled by default.
+Z.37. Fog of war is enabled by default.
 
-Z.37. The player can only see a limited radius around their unit.
+Z.38. The player can only see a limited radius around their unit.
 
-Z.38. Moving the unit reveals new areas of the map.
+Z.39. Moving the unit reveals new areas of the map.
 
 ### Game End
 
-Z.39. The game ends when the player is eliminated by a zombie or hole (loss).
+Z.40. The player loses the game if a zombie catches them (loss).
 
-Z.40. The game ends when the survival objective is completed (win).
+Z.41. The player loses the game if they fall into a hole (loss).
 
-Z.41. The game ends when the player manually ends it.
+Z.42. The player wins the game when all zombies have died on the last level (win).
+
+Z.43. The game ends when the player manually ends it.
