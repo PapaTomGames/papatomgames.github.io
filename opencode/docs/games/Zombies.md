@@ -40,49 +40,47 @@ Z.14. Once filled, the hole disappears and the player or zombies can move over i
 
 Z.15. A hole cannot be located on the edge of the map.
 
+Z.16. There will be no other objects in the first three levels.
+
 ### Players
 
-Z.16. The player controls a single unit.
+Z.17. The player controls a single unit.
 
-Z.17. The player has health, inventory, and strengths.
+Z.18. The player has health, inventory, and strengths.
 
-Z.18. The player can move one square in any direction (up, down, left, right) or stay in the same place.
+Z.19. The player can move one square in any direction (up, down, left, right) or stay in the same place.
 
 ### Zombies
 
-Z.19. Zombies are AI-controlled enemies on the map.
+Z.20. Zombies are AI-controlled enemies on the map.
 
-Z.20. Each level has between 5 and 10 zombies.
+Z.21. Each level has between 5 and 10 zombies.
 
-Z.21. Each zombie moves one space per turn horizontally or vertically (not diagonally).
+Z.22. Each zombie moves one space per turn horizontally or vertically (not diagonally).
 
-Z.22. Each zombie moves in the direction of the player, choosing the shortest distance in x or y direction.
+Z.23. Each zombie moves in the direction of the player, choosing the shortest distance in x or y direction.
 
-Z.23. If the distance in x and y is the same, the zombie will always choose the x direction.
+Z.24. If the distance in x and y is the same, the zombie will always choose the x direction.
 
-Z.24. Zombies can attack player units when in range.
+Z.25. Zombies can attack player units when in range.
 
-Z.25. Eliminating zombies may grant rewards or experience.
+Z.26. Eliminating zombies may grant rewards or experience.
 
 ### Objectives
 
-Z.26. The primary objective is to eliminate all zombies in the level.
+Z.27. The primary objective is to eliminate all zombies in the level.
 
-Z.27. When all zombies have died, the player moves to the next level.
+Z.28. When all zombies have died, the player moves to the next level.
 
-Z.28. Secondary objectives may include reaching specific locations on the map.
+Z.29. Secondary objectives may include reaching specific locations on the map.
 
-Z.29. Collecting certain objects may be required to complete a level.
+Z.30. Collecting certain objects may be required to complete a level.
 
 ### Combat
 
 Z.31. The player can attack zombies within range.
 
 Z.32. Combat is turn-based and resolved immediately when the action is submitted.
-
-Z.33. Damage dealt depends on the player's strengths and equipped items.
-
-Z.31. Combat is turn-based and resolved immediately when the action is submitted.
 
 Z.33. Damage dealt depends on the player's strengths and equipped items.
 
