@@ -40,48 +40,56 @@ Z.12. The player can move one square in any direction (up, down, left, right) or
 
 Z.13. Zombies are AI-controlled enemies on the map.
 
-Z.14. Zombies move toward the nearest player unit each turn.
+Z.14. Each level has between 5 and 10 zombies.
 
-Z.15. Zombies can attack player units when in range.
+Z.15. Each zombie moves one space per turn horizontally or vertically (not diagonally).
 
-Z.16. Eliminating zombies may grant rewards or experience.
+Z.16. Each zombie moves in the direction of the player, choosing the shortest distance in x or y direction.
+
+Z.17. If the distance in x and y is the same, the zombie will always choose the x direction.
+
+Z.18. If a zombie reaches the player's position, the player dies and the game is over (loss).
+
+Z.19. Zombies can attack player units when in range.
+
+Z.20. Eliminating zombies may grant rewards or experience.
 
 ### Objectives
 
-Z.17. The primary objective is to survive for a set number of turns.
+Z.21. The primary objective is to survive for a set number of turns.
 
-Z.18. Secondary objectives may include reaching specific locations on the map.
+Z.22. Secondary objectives may include reaching specific locations on the map.
 
-Z.19. Collecting certain objects may be required to complete a level.
+Z.23. Collecting certain objects may be required to complete a level.
 
 ### Combat
 
-Z.20. The player can attack zombies within range.
+Z.24. The player can attack zombies within range.
 
-Z.21. Combat is turn-based and resolved immediately when the action is submitted.
+Z.25. Combat is turn-based and resolved immediately when the action is submitted.
 
-Z.22. Damage dealt depends on the player's strengths and equipped items.
+Z.26. Damage dealt depends on the player's strengths and equipped items.
 
 ### Items and Objects
 
-Z.23. The map contains pick-up-able objects (weapons, health packs, tools).
+Z.27. The map contains pick-up-able objects (weapons, health packs, tools).
 
-Z.24. Picking up objects grants strengths or restores health.
+Z.28. Picking up objects grants strengths or restores health.
 
-Z.25. Some objects may be required to complete level objectives.
+Z.29. Some objects may be required to complete level objectives.
 
 ### Fog of War
 
-Z.26. Fog of war is enabled by default.
+Z.30. Fog of war is enabled by default.
 
-Z.27. The player can only see a limited radius around their unit.
+Z.31. The player can only see a limited radius around their unit.
 
-Z.28. Moving the unit reveals new areas of the map.
+Z.32. Moving the unit reveals new areas of the map.
 
 ### Game End
 
-Z.29. The game ends when the player is eliminated (loss).
+Z.33. The game ends when the player is eliminated by a zombie (loss).
 
-Z.30. The game ends when the survival objective is completed (win).
+Z.34. The game ends when the survival objective is completed (win).
 
-Z.31. The game ends when the player manually ends it.
+Z.35. The game ends when the player manually ends it.
