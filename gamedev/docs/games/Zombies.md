@@ -26,9 +26,7 @@ Z.2.4. The player starts in the middle of the map (position 10, 10).
 
 Z.2.5. The map will contain various terrain types (grass, forest, mountain, water).
 
-Z.2.6. Some terrain types may provide defensive bonuses or movement penalties.
-
-Z.2.7. There are randomly located holes on the map.
+Z.2.7. There are randomly located holes on the map (random positions).
 
 Z.2.8. The number of holes is CEILING(Z/5) where Z is the number of zombies.
 
@@ -56,7 +54,7 @@ Z.3.3. The player can move one square in any direction (up, down, left, right) o
 
 Z.4.1. Zombies are AI-controlled enemies on the map.
 
-Z.4.2. Each level has between 5 and 10 zombies.
+Z.4.2. Each level has a random number of zombies (5-10) located in random positions.
 
 Z.4.3. Each zombie moves one space per turn horizontally or vertically (not diagonally).
 
@@ -64,19 +62,17 @@ Z.4.4. Each zombie moves in the direction of the player, choosing the shortest d
 
 Z.4.5. If the distance in x and y is the same, the zombie will always choose the x direction.
 
-Z.4.6. Zombies can attack player units when in range.
+Z.4.6. A zombie that catches the player kills them and the game is over (loss).
 
-Z.4.7. Eliminating zombies may grant rewards or experience.
+Z.4.7. Zombies can attack player units when in range.
+
+Z.4.7. Eliminating zombies has no rewards. The player wins or loses.
 
 ### 5. Objectives
 
 Z.5.1. The primary objective is to eliminate all zombies in the level.
 
 Z.5.2. When all zombies have died, the player moves to the next level.
-
-Z.5.3. Secondary objectives may include reaching specific locations on the map.
-
-Z.5.4. Collecting certain objects may be required to complete a level.
 
 ### 6. Combat
 
@@ -92,19 +88,17 @@ Z.7.1. The map contains pick-up-able objects (weapons, tools).
 
 Z.7.2. Picking up objects grants strengths.
 
-Z.7.3. Some objects may be required to complete level objectives.
+Z.7.3. **Shovel**: Can be used to fill holes (removes 1 zombie from hole count, fills faster). Only available on level 4.
 
-Z.7.4. **Shovel**: Can be used to fill holes (removes 1 zombie from hole count, fills faster). Only available on level 4.
+Z.7.4. **Shovel**: Can be used to dig holes. It takes one turn to dig 1 unit deep. A player may possess the shovel for multiple levels. The shovel only digs — it cannot attack.
 
-Z.7.5. **Shovel**: Can be used to dig holes. It takes one turn to dig 1 unit deep. A player may possess the shovel for multiple levels. The shovel only digs — it cannot attack.
+Z.7.5. The maximum depth of a dug hole is 5 units.
 
-Z.7.6. The maximum depth of a dug hole is 5 units.
+Z.7.6. A dug hole can hold as many zombies as units dug (depth = capacity).
 
-Z.7.7. A dug hole can hold as many zombies as units dug (depth = capacity).
+Z.7.7. The player does not fall in the hole while digging.
 
-Z.7.8. The player does not fall in the hole while digging.
-
-Z.7.9. If a player moves out of the hole and back in, they will fall in the hole.
+Z.7.8. If a player moves out of the hole and back in, they will fall in the hole.
 
 Z.7.10. **Stick**: A basic weapon that can be used to attack zombies. Kills a zombie on each move. Can kill 5 zombies before it breaks. Once broken, it is no longer possessed.
 
