@@ -96,7 +96,7 @@ Z.7.3. Some objects may be required to complete level objectives.
 
 Z.7.4. **Shovel**: Can be used to fill holes (removes 1 zombie from hole count, fills faster). Only available on level 4.
 
-Z.7.5. **Shovel**: Can be used to dig holes. It takes one turn to dig 1 unit deep. A player may possess the shovel for multiple levels.
+Z.7.5. **Shovel**: Can be used to dig holes. It takes one turn to dig 1 unit deep. A player may possess the shovel for multiple levels. The shovel only digs — it cannot attack.
 
 Z.7.6. The maximum depth of a dug hole is 5 units.
 
@@ -106,9 +106,7 @@ Z.7.8. The player does not fall in the hole while digging.
 
 Z.7.9. If a player moves out of the hole and back in, they will fall in the hole.
 
-Z.7.10. **Stick**: A basic weapon that can be used to attack zombies. Deals minimal damage but better than no weapon.
-
-Z.7.11. A stick can kill 5 zombies (attack or defense) before it breaks. Once broken, it is no longer possessed.
+Z.7.10. **Stick**: A basic weapon that can be used to attack zombies. Kills a zombie on each move. Can kill 5 zombies before it breaks. Once broken, it is no longer possessed.
 
 ### 8. Game End
 
