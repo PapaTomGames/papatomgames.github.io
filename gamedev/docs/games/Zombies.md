@@ -94,9 +94,9 @@ Z.7.2. Picking up objects grants strengths or restores health.
 
 Z.7.3. Some objects may be required to complete level objectives.
 
-Z.7.4. **Shovel**: Can be used to fill holes (removes 1 zombie from hole count, fills faster).
+Z.7.4. **Shovel**: Can be used to fill holes (removes 1 zombie from hole count, fills faster). Only available on level 4.
 
-Z.7.5. **Shovel**: Can be used to dig holes. It takes one turn to dig 1 unit deep.
+Z.7.5. **Shovel**: Can be used to dig holes. It takes one turn to dig 1 unit deep. Only available on level 4.
 
 Z.7.6. The maximum depth of a dug hole is 5 units.
 
