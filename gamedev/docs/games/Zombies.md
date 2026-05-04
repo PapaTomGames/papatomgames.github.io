@@ -48,7 +48,7 @@ Z.2.14. There will be one new object per level starting at level 4.
 
 Z.3.1. The player controls a single unit.
 
-Z.3.2. The player has health, inventory, and strengths.
+Z.3.2. The player has inventory and strengths.
 
 Z.3.3. The player can move one square in any direction (up, down, left, right) or stay in the same place.
 
@@ -88,9 +88,9 @@ Z.6.3. Damage dealt depends on the player's strengths and equipped items.
 
 ### 7. Items and Objects
 
-Z.7.1. The map contains pick-up-able objects (weapons, health packs, tools).
+Z.7.1. The map contains pick-up-able objects (weapons, tools).
 
-Z.7.2. Picking up objects grants strengths or restores health.
+Z.7.2. Picking up objects grants strengths.
 
 Z.7.3. Some objects may be required to complete level objectives.
 
@@ -108,16 +108,12 @@ Z.7.9. If a player moves out of the hole and back in, they will fall in the hole
 
 Z.7.10. **Stick**: A basic weapon that can be used to attack zombies. Deals minimal damage but better than no weapon.
 
-Z.7.11. If a player is carrying a stick, they will kill the zombie if it catches them (defense).
-
-Z.7.12. A stick can kill 5 zombies (attack or defense) before it breaks. Once broken, it is no longer possessed.
+Z.7.11. A stick can kill 5 zombies (attack or defense) before it breaks. Once broken, it is no longer possessed.
 
 ### 8. Game End
 
-Z.8.1. The player loses the game if a zombie catches them (loss), unless they are carrying a stick.
+Z.8.1. The player loses the game if they fall into a hole (loss).
 
-Z.8.2. The player loses the game if they fall into a hole (loss).
+Z.8.2. The player wins the game when all zombies have died on the last level (win).
 
-Z.8.3. The player wins the game when all zombies have died on the last level (win).
-
-Z.8.4. The game ends when the player manually ends it.
+Z.8.3. The game ends when the player manually ends it.
