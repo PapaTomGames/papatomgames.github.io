@@ -92,20 +92,24 @@ Z.35. Picking up objects grants strengths or restores health.
 
 Z.36. Some objects may be required to complete level objectives.
 
+Z.37. **Shovel**: Can be used to fill holes. Using the shovel on a hole removes one zombie from the hole count (hole fills faster).
+
+Z.38. **Stick**: A basic weapon that can be used to attack zombies. Deals minimal damage but better than no weapon.
+
 ### Fog of War
 
-Z.37. Fog of war is enabled by default.
+Z.39. Fog of war is enabled by default.
 
-Z.38. The player can only see a limited radius around their unit.
+Z.40. The player can only see a limited radius around their unit.
 
-Z.39. Moving the unit reveals new areas of the map.
+Z.41. Moving the unit reveals new areas of the map.
 
 ### Game End
 
-Z.40. The player loses the game if a zombie catches them (loss).
+Z.42. The player loses the game if a zombie catches them (loss).
 
-Z.41. The player loses the game if they fall into a hole (loss).
+Z.43. The player loses the game if they fall into a hole (loss).
 
-Z.42. The player wins the game when all zombies have died on the last level (win).
+Z.44. The player wins the game when all zombies have died on the last level (win).
 
-Z.43. The game ends when the player manually ends it.
+Z.45. The game ends when the player manually ends it.
