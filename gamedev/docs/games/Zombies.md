@@ -42,6 +42,8 @@ Z.2.12. A hole cannot be located on the edge of the map.
 
 Z.2.13. There will be no other objects in the first three levels.
 
+Z.2.14. There will be one new object per level starting at level 4.
+
 ### 3. Players
 
 Z.3.1. The player controls a single unit.
