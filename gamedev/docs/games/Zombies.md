@@ -110,7 +110,7 @@ Z.7.10. **Stick**: A basic weapon that can be used to attack zombies. Deals mini
 
 Z.7.11. If a player is carrying a stick, they will kill the zombie if it catches them (defense).
 
-Z.7.12. A stick can kill 5 zombies (attack or defense) before it breaks.
+Z.7.12. A stick can kill 5 zombies (attack or defense) before it breaks. Once broken, it is no longer possessed.
 
 ### 8. Game End
 
