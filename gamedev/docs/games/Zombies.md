@@ -104,22 +104,28 @@ Z.41. The player does not fall in the hole while digging.
 
 Z.42. If a player moves out of the hole and back in, they will fall in the hole.
 
-Z.43. **Stick**: A basic weapon that can be used to attack zombies. Deals minimal damage but better than no weapon.
+Z.44. **Stick**: A basic weapon that can be used to attack zombies. Deals minimal damage but better than no weapon.
+
+Z.45. If a player is carrying a stick, they will kill the zombie if it catches them (defense).
+
+Z.46. A stick can kill 5 zombies (attack or defense) before it breaks.
 
 ### Fog of War
 
-Z.44. Fog of war is enabled by default.
+### Fog of War
 
-Z.45. The player can only see a limited radius around their unit.
+Z.47. Fog of war is enabled by default.
 
-Z.46. Moving the unit reveals new areas of the map.
+Z.48. The player can only see a limited radius around their unit.
+
+Z.49. Moving the unit reveals new areas of the map.
 
 ### Game End
 
-Z.47. The player loses the game if a zombie catches them (loss).
+Z.50. The player loses the game if a zombie catches them (loss), unless they are carrying a stick.
 
-Z.48. The player loses the game if they fall into a hole (loss).
+Z.51. The player loses the game if they fall into a hole (loss).
 
-Z.49. The player wins the game when all zombies have died on the last level (win).
+Z.52. The player wins the game when all zombies have died on the last level (win).
 
-Z.50. The game ends when the player manually ends it.
+Z.53. The game ends when the player manually ends it.
