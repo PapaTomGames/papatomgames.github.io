@@ -92,24 +92,34 @@ Z.35. Picking up objects grants strengths or restores health.
 
 Z.36. Some objects may be required to complete level objectives.
 
-Z.37. **Shovel**: Can be used to fill holes. Using the shovel on a hole removes one zombie from the hole count (hole fills faster).
+Z.37. **Shovel**: Can be used to fill holes (removes 1 zombie from hole count, fills faster).
 
-Z.38. **Stick**: A basic weapon that can be used to attack zombies. Deals minimal damage but better than no weapon.
+Z.38. **Shovel**: Can be used to dig holes. It takes one turn to dig 1 unit deep.
+
+Z.39. The maximum depth of a dug hole is 5 units.
+
+Z.40. A dug hole can hold as many zombies as units dug (depth = capacity).
+
+Z.41. The player does not fall in the hole while digging.
+
+Z.42. If a player moves out of the hole and back in, they will fall in the hole.
+
+Z.43. **Stick**: A basic weapon that can be used to attack zombies. Deals minimal damage but better than no weapon.
 
 ### Fog of War
 
-Z.39. Fog of war is enabled by default.
+Z.44. Fog of war is enabled by default.
 
-Z.40. The player can only see a limited radius around their unit.
+Z.45. The player can only see a limited radius around their unit.
 
-Z.41. Moving the unit reveals new areas of the map.
+Z.46. Moving the unit reveals new areas of the map.
 
 ### Game End
 
-Z.42. The player loses the game if a zombie catches them (loss).
+Z.47. The player loses the game if a zombie catches them (loss).
 
-Z.43. The player loses the game if they fall into a hole (loss).
+Z.48. The player loses the game if they fall into a hole (loss).
 
-Z.44. The player wins the game when all zombies have died on the last level (win).
+Z.49. The player wins the game when all zombies have died on the last level (win).
 
-Z.45. The game ends when the player manually ends it.
+Z.50. The game ends when the player manually ends it.
