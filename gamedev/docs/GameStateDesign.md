@@ -35,6 +35,8 @@ interface Cell {
   terrainType: 'GRASS' | 'FOREST' | 'MOUNTAIN' | 'WATER';
   occupantId?: string; // ID of the player or object currently in the cell
   modifiers: Modifier[]; // e.g., "defensive_bonus", "slow_movement"
+  holeDepth?: number; // Depth of hole in this cell (undefined = no hole)
+  zombiesInHole?: number; // Number of zombies currently in the hole (fills hole when >= holeDepth * 5)
 }
 ```
 
@@ -60,6 +62,7 @@ interface InventoryItem {
   type: string;
   properties: Record<string, any>;
   equipped: boolean; // Whether the item is currently active
+  usesRemaining?: number; // Durability/uses left before item breaks (undefined = infinite)
 }
 
 interface Strength {

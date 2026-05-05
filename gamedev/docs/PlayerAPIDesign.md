@@ -286,7 +286,7 @@ interface TurnActionsRequest {
 
 interface UnitAction {
   unitId: string;
-  actionType: 'MOVE' | 'ATTACK' | 'USE_ITEM' | 'PICKUP' | 'WAIT';
+  actionType: 'MOVE' | 'ATTACK' | 'USE_ITEM' | 'PICKUP' | 'WAIT' | 'DIG';
   target?: { x: number, y: number };
   itemId?: string;
 }
