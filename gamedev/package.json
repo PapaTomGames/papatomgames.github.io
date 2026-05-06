@@ -1,0 +1,21 @@
+{
+  "name": "gamedev",
+  "version": "1.0.0",
+  "description": "A turn-based strategic game platform with dynamic configuration via JSON files.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Tests are designed to run in browser. Open test-runner.html\"",
+    "start": "npx serve ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}

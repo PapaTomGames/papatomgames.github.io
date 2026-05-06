@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombies MVP - Test Runner</title>
+    <style>
+        body { font-family: monospace; background: #1a1a1a; color: #eee; padding: 20px; }
+        .pass { color: #4CAF50; }
+        .fail { color: #f44336; }
+        pre { background: #222; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Zombies MVP - Test Runner</h1>
+    <p>Open the browser console (F12) to see detailed test results.</p>
+    <button onclick="runAllTests()">Run All Tests</button>
+    <div id="results"></div>
+
+    <script type="module">
+        // Import all test modules
+        import '../src/tests/setup.js';
+        import '../src/tests/zombieAi.test.js';
+        import '../src/tests/turnManager.test.js';
+        import '../src/tests/movePlayer.test.js';
+        import '../src/tests/holes.test.js';
+        import '../src/tests/combat.test.js';
+        import '../src/tests/shovel.test.js';
+        import '../src/tests/levels.test.js';
+        import '../src/tests/persistence.test.js';
+        import '../src/tests/integration.test.js';
+
+        window.runAllTests = function() {
+            document.getElementById('results').innerHTML = '<p>Tests executed. Check console for results.</p>';
+        };
+    </script>
+</body>
+</html>
