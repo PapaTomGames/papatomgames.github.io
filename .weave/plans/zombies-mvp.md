@@ -19,28 +19,28 @@ Implement a Minimal Viable Product (MVP) of the Zombies game as a stand-alone we
 Deliver a fully playable, stand-alone web application of the Zombies game that implements all MVP requirements.
 
 ### Deliverables
-- [ ] A single-page web application (HTML/CSS/TS).
-- [ ] Game Engine implementing turn-based logic and zombie AI.
-- [ ] Mock Server for local state management and API simulation.
-- [ ] UI rendering the 20x20 grid and player/zombie/item states.
-- [ ] Implementation of Stick and Shovel mechanics.
-- [ ] 10-level campaign with increasing difficulty.
-- [ ] LocalStorage persistence for game state.
+- [x] A single-page web application (HTML/CSS/TS).
+- [x] Game Engine implementing turn-based logic and zombie AI.
+- [x] Mock Server for local state management and API simulation.
+- [x] UI rendering the 20x20 grid and player/zombie/item states.
+- [x] Implementation of Stick and Shovel mechanics.
+- [x] 10-level campaign with increasing difficulty.
+- [x] LocalStorage persistence for game state.
 
 ### Definition of Done
-- [ ] The game can be launched in a browser and played from Level 1 to Level 10.
-- [ ] All game rules (Z.1.1 - Z.8.3) are implemented and verified.
-- [ ] Game state persists across page refreshes.
-- [ ] No console errors during normal gameplay.
+- [x] The game can be launched in a browser and played from Level 1 to Level 10.
+- [x] All game rules (Z.1.1 - Z.8.3) are implemented and verified.
+- [x] Game state persists across page refreshes.
+- [x] No console errors during normal gameplay.
 
 ### Guardrails (Must NOT)
-- [ ] No external server dependencies.
-- [ ] No use of heavy game engines (e.g., Phaser, Unity); stick to Canvas/DOM and TypeScript.
-- [ ] No multiplayer implementation (MVP is solo only).
+- [x] No external server dependencies.
+- [x] No use of heavy game engines (e.g., Phaser, Unity); stick to Canvas/DOM and TypeScript.
+- [x] No multiplayer implementation (MVP is solo only).
 
 ## TODOs
 
-- [ ] 1. Project Setup & Core State
+- [x] 1. Project Setup & Core State
   **What**: Initialize the project structure, define the `GameState` interfaces, and implement the `MockServer` and `PlayerAPI` for local communication.
   **Files**: 
   - `index.html`
@@ -53,7 +53,7 @@ Deliver a fully playable, stand-alone web application of the Zombies game that i
   **Acceptance**: The app loads in the browser, and the `PlayerAPI` can successfully retrieve and update a basic `GameState` from the `MockServer`.
   **Testing**: Write unit tests for `GameState` creation and `MockServer` CRUD operations. Verify types compile correctly.
 
-- [ ] 2. Basic Grid Rendering & Player Movement
+- [x] 2. Basic Grid Rendering & Player Movement
   **What**: Implement the `MapView` to render the 20x20 grid (400x400px) and the `ControlPanel` to handle player movement (Up, Down, Left, Right, Stay).
   **Files**: 
   - `src/ui/mapView.ts`
@@ -63,7 +63,7 @@ Deliver a fully playable, stand-alone web application of the Zombies game that i
   **Acceptance**: The player is rendered at (10, 10) and moves correctly on the grid in response to input.
   **Testing**: Write unit tests for `GameEngine.movePlayer()` validating boundary checks and position updates. Manual: verify grid renders 20x20 and player moves visually.
 
-- [ ] 3. Zombie Spawning & Basic AI
+- [x] 3. Zombie Spawning & Basic AI
   **What**: Implement zombie spawning (5-10 random positions) and the chase AI (shortest distance, x-direction priority on tie).
   **Files**: 
   - `src/engine/zombieAi.ts`
@@ -73,7 +73,7 @@ Deliver a fully playable, stand-alone web application of the Zombies game that i
   **Acceptance**: Zombies are rendered on the map and move toward the player's position when the engine processes their turn.
   **Testing**: Unit test `ZombieAI.calculateMove()` with various player/zombie positions to verify x-priority tie-breaking. Test spawn count (5-10) and boundary validation.
 
-- [ ] 4. Turn-Based Loop Implementation
+- [x] 4. Turn-Based Loop Implementation
   **What**: Implement the `TurnManager` to coordinate turns: Player Action -> Zombie Actions -> Next Turn.
   **Files**: 
   - `src/engine/turnManager.ts`
@@ -82,7 +82,7 @@ Deliver a fully playable, stand-alone web application of the Zombies game that i
   **Acceptance**: The player can only move during their turn; zombies move automatically after the player completes their action.
   **Testing**: Unit test `TurnManager` to verify turn order, player lock during zombie turn, and state transitions. Test that zombies move after player action.
 
-- [ ] 5. Holes & Hazard Mechanics
+- [x] 5. Holes & Hazard Mechanics
   **What**: Implement random hole generation (CEILING(Z/5)), "falling in" logic for players and zombies, and the hole-filling mechanic (5 zombies).
   **Files**: 
   - `src/engine/gameEngine.ts`
@@ -92,7 +92,7 @@ Deliver a fully playable, stand-alone web application of the Zombies game that i
   **Acceptance**: Moving into a hole results in death/elimination; holes disappear after 5 zombies fall into them.
   **Testing**: Unit test hole generation (count = CEILING(Z/5), not on edges). Test falling logic for player and zombies. Test hole filling after 5 zombies. Test max depth 5.
 
-- [ ] 6. Combat & The Stick
+- [x] 6. Combat & The Stick
   **What**: Implement the Stick item: picking it up, attacking zombies (killing them), and the durability limit (breaks after 5 kills).
   **Files**: 
   - `src/engine/gameEngine.ts`
@@ -103,7 +103,7 @@ Deliver a fully playable, stand-alone web application of the Zombies game that i
   **Acceptance**: Player can pick up a stick, kill a zombie, and the stick is removed from inventory after 5 kills.
   **Testing**: Unit test stick pickup, zombie kill on each move, durability decrement, and stick break after 5 kills. Verify inventory updates correctly.
 
-- [ ] 7. Terrain Modification & The Shovel
+- [x] 7. Terrain Modification & The Shovel
   **What**: Implement the Shovel item (Level 4+): digging holes (1 unit/turn, max 5 depth) and filling existing holes.
   **Files**: 
   - `src/engine/gameEngine.ts`
@@ -113,7 +113,7 @@ Deliver a fully playable, stand-alone web application of the Zombies game that i
   **Acceptance**: Player can dig a hole up to 5 units deep; zombies falling into dug holes are limited by the hole's depth.
   **Testing**: Unit test shovel pickup (level 4+ only), dig action (depth +1 per turn, max 5), fill action (remove 1 zombie from hole count). Test player doesn't fall while digging.
 
-- [ ] 8. Level Progression & Win/Loss Conditions
+- [x] 8. Level Progression & Win/Loss Conditions
   **What**: Implement the 10-level campaign, increasing zombie counts, and the final win/loss screens.
   **Files**: 
   - `src/engine/gameEngine.ts`
@@ -123,7 +123,7 @@ Deliver a fully playable, stand-alone web application of the Zombies game that i
   **Acceptance**: Killing all zombies advances the player to the next level; being caught or falling in a hole triggers a "Game Over" screen.
   **Testing**: Unit test level progression (zombie count increases per level). Test win condition (all zombies dead). Test loss conditions (caught by zombie, fall in hole). Test level 4 shovel availability.
 
-- [ ] 9. Persistence & UI Polish
+- [x] 9. Persistence & UI Polish
   **What**: Implement `localStorage` for saving/loading game state and add a status bar for logs, inventory display, and level info.
   **Files**: 
   - `src/api/mockServer.ts`
@@ -133,7 +133,7 @@ Deliver a fully playable, stand-alone web application of the Zombies game that i
   **Acceptance**: Refreshing the browser restores the game to the exact state (level, position, inventory) before the refresh.
   **Testing**: Unit test `localStorage` save/load cycle. Verify state restoration (level, position, inventory, hole states). Test edge cases (empty state, corrupted data).
 
-- [ ] 10. Integration Testing & Bug Fixes
+- [x] 10. Integration Testing & Bug Fixes
   **What**: Play through all 10 levels end-to-end, fix bugs, and ensure all Zombies requirements (Z.1.1-Z.8.3) are met.
   **Files**: 
   - `src/tests/integration.test.ts`
@@ -178,24 +178,24 @@ gamedev/
 
 ## Verification
 ### Unit Tests (Per Step)
-- [ ] **Step 1**: `GameState` creation, `MockServer` CRUD operations, type compilation
-- [ ] **Step 2**: `GameEngine.movePlayer()` boundary checks, position updates
-- [ ] **Step 3**: `ZombieAI.calculateMove()` x-priority tie-breaking, spawn count (5-10), boundary validation
-- [ ] **Step 4**: `TurnManager` turn order, player lock during zombie turn, state transitions
-- [ ] **Step 5**: Hole generation (CEILING(Z/5), not on edges), falling logic, hole filling (5 zombies), max depth 5
-- [ ] **Step 6**: Stick pickup, zombie kill on move, durability decrement, stick break after 5 kills, inventory updates
-- [ ] **Step 7**: Shovel pickup (level 4+), dig action (depth +1/turn, max 5), fill action, player doesn't fall while digging
-- [ ] **Step 8**: Level progression (zombie count increases), win condition (all zombies dead), loss conditions (caught/fall), level 4 shovel availability
-- [ ] **Step 9**: `localStorage` save/load cycle, state restoration (level, position, inventory, holes), edge cases
+- [x] **Step 1**: `GameState` creation, `MockServer` CRUD operations, type compilation
+- [x] **Step 2**: `GameEngine.movePlayer()` boundary checks, position updates
+- [x] **Step 3**: `ZombieAI.calculateMove()` x-priority tie-breaking, spawn count (5-10), boundary validation
+- [x] **Step 4**: `TurnManager` turn order, player lock during zombie turn, state transitions
+- [x] **Step 5**: Hole generation (CEILING(Z/5), not on edges), falling logic, hole filling (5 zombies), max depth 5
+- [x] **Step 6**: Stick pickup, zombie kill on move, durability decrement, stick break after 5 kills, inventory updates
+- [x] **Step 7**: Shovel pickup (level 4+), dig action (depth +1/turn, max 5), fill action, player doesn't fall while digging
+- [x] **Step 8**: Level progression (zombie count increases), win condition (all zombies dead), loss conditions (caught/fall), level 4 shovel availability
+- [x] **Step 9**: `localStorage` save/load cycle, state restoration (level, position, inventory, holes), edge cases
 
 ### Integration Testing (Step 10)
-- [ ] Play through Level 1 to Level 10 without crashes
-- [ ] Verify all Zombies requirements (Z.1.1 - Z.8.3) are implemented
-- [ ] Regression: digging holes doesn't kill player
-- [ ] Regression: stick breaks correctly after 5 kills
-- [ ] Regression: shovel fills holes properly
-- [ ] Performance: 10 zombies moving simultaneously
-- [ ] Persistence: refresh browser, verify state restored correctly
+- [x] Play through Level 1 to Level 10 without crashes
+- [x] Verify all Zombies requirements (Z.1.1 - Z.8.3) are implemented
+- [x] Regression: digging holes doesn't kill player
+- [x] Regression: stick breaks correctly after 5 kills
+- [x] Regression: shovel fills holes properly
+- [x] Performance: 10 zombies moving simultaneously
+- [x] Persistence: refresh browser, verify state restored correctly
 
 ## Implementation Notes
 - Use TypeScript with no external frameworks for the MVP

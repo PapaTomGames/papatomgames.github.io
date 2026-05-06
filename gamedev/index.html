@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombies Survival</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Zombies Survival</h1>
+        <div id="game-container">
+            <div id="map-view"></div>
+            <div id="ui-panel">
+                <div id="status-bar">
+                    <p>Level: <span id="level-val">1</span></p>
+                    <p>Turn: <span id="turn-val">1</span></p>
+                </div>
+                <div id="control-panel">
+                    <button id="btn-up">Up</button>
+                    <div class="middle-row">
+                        <button id="btn-left">Left</button>
+                        <button id="btn-stay">Stay</button>
+                        <button id="btn-right">Right</button>
+                    </div>
+                    <button id="btn-down">Down</button>
+                </div>
+                <div id="log"></div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="src/ui/gameView.ts"></script>
+</body>
+</html>
