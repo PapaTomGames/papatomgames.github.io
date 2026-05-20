@@ -25,7 +25,7 @@ async function testHoles() {
 
     // Test 1: Hole Generation
     const state = mockServer.getState();
-    gameEngine.spawnZombies(1); // This calls generateHoles
+    gameEngine.spawnLevel(1); // This calls generateHoles
     const zombieCount = state.objects.size;
     const expectedHoles = Math.ceil(zombieCount / 5);
     

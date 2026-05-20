@@ -48,7 +48,7 @@ Z.3.1. The player controls a single unit.
 
 Z.3.2. The player has inventory and strengths.
 
-Z.3.3. The player can move one square in any direction (up, down, left, right) or stay in the same place.
+Z.3.3. The player can move one square in any direction (up, down, left, right, diagonally) or stay in the same place.
 
 ### 4. Zombies
 

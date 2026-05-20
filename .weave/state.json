@@ -1,0 +1,13 @@
+{
+  "active_plan": "/home/tombaker1/projects/game/papatomgames.github.io/.weave/plans/zombies-mvp.md",
+  "started_at": "2026-05-06T08:38:19.264Z",
+  "session_ids": [
+    "ses_23ac86176ffez1oaGyJnHLHvJb"
+  ],
+  "plan_name": "zombies-mvp",
+  "agent": "tapestry",
+  "start_sha": "8869e2e8e0149144b7338a251755bf52c721a83f",
+  "continuation_completed_snapshot": 37,
+  "stale_continuation_count": 2,
+  "paused": true
+}
