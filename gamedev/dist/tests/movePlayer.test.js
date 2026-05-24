@@ -30,7 +30,19 @@ async function testMovePlayer() {
     else {
         console.error('❌ Valid move Up failed', res1);
     }
-    // Test 2: Out of bounds move
+    // Test 2: Valid diagonal move
+    const resDiag = await gameEngine.processAction('player1', {
+        unitId: 'player1',
+        actionType: 'MOVE',
+        target: { x: 11, y: 9 }
+    });
+    if (resDiag.success && resDiag.newPosition?.x === 11 && resDiag.newPosition?.y === 9) {
+        console.log('✅ Valid diagonal move passed');
+    }
+    else {
+        console.error('❌ Valid diagonal move failed', resDiag);
+    }
+    // Test 3: Out of bounds move
     mockServer.updateState({
         players: new Map([
             ['player1', {
@@ -57,7 +69,7 @@ async function testMovePlayer() {
     else {
         console.error('❌ Out of bounds move failed', res2);
     }
-    // Test 3: Invalid distance move
+    // Test 4: Invalid distance move
     mockServer.updateState({
         players: new Map([
             ['player1', {
@@ -83,6 +95,20 @@ async function testMovePlayer() {
     }
     else {
         console.error('❌ Invalid distance move failed', res3);
+    }
+    // Test 5: Auto-pickup item
+    gameEngine.spawnStick(11, 10);
+    const resPickup = await gameEngine.processAction('player1', {
+        unitId: 'player1',
+        actionType: 'MOVE',
+        target: { x: 11, y: 10 }
+    });
+    const player = mockServer.getState().players.get('player1');
+    if (resPickup.success && player?.inventory.some(i => i.type === 'STICK')) {
+        console.log('✅ Auto-pickup item passed');
+    }
+    else {
+        console.error('❌ Auto-pickup item failed', resPickup);
     }
 }
 testMovePlayer();

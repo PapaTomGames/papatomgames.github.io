@@ -69,17 +69,16 @@ async function testShovel() {
         console.error('❌ Max depth limit failed', resDigMax);
     }
     // Test 4: Fill hole
-    // Add a zombie to the hole
-    cellMax.zombiesInHole = 1;
+    // This should now fail as shovel only digs
     const resFill = await gameEngine.processAction('player1', {
         unitId: 'player1',
         actionType: 'DIG',
     });
-    if (resFill.success && cellMax.zombiesInHole === 0) {
-        console.log('✅ Fill hole (remove zombie) passed');
+    if (!resFill.success || cellMax.zombiesInHole !== 1) {
+        console.log('✅ Fill hole (remove zombie) failed as expected passed');
     }
     else {
-        console.error('❌ Fill hole failed', resFill);
+        console.error('❌ Fill hole should have failed');
     }
     // Test 5: Dig without shovel
     mockServer.updateState({

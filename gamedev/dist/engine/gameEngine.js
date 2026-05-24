@@ -160,16 +160,6 @@ export class GameEngine {
                 message: 'Dug a hole (depth 1)',
             };
         }
-        else if (cell.zombiesInHole !== undefined && cell.zombiesInHole > 0) {
-            cell.zombiesInHole--;
-            mockServer.updateState({});
-            return {
-                unitId: player.playerId,
-                actionType: 'DIG',
-                success: true,
-                message: `Filled hole. Zombies remaining: ${cell.zombiesInHole}`,
-            };
-        }
         else if (cell.holeDepth < 5) {
             cell.holeDepth++;
             mockServer.updateState({});
@@ -207,7 +197,8 @@ export class GameEngine {
         }
         const dx = Math.abs(newX - x);
         const dy = Math.abs(newY - y);
-        if ((dx === 1 && dy === 0) || (dx === 0 && dy === 1) || (dx === 0 && dy === 0)) {
+        // Allow diagonal movement: dx <= 1 AND dy <= 1
+        if (dx <= 1 && dy <= 1) {
             if (newX < 0 || newX >= state.mapState.width || newY < 0 || newY >= state.mapState.height) {
                 return {
                     unitId: player.playerId,
@@ -229,6 +220,7 @@ export class GameEngine {
                     message: 'You fell into a hole! Game Over.',
                 };
             }
+            // Combat: Check for zombies at new position
             let zombieKilled = false;
             state.objects.forEach((obj, id) => {
                 if (obj.type === 'ZOMBIE' && obj.position.x === newX && obj.position.y === newY) {
@@ -246,12 +238,29 @@ export class GameEngine {
                 }
             });
             player.position = { x: newX, y: newY };
+            // Auto-pickup items at new position
+            const pickedUpItem = Array.from(state.objects.values()).find((obj) => !obj.isPickedUp && obj.position.x === newX && obj.position.y === newY) ?? null;
+            if (pickedUpItem) {
+                const obj = pickedUpItem;
+                obj.isPickedUp = true;
+                player.inventory.push({
+                    itemId: obj.objectId,
+                    type: obj.type,
+                    properties: { ...obj.properties },
+                    equipped: true,
+                    usesRemaining: obj.properties.durability,
+                });
+            }
             mockServer.updateState({});
+            let message = zombieKilled ? 'Moved and killed a zombie!' : 'Moved successfully';
+            if (pickedUpItem) {
+                message += ` Picked up ${pickedUpItem.type}!`;
+            }
             return {
                 unitId: player.playerId,
                 actionType: 'MOVE',
                 success: true,
-                message: zombieKilled ? 'Moved and killed a zombie!' : 'Moved successfully',
+                message: message,
                 newPosition: { x: newX, y: newY },
                 targetEliminated: zombieKilled,
             };
