@@ -264,12 +264,9 @@ export class GameEngine {
       player.position = { x: newX, y: newY };
       
       // Auto-pickup items at new position
-      let pickedUpItem = null;
-      state.objects.forEach((obj, id) => {
-        if (!obj.isPickedUp && obj.position.x === newX && obj.position.y === newY) {
-          pickedUpItem = obj;
-        }
-      });
+      const pickedUpItem = Array.from(state.objects.values()).find(
+        (obj: GameObject) => !obj.isPickedUp && obj.position.x === newX && obj.position.y === newY
+      ) ?? null;
 
       if (pickedUpItem) {
         const obj = pickedUpItem;
@@ -295,138 +292,6 @@ export class GameEngine {
         actionType: 'MOVE',
         success: true,
         message: message,
-        newPosition: { x: newX, y: newY },
-        targetEliminated: zombieKilled,
-      };
-    }
-
-    return {
-      unitId: player.playerId,
-      actionType: 'MOVE',
-      success: false,
-      message: 'Invalid move distance',
-    };
-  }
-
-
-    const { x, y } = player.position;
-    const cell = GameStateUtils.getCell(state.mapState, x, y);
-    if (!cell) {
-      return {
-        unitId: player.playerId,
-        actionType: 'DIG',
-        success: false,
-        message: 'Invalid position',
-      };
-    }
-
-    if (cell.holeDepth === undefined) {
-      cell.holeDepth = 1;
-      cell.zombiesInHole = 0;
-      mockServer.updateState({});
-      return {
-        unitId: player.playerId,
-        actionType: 'DIG',
-        success: true,
-        message: 'Dug a hole (depth 1)',
-      };
-    } else if (cell.zombiesInHole !== undefined && cell.zombiesInHole > 0) {
-      cell.zombiesInHole--;
-      mockServer.updateState({});
-      return {
-        unitId: player.playerId,
-        actionType: 'DIG',
-        success: true,
-        message: `Filled hole. Zombies remaining: ${cell.zombiesInHole}`,
-      };
-    } else if (cell.holeDepth < 5) {
-      cell.holeDepth++;
-      mockServer.updateState({});
-      return {
-        unitId: player.playerId,
-        actionType: 'DIG',
-        success: true,
-        message: `Deepened hole to depth ${cell.holeDepth}`,
-      };
-    } else {
-      return {
-        unitId: player.playerId,
-        actionType: 'DIG',
-        success: false,
-        message: 'Hole is already at max depth (5)',
-      };
-    }
-  }
-
-  private handleMove(state: GameState, player: PlayerState, action: UnitAction): ActionResult {
-    const { x, y } = player.position;
-    let newX = x;
-    let newY = y;
-
-    if (action.target) {
-      newX = action.target.x;
-      newY = action.target.y;
-    } else {
-      return {
-        unitId: player.playerId,
-        actionType: 'MOVE',
-        success: false,
-        message: 'No target provided for move',
-      };
-    }
-
-    const dx = Math.abs(newX - x);
-    const dy = Math.abs(newY - y);
-
-    if ((dx === 1 && dy === 0) || (dx === 0 && dy === 1) || (dx === 0 && dy === 0)) {
-      if (newX < 0 || newX >= state.mapState.width || newY < 0 || newY >= state.mapState.height) {
-        return {
-          unitId: player.playerId,
-          actionType: 'MOVE',
-          success: false,
-          message: 'Out of bounds',
-        };
-      }
-
-      const cell = GameStateUtils.getCell(state.mapState, newX, newY);
-      if (cell && cell.holeDepth !== undefined) {
-        mockServer.updateState({ 
-          gamePhase: 'FINISHED', 
-          endReason: 'fell_in_hole' 
-        });
-        return {
-          unitId: player.playerId,
-          actionType: 'MOVE',
-          success: false,
-          message: 'You fell into a hole! Game Over.',
-        };
-      }
-
-      let zombieKilled = false;
-      state.objects.forEach((obj, id) => {
-        if (obj.type === 'ZOMBIE' && obj.position.x === newX && obj.position.y === newY) {
-          const stick = player.inventory.find(item => item.type === 'STICK' && item.equipped);
-          if (stick) {
-            state.objects.delete(id);
-            zombieKilled = true;
-            if (stick.usesRemaining !== undefined) {
-              stick.usesRemaining--;
-              if (stick.usesRemaining <= 0) {
-                player.inventory = player.inventory.filter(item => item.itemId !== stick.itemId);
-              }
-            }
-          }
-        }
-      });
-
-      player.position = { x: newX, y: newY };
-      mockServer.updateState({});
-
-      return {
-        unitId: player.playerId,
-        actionType: 'MOVE',
-        success: true,
-        message: zombieKilled ? 'Moved and killed a zombie!' : 'Moved successfully',
         newPosition: { x: newX, y: newY },
         targetEliminated: zombieKilled,
       };
