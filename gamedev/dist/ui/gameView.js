@@ -1,9 +1,9 @@
-import { playerApi } from '../api/playerApi';
-import { turnManager } from '../engine/turnManager';
-import { gameEngine } from '../engine/gameEngine';
-import { MapView } from './mapView';
-import { ControlPanel } from './controlPanel';
-import { StatusBar } from './statusBar';
+import { playerApi } from '../api/playerApi.js';
+import { turnManager } from '../engine/turnManager.js';
+import { gameEngine } from '../engine/gameEngine.js';
+import { MapView } from './mapView.js';
+import { ControlPanel } from './controlPanel.js';
+import { StatusBar } from './statusBar.js';
 class GameView {
     constructor() {
         this.mapView = new MapView('map-view');
@@ -70,7 +70,7 @@ class GameView {
         await this.updateUI();
     }
 }
-import { mockServer } from '../api/mockServer';
+import { mockServer } from '../api/mockServer.js';
 const gameView = new GameView();
 gameView.init();
 //# sourceMappingURL=gameView.js.map

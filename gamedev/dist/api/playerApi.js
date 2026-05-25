@@ -1,4 +1,4 @@
-import { mockServer } from './mockServer';
+import { mockServer } from './mockServer.js';
 export class PlayerAPI {
     async getState() {
         return mockServer.getState();

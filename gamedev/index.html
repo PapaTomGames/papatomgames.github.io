@@ -17,18 +17,22 @@
                     <p>Turn: <span id="turn-val">1</span></p>
                 </div>
                 <div id="control-panel">
-                    <button id="btn-up">Up</button>
-                    <div class="middle-row">
-                        <button id="btn-left">Left</button>
-                        <button id="btn-stay">Stay</button>
-                        <button id="btn-right">Right</button>
+                    <div class="control-grid">
+                        <button id="btn-up-left">↖</button>
+                        <button id="btn-up">↑</button>
+                        <button id="btn-up-right">↗</button>
+                        <button id="btn-left">←</button>
+                        <button id="btn-stay">●</button>
+                        <button id="btn-right">→</button>
+                        <button id="btn-down-left">↙</button>
+                        <button id="btn-down">↓</button>
+                        <button id="btn-down-right">↘</button>
                     </div>
-                    <button id="btn-down">Down</button>
                 </div>
                 <div id="log"></div>
             </div>
         </div>
     </div>
-    <script type="module" src="src/ui/gameView.ts"></script>
+    <script type="module" src="dist/ui/gameView.js"></script>
 </body>
 </html>

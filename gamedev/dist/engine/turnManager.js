@@ -1,5 +1,5 @@
-import { mockServer } from '../api/mockServer';
-import { gameEngine } from './gameEngine';
+import { mockServer } from '../api/mockServer.js';
+import { gameEngine } from './gameEngine.js';
 export var TurnPhase;
 (function (TurnPhase) {
     TurnPhase["PLAYER"] = "PLAYER";

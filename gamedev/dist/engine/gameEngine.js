@@ -1,7 +1,7 @@
-import { GameStateUtils } from './gameState';
-import { mockServer } from '../api/mockServer';
-import { ZombieAI } from './zombieAi';
-import { GAME_CONFIG } from '../config/gameConfig';
+import { GameStateUtils } from './gameState.js';
+import { mockServer } from '../api/mockServer.js';
+import { ZombieAI } from './zombieAi.js';
+import { GAME_CONFIG } from '../config/gameConfig.js';
 export class GameEngine {
     async processAction(playerId, action) {
         const state = mockServer.getState();
@@ -41,7 +41,8 @@ export class GameEngine {
         const state = mockServer.getState();
         const config = GAME_CONFIG[level] || GAME_CONFIG[1];
         const zombieCount = Math.floor(Math.random() * (config.maxZombies - config.minZombies + 1)) + config.minZombies;
-        const zombies = new Map();
+        const objects = new Map();
+        // Spawn zombies
         let spawned = 0;
         while (spawned < zombieCount) {
             const x = Math.floor(Math.random() * state.mapState.width);
@@ -49,7 +50,7 @@ export class GameEngine {
             if (x === 10 && y === 10)
                 continue;
             const id = `zombie-${spawned}`;
-            zombies.set(id, {
+            objects.set(id, {
                 objectId: id,
                 type: 'ZOMBIE',
                 position: { x, y },
@@ -59,16 +60,32 @@ export class GameEngine {
             spawned++;
         }
         GameStateUtils.generateHoles(state.mapState, zombieCount);
-        // Spawn items based on config
+        // Spawn items based on config (directly into objects Map to avoid overwrite)
         if (config.spawnStick) {
-            this.spawnStick(Math.floor(Math.random() * 20), Math.floor(Math.random() * 20));
+            const stickId = `stick-${Date.now()}`;
+            objects.set(stickId, {
+                objectId: stickId,
+                type: 'STICK',
+                position: { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) },
+                properties: { durability: 5 },
+                isPickedUp: false,
+            });
         }
         if (config.spawnShovel) {
-            this.spawnShovel(Math.floor(Math.random() * 20), Math.floor(Math.random() * 20));
+            const shovelId = `shovel-${Date.now()}`;
+            objects.set(shovelId, {
+                objectId: shovelId,
+                type: 'SHOVEL',
+                position: { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) },
+                properties: {},
+                isPickedUp: false,
+            });
         }
         mockServer.updateState({
-            objects: zombies,
-            currentLevel: level
+            objects,
+            currentLevel: level,
+            gamePhase: 'ACTIVE',
+            endReason: undefined,
         });
     }
     spawnStick(x, y) {

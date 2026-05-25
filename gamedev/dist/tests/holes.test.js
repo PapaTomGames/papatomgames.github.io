@@ -20,9 +20,9 @@ async function testHoles() {
         objects: new Map()
     });
     // Test 1: Hole Generation
-    const state = mockServer.getState();
     gameEngine.spawnLevel(1); // This calls generateHoles
-    const zombieCount = state.objects.size;
+    const state = mockServer.getState();
+    const zombieCount = Array.from(state.objects.values()).filter(o => o.type === 'ZOMBIE').length;
     const expectedHoles = Math.ceil(zombieCount / 5);
     let actualHoles = 0;
     for (let y = 0; y < state.mapState.height; y++) {

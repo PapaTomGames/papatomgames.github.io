@@ -1,8 +1,8 @@
-import { GameState, UnitAction, ActionResult, PlayerState, GameObject } from '../api/types';
-import { GameStateUtils } from './gameState';
-import { mockServer } from '../api/mockServer';
-import { ZombieAI } from './zombieAi';
-import { GAME_CONFIG } from '../config/gameConfig';
+import { GameState, UnitAction, ActionResult, PlayerState, GameObject } from '../api/types.js';
+import { GameStateUtils } from './gameState.js';
+import { mockServer } from '../api/mockServer.js';
+import { ZombieAI } from './zombieAi.js';
+import { GAME_CONFIG } from '../config/gameConfig.js';
 
 export class GameEngine {
   public async processAction(playerId: string, action: UnitAction): Promise<ActionResult> {

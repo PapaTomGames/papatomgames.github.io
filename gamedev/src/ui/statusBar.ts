@@ -1,4 +1,4 @@
-import { GameState, PlayerState } from '../api/types';
+import { GameState, PlayerState } from '../api/types.js';
 
 export class StatusBar {
   private levelEl: HTMLElement;

@@ -1,5 +1,5 @@
-import { UnitAction } from '../api/types';
-import { mockServer } from '../api/mockServer';
+import { UnitAction } from '../api/types.js';
+import { mockServer } from '../api/mockServer.js';
 
 export class ControlPanel {
   private onActionCallback: (action: UnitAction) => void;
@@ -14,6 +14,10 @@ export class ControlPanel {
     document.getElementById('btn-down')?.addEventListener('click', () => this.handleMove(0, 1));
     document.getElementById('btn-left')?.addEventListener('click', () => this.handleMove(-1, 0));
     document.getElementById('btn-right')?.addEventListener('click', () => this.handleMove(1, 0));
+    document.getElementById('btn-up-left')?.addEventListener('click', () => this.handleMove(-1, -1));
+    document.getElementById('btn-up-right')?.addEventListener('click', () => this.handleMove(1, -1));
+    document.getElementById('btn-down-left')?.addEventListener('click', () => this.handleMove(-1, 1));
+    document.getElementById('btn-down-right')?.addEventListener('click', () => this.handleMove(1, 1));
     document.getElementById('btn-stay')?.addEventListener('click', () => {
       this.onActionCallback({
         unitId: 'player1',

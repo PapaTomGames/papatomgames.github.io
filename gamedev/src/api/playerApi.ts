@@ -1,5 +1,5 @@
-import { mockServer } from './mockServer';
-import { GameState, UnitAction, TurnActionsResponse } from './types';
+import { mockServer } from './mockServer.js';
+import { GameState, UnitAction, TurnActionsResponse } from './types.js';
 
 export class PlayerAPI {
   public async getState(): Promise<GameState> {

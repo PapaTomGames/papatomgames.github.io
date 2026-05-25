@@ -1,4 +1,4 @@
-import { GameState, PlayerState, GridMap, Cell, TerrainType } from './types';
+import { GameState, PlayerState, GridMap, Cell, TerrainType } from './types.js';
 
 export class MockServer {
   private gameState: GameState | null = null;

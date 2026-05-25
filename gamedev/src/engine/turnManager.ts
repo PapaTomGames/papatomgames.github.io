@@ -1,6 +1,6 @@
-import { GameState, UnitAction, ActionResult } from '../api/types';
-import { mockServer } from '../api/mockServer';
-import { gameEngine } from './gameEngine';
+import { GameState, UnitAction, ActionResult } from '../api/types.js';
+import { mockServer } from '../api/mockServer.js';
+import { gameEngine } from './gameEngine.js';
 
 export enum TurnPhase {
   PLAYER = 'PLAYER',

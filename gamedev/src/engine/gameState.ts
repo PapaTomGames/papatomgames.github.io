@@ -1,4 +1,4 @@
-import { GameState, GridMap, Cell, PlayerState } from '../api/types';
+import { GameState, GridMap, Cell, PlayerState } from '../api/types.js';
 
 export class GameStateUtils {
   public static createEmptyMap(width: number, height: number): GridMap {

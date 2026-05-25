@@ -1,4 +1,4 @@
-import { GameState, UnitAction, TurnActionsResponse } from './types';
+import { GameState, UnitAction, TurnActionsResponse } from './types.js';
 export declare class PlayerAPI {
     getState(): Promise<GameState>;
     submitActions(playerId: string, actions: UnitAction[]): Promise<TurnActionsResponse>;

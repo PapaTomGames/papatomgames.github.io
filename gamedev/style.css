@@ -52,9 +52,10 @@ body {
     gap: 5px;
 }
 
-.middle-row {
-    display: flex;
-    gap: 5px;
+.control-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
 }
 
 button {

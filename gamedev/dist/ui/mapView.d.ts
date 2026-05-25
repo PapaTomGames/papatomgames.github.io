@@ -1,4 +1,4 @@
-import { GameState } from '../api/types';
+import { GameState } from '../api/types.js';
 export declare class MapView {
     private container;
     private cellSize;

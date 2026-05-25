@@ -1,4 +1,4 @@
-import { UnitAction, ActionResult } from '../api/types';
+import { UnitAction, ActionResult } from '../api/types.js';
 export declare class GameEngine {
     processAction(playerId: string, action: UnitAction): Promise<ActionResult>;
     spawnLevel(level: number): void;

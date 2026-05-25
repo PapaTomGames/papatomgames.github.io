@@ -1,4 +1,4 @@
-import { UnitAction, ActionResult } from '../api/types';
+import { UnitAction, ActionResult } from '../api/types.js';
 export declare enum TurnPhase {
     PLAYER = "PLAYER",
     ZOMBIES = "ZOMBIES"
