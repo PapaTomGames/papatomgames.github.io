@@ -1,11 +1,15 @@
 export class MapView {
     constructor(containerId) {
-        this.cellSize = 20; // 400px / 20 cells
+        this.gridSize = 20;
         this.container = document.getElementById(containerId);
+    }
+    getCellSize() {
+        return this.container.clientWidth / this.gridSize;
     }
     render(state) {
         this.container.innerHTML = '';
         this.container.style.position = 'relative';
+        const cellSize = this.getCellSize();
         // Render Grid
         for (let y = 0; y < state.mapState.height; y++) {
             for (let x = 0; x < state.mapState.width; x++) {
@@ -13,10 +17,10 @@ export class MapView {
                 const cellEl = document.createElement('div');
                 cellEl.className = 'cell';
                 cellEl.style.position = 'absolute';
-                cellEl.style.width = `${this.cellSize}px`;
-                cellEl.style.height = `${this.cellSize}px`;
-                cellEl.style.left = `${x * this.cellSize}px`;
-                cellEl.style.top = `${y * this.cellSize}px`;
+                cellEl.style.width = `${cellSize}px`;
+                cellEl.style.height = `${cellSize}px`;
+                cellEl.style.left = `${x * cellSize}px`;
+                cellEl.style.top = `${y * cellSize}px`;
                 cellEl.style.border = '1px solid #222';
                 cellEl.style.boxSizing = 'border-box';
                 if (cell.holeDepth !== undefined) {
@@ -34,10 +38,10 @@ export class MapView {
             playerEl.className = 'player';
             playerEl.innerText = 'P';
             playerEl.style.position = 'absolute';
-            playerEl.style.width = `${this.cellSize}px`;
-            playerEl.style.height = `${this.cellSize}px`;
-            playerEl.style.left = `${player.position.x * this.cellSize}px`;
-            playerEl.style.top = `${player.position.y * this.cellSize}px`;
+            playerEl.style.width = `${cellSize}px`;
+            playerEl.style.height = `${cellSize}px`;
+            playerEl.style.left = `${player.position.x * cellSize}px`;
+            playerEl.style.top = `${player.position.y * cellSize}px`;
             playerEl.style.backgroundColor = 'blue';
             playerEl.style.color = 'white';
             playerEl.style.display = 'flex';
@@ -54,10 +58,10 @@ export class MapView {
                 zombieEl.className = 'zombie';
                 zombieEl.innerText = 'Z';
                 zombieEl.style.position = 'absolute';
-                zombieEl.style.width = `${this.cellSize}px`;
-                zombieEl.style.height = `${this.cellSize}px`;
-                zombieEl.style.left = `${obj.position.x * this.cellSize}px`;
-                zombieEl.style.top = `${obj.position.y * this.cellSize}px`;
+                zombieEl.style.width = `${cellSize}px`;
+                zombieEl.style.height = `${cellSize}px`;
+                zombieEl.style.left = `${obj.position.x * cellSize}px`;
+                zombieEl.style.top = `${obj.position.y * cellSize}px`;
                 zombieEl.style.backgroundColor = 'green';
                 zombieEl.style.color = 'white';
                 zombieEl.style.display = 'flex';
@@ -70,14 +74,27 @@ export class MapView {
             else if (!obj.isPickedUp) {
                 const itemEl = document.createElement('div');
                 itemEl.className = 'item';
-                itemEl.innerText = obj.type[0]; // First letter of type
                 itemEl.style.position = 'absolute';
-                itemEl.style.width = `${this.cellSize}px`;
-                itemEl.style.height = `${this.cellSize}px`;
-                itemEl.style.left = `${obj.position.x * this.cellSize}px`;
-                itemEl.style.top = `${obj.position.y * this.cellSize}px`;
-                itemEl.style.backgroundColor = 'yellow';
-                itemEl.style.color = 'black';
+                itemEl.style.width = `${cellSize}px`;
+                itemEl.style.height = `${cellSize}px`;
+                itemEl.style.left = `${obj.position.x * cellSize}px`;
+                itemEl.style.top = `${obj.position.y * cellSize}px`;
+                // Distinct visuals per item type
+                if (obj.type === 'STICK') {
+                    itemEl.innerText = 'St';
+                    itemEl.style.backgroundColor = '#c8a04b';
+                    itemEl.style.color = '#000';
+                }
+                else if (obj.type === 'SHOVEL') {
+                    itemEl.innerText = 'Sh';
+                    itemEl.style.backgroundColor = '#8b7355';
+                    itemEl.style.color = '#fff';
+                }
+                else {
+                    itemEl.innerText = obj.type[0];
+                    itemEl.style.backgroundColor = 'yellow';
+                    itemEl.style.color = 'black';
+                }
                 itemEl.style.display = 'flex';
                 itemEl.style.justifyContent = 'center';
                 itemEl.style.alignItems = 'center';

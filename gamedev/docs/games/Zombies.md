@@ -42,6 +42,8 @@ Z.2.13. There will be no other objects in the first three levels.
 
 Z.2.14. There will be one new object per level starting at level 4.
 
+Z.2.15. No two entities may spawn on the same cell. The player, zombies, holes, and items all occupy distinct positions at level start.
+
 ### 3. Players
 
 Z.3.1. The player controls a single unit.
@@ -54,11 +56,11 @@ Z.3.3. The player can move one square in any direction (up, down, left, right, d
 
 Z.4.1. Zombies are AI-controlled enemies on the map.
 
-Z.4.2. Each level has a random number of zombies (5-10) located in random positions.
+Z.4.2. Each level has a random number of zombies that increases with difficulty. Level 1 starts with 5-7 zombies, scaling up to 15-20 on level 10. Zombies are placed in random positions.
 
 Z.4.3. Each zombie moves one space per turn horizontally or vertically (not diagonally).
 
-Z.4.4. Each zombie moves in the direction of the player, choosing the shortest distance in x or y direction.
+Z.4.4. Each zombie moves in the direction of the player, choosing the farthest distance in x or y direction.
 
 Z.4.5. If the distance in x and y is the same, the zombie will always choose the x direction.
 
@@ -67,6 +69,8 @@ Z.4.6. A zombie that catches the player kills them and the game is over (loss).
 Z.4.7. Zombies can attack player units when in range.
 
 Z.4.7. Eliminating zombies has no rewards. The player wins or loses.
+
+Z.4.8. Two zombies cannot occupy the same board position. If a zombie's desired move would place it on a cell already occupied by another zombie, it stays in place for that turn.
 
 ### 5. Objectives
 
@@ -88,7 +92,7 @@ Z.7.1. The map contains pick-up-able objects (weapons, tools).
 
 Z.7.2. Picking up objects grants strengths.
 
-Z.7.3. **Shovel**: Can be used to fill holes (removes 1 zombie from hole count, fills faster). Only available on level 4.
+Z.7.3. **Shovel**: Can be used to fill holes (removes 1 zombie from hole count, fills faster). The shovel only spawns on level 4.
 
 Z.7.4. **Shovel**: Can be used to dig holes. It takes one turn to dig 1 unit deep. A player may possess the shovel for multiple levels. The shovel only digs — it cannot attack.
 
@@ -102,9 +106,21 @@ Z.7.8. If a player moves out of the hole and back in, they will fall in the hole
 
 Z.7.10. **Stick**: A basic weapon that can be used to attack zombies. Kills a zombie on each move. Can kill 5 zombies before it breaks. Once broken, it is no longer possessed.
 
+Z.7.11. Once the player picks up the shovel, they keep it in their inventory for all subsequent levels. New shovels do not spawn on later levels.
+
 ### 8. Game End
 
 Z.8.1. The player loses the game if they fall into a hole (loss).
+
+### 9. User Interface
+
+Z.9.1. The GUI must adapt to different form factors from mobile phones to desktops.
+
+Z.9.2. Controls (buttons) must have a minimum touch target of 44px for mobile usability.
+
+Z.9.3. The map view must scale to fit the available viewport width while maintaining a 1:1 aspect ratio.
+
+Z.9.4. On narrow screens (<600px), the layout stacks vertically (map on top, controls below). On wide screens (≥600px), the layout is side-by-side.
 
 Z.8.2. The player wins the game when all zombies have died on the last level (win).
 

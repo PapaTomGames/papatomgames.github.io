@@ -323,11 +323,11 @@ async function testLevel5Playthrough() {
     const sticks = findObjectsOfType(state, 'STICK');
     assert(sticks.length > 0, 'Stick spawned on level 5');
     const shovels = findObjectsOfType(state, 'SHOVEL');
-    assert(shovels.length > 0, 'Shovel spawned on level 5');
+    assert(shovels.length === 0, 'Shovel not spawned on level 5 (only level 4)');
     // Verify GAME_CONFIG for level 5
     const config = GAME_CONFIG[5];
     assert(config.spawnStick === true, 'Level 5 config: spawnStick = true');
-    assert(config.spawnShovel === true, 'Level 5 config: spawnShovel = true');
+    assert(config.spawnShovel === false, 'Level 5 config: spawnShovel = false');
 }
 // ──────────────────────────────────────────────
 // Main

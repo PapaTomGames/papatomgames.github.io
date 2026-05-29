@@ -16,13 +16,16 @@ class GameView {
     this.mapView = new MapView('map-view');
     this.statusBar = new StatusBar();
     this.logElement = document.getElementById('log')!;
-    this.controlPanel = new ControlPanel((action) => this.handleAction(action));
+    this.controlPanel = new ControlPanel(
+      (action) => this.handleAction(action),
+      () => this.restart(),
+    );
   }
 
   private async handleAction(action: UnitAction) {
     const state = await playerApi.getState();
     if (state.gamePhase === 'FINISHED') {
-      this.log('Game is over. Please refresh to restart.');
+      this.log('Game is over. Click Restart to play again.');
       return;
     }
 
@@ -59,11 +62,28 @@ class GameView {
                       reason === 'fell_in_hole' ? 'You fell into a hole!' : 'Game Over!';
       this.log(`💀 ${message} GAME OVER`);
       
-      // Disable controls
-      document.querySelectorAll('#control-panel button').forEach(btn => {
+      // Disable controls (keep Restart enabled)
+      document.querySelectorAll('#control-panel button:not(#btn-restart)').forEach(btn => {
         (btn as HTMLButtonElement).disabled = true;
       });
     }
+  }
+
+  private restart(): void {
+    // Reset server state (clears localStorage too)
+    mockServer.reset();
+
+    // Re-enable all control buttons
+    document.querySelectorAll('#control-panel button').forEach(btn => {
+      (btn as HTMLButtonElement).disabled = false;
+    });
+
+    // Clear the log
+    this.logElement.innerHTML = '';
+
+    this.log('Game restarted. Welcome back!');
+    gameEngine.spawnLevel(1);
+    this.updateUI();
   }
 
   private log(message: string) {

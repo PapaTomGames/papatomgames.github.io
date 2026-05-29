@@ -9,12 +9,12 @@ class GameView {
         this.mapView = new MapView('map-view');
         this.statusBar = new StatusBar();
         this.logElement = document.getElementById('log');
-        this.controlPanel = new ControlPanel((action) => this.handleAction(action));
+        this.controlPanel = new ControlPanel((action) => this.handleAction(action), () => this.restart());
     }
     async handleAction(action) {
         const state = await playerApi.getState();
         if (state.gamePhase === 'FINISHED') {
-            this.log('Game is over. Please refresh to restart.');
+            this.log('Game is over. Click Restart to play again.');
             return;
         }
         this.log(`Action: ${action.actionType} ${action.target ? `to (${action.target.x}, ${action.target.y})` : ''}`);
@@ -46,11 +46,24 @@ class GameView {
             const message = reason === 'zombie_catch' ? 'A zombie caught you!' :
                 reason === 'fell_in_hole' ? 'You fell into a hole!' : 'Game Over!';
             this.log(`💀 ${message} GAME OVER`);
-            // Disable controls
-            document.querySelectorAll('#control-panel button').forEach(btn => {
+            // Disable controls (keep Restart enabled)
+            document.querySelectorAll('#control-panel button:not(#btn-restart)').forEach(btn => {
                 btn.disabled = true;
             });
         }
+    }
+    restart() {
+        // Reset server state (clears localStorage too)
+        mockServer.reset();
+        // Re-enable all control buttons
+        document.querySelectorAll('#control-panel button').forEach(btn => {
+            btn.disabled = false;
+        });
+        // Clear the log
+        this.logElement.innerHTML = '';
+        this.log('Game restarted. Welcome back!');
+        gameEngine.spawnLevel(1);
+        this.updateUI();
     }
     log(message) {
         const p = document.createElement('p');

@@ -19,7 +19,7 @@ export class StatusBar {
   }
 
   public update(state: GameState): void {
-    this.levelEl.innerText = '1'; // MVP: always level 1 for now
+    this.levelEl.innerText = state.currentLevel.toString();
     this.turnEl.innerText = state.currentTurn.toString();
     
     const player = state.players.get('player1');

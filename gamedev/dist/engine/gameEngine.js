@@ -42,44 +42,74 @@ export class GameEngine {
         const config = GAME_CONFIG[level] || GAME_CONFIG[1];
         const zombieCount = Math.floor(Math.random() * (config.maxZombies - config.minZombies + 1)) + config.minZombies;
         const objects = new Map();
-        // Spawn zombies
+        // Reset map to fresh grid (clears holes from previous levels)
+        const { width, height } = state.mapState;
+        state.mapState = GameStateUtils.createEmptyMap(width, height);
+        // Reset player to center (Z.2.4)
+        const player = state.players.get('player1');
+        if (player) {
+            player.position = { x: 10, y: 10 };
+        }
+        // Track all occupied cells so nothing stacks (Z.2.4, Z.4.8, items, holes)
+        const usedPositions = new Set();
+        usedPositions.add('10,10'); // Player start
+        // Find a random grid position not in usedPositions
+        const findFreePosition = () => {
+            for (let attempt = 0; attempt < 200; attempt++) {
+                const x = Math.floor(Math.random() * width);
+                const y = Math.floor(Math.random() * height);
+                const key = `${x},${y}`;
+                if (!usedPositions.has(key)) {
+                    usedPositions.add(key);
+                    return { x, y };
+                }
+            }
+            return null; // Should never happen on a 400-cell grid
+        };
+        // Spawn zombies (no two sharing a position)
         let spawned = 0;
         while (spawned < zombieCount) {
-            const x = Math.floor(Math.random() * state.mapState.width);
-            const y = Math.floor(Math.random() * state.mapState.height);
-            if (x === 10 && y === 10)
-                continue;
+            const pos = findFreePosition();
+            if (!pos)
+                break;
             const id = `zombie-${spawned}`;
             objects.set(id, {
                 objectId: id,
                 type: 'ZOMBIE',
-                position: { x, y },
+                position: pos,
                 properties: {},
                 isPickedUp: false,
             });
             spawned++;
         }
-        GameStateUtils.generateHoles(state.mapState, zombieCount);
-        // Spawn items based on config (directly into objects Map to avoid overwrite)
+        // Generate holes, avoiding already-occupied cells
+        GameStateUtils.generateHoles(state.mapState, zombieCount, usedPositions);
+        // Spawn items in cells not occupied by player, zombies, or holes
         if (config.spawnStick) {
-            const stickId = `stick-${Date.now()}`;
-            objects.set(stickId, {
-                objectId: stickId,
-                type: 'STICK',
-                position: { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) },
-                properties: { durability: 5 },
-                isPickedUp: false,
-            });
+            const pos = findFreePosition();
+            if (pos) {
+                const stickId = `stick-${Date.now()}`;
+                objects.set(stickId, {
+                    objectId: stickId,
+                    type: 'STICK',
+                    position: pos,
+                    properties: { durability: 5 },
+                    isPickedUp: false,
+                });
+            }
         }
         if (config.spawnShovel) {
-            const shovelId = `shovel-${Date.now()}`;
-            objects.set(shovelId, {
-                objectId: shovelId,
-                type: 'SHOVEL',
-                position: { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) },
-                properties: {},
-                isPickedUp: false,
-            });
+            const pos = findFreePosition();
+            if (pos) {
+                const shovelId = `shovel-${Date.now()}`;
+                objects.set(shovelId, {
+                    objectId: shovelId,
+                    type: 'SHOVEL',
+                    position: pos,
+                    properties: {},
+                    isPickedUp: false,
+                });
+            }
         }
         mockServer.updateState({
             objects,
@@ -294,25 +324,47 @@ export class GameEngine {
         const player = state.players.get('player1');
         if (!player)
             return;
+        // Track positions occupied by zombies (for enforcing no-stacking)
+        const occupied = new Set();
+        state.objects.forEach((obj) => {
+            if (obj.type === 'ZOMBIE') {
+                occupied.add(`${obj.position.x},${obj.position.y}`);
+            }
+        });
         state.objects.forEach((zombie, id) => {
-            if (zombie.type === 'ZOMBIE') {
-                const nextPos = ZombieAI.calculateMove(zombie.position, player.position);
-                zombie.position = nextPos;
-                // Check if zombie caught player
-                if (nextPos.x === player.position.x && nextPos.y === player.position.y) {
-                    mockServer.updateState({
-                        gamePhase: 'FINISHED',
-                        endReason: 'zombie_catch'
-                    });
+            if (zombie.type !== 'ZOMBIE')
+                return;
+            // Free this zombie's current position
+            occupied.delete(`${zombie.position.x},${zombie.position.y}`);
+            const nextPos = ZombieAI.calculateMove(zombie.position, player.position);
+            const targetKey = `${nextPos.x},${nextPos.y}`;
+            // Blocked by another zombie — stay in place
+            if (occupied.has(targetKey)) {
+                occupied.add(`${zombie.position.x},${zombie.position.y}`);
+                // Check if this zombie was already on the player
+                if (zombie.position.x === player.position.x && zombie.position.y === player.position.y) {
+                    mockServer.updateState({ gamePhase: 'FINISHED', endReason: 'zombie_catch' });
                 }
-                const cell = GameStateUtils.getCell(state.mapState, nextPos.x, nextPos.y);
-                if (cell && cell.holeDepth !== undefined) {
-                    state.objects.delete(id);
-                    cell.zombiesInHole = (cell.zombiesInHole || 0) + 1;
-                    if (cell.zombiesInHole >= 5) {
-                        cell.holeDepth = undefined;
-                        cell.zombiesInHole = undefined;
-                    }
+                return;
+            }
+            // Move to new position
+            zombie.position = nextPos;
+            occupied.add(targetKey);
+            // Check if zombie caught player
+            if (nextPos.x === player.position.x && nextPos.y === player.position.y) {
+                mockServer.updateState({
+                    gamePhase: 'FINISHED',
+                    endReason: 'zombie_catch'
+                });
+            }
+            // Check if zombie fell in a hole
+            const cell = GameStateUtils.getCell(state.mapState, nextPos.x, nextPos.y);
+            if (cell && cell.holeDepth !== undefined) {
+                state.objects.delete(id);
+                cell.zombiesInHole = (cell.zombiesInHole || 0) + 1;
+                if (cell.zombiesInHole >= 5) {
+                    cell.holeDepth = undefined;
+                    cell.zombiesInHole = undefined;
                 }
             }
         });

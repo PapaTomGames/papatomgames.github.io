@@ -6,7 +6,8 @@ export interface Position {
 export class ZombieAI {
   /**
    * Calculates the next move for a zombie to chase the player.
-   * Priority: Shortest distance, X-direction priority on tie.
+   * Moves along the farthest axis (greater |dx| or |dy|).
+   * If distances are equal, X-direction priority on tie.
    */
   public static calculateMove(zombiePos: Position, playerPos: Position): Position {
     const dx = playerPos.x - zombiePos.x;
@@ -16,15 +17,17 @@ export class ZombieAI {
       return { ...zombiePos }; // Already on player
     }
 
-    // If X distance is non-zero, move in X direction first (X-priority)
-    if (dx !== 0) {
+    const absDx = Math.abs(dx);
+    const absDy = Math.abs(dy);
+
+    // Move along the farthest axis (> comparison). On tie, choose X.
+    if (absDx >= absDy) {
       return {
         x: zombiePos.x + Math.sign(dx),
         y: zombiePos.y,
       };
     }
 
-    // Otherwise move in Y direction
     return {
       x: zombiePos.x,
       y: zombiePos.y + Math.sign(dy),

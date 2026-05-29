@@ -25,7 +25,7 @@ export class GameStateUtils {
             cell.occupantId = occupantId;
         }
     }
-    static generateHoles(map, zombieCount) {
+    static generateHoles(map, zombieCount, avoidPositions) {
         const holeCount = Math.ceil(zombieCount / 5);
         let placed = 0;
         while (placed < holeCount) {
@@ -34,6 +34,10 @@ export class GameStateUtils {
             const y = Math.floor(Math.random() * (map.height - 2)) + 1;
             const cell = this.getCell(map, x, y);
             if (cell && cell.holeDepth === undefined) {
+                const key = `${x},${y}`;
+                if (avoidPositions?.has(key))
+                    continue; // Don't stack on zombies/player
+                avoidPositions?.add(key);
                 cell.holeDepth = 1;
                 cell.zombiesInHole = 0;
                 placed++;

@@ -1,7 +1,8 @@
 import { UnitAction } from '../api/types.js';
 export declare class ControlPanel {
     private onActionCallback;
-    constructor(onActionCallback: (action: UnitAction) => void);
+    private onRestartCallback;
+    constructor(onActionCallback: (action: UnitAction) => void, onRestartCallback: () => void);
     private setupListeners;
     private handleMove;
 }

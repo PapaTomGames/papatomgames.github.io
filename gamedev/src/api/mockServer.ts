@@ -85,6 +85,11 @@ export class MockServer {
       this.gameState = parsed;
     }
   }
+
+  public reset(): void {
+    this.gameState = null;
+    localStorage.removeItem('zombies_game_state');
+  }
 }
 
 export const mockServer = new MockServer();

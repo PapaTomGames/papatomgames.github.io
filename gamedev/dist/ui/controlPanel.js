@@ -1,7 +1,8 @@
 import { mockServer } from '../api/mockServer.js';
 export class ControlPanel {
-    constructor(onActionCallback) {
+    constructor(onActionCallback, onRestartCallback) {
         this.onActionCallback = onActionCallback;
+        this.onRestartCallback = onRestartCallback;
         this.setupListeners();
     }
     setupListeners() {
@@ -43,6 +44,15 @@ export class ControlPanel {
             });
         });
         document.getElementById('control-panel')?.appendChild(digBtn);
+        // Add Restart button
+        const restartBtn = document.createElement('button');
+        restartBtn.id = 'btn-restart';
+        restartBtn.innerText = 'Restart';
+        restartBtn.style.marginTop = '10px';
+        restartBtn.style.width = '100%';
+        restartBtn.style.backgroundColor = '#8b0000'; // Dark red
+        restartBtn.addEventListener('click', () => this.onRestartCallback());
+        document.getElementById('control-panel')?.appendChild(restartBtn);
     }
     handleMove(dx, dy) {
         const state = mockServer.getState();

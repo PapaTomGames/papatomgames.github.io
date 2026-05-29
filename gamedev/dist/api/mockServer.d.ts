@@ -7,6 +7,7 @@ export declare class MockServer {
     private initializeGameState;
     saveToLocalStorage(): void;
     loadFromLocalStorage(): void;
+    reset(): void;
 }
 export declare const mockServer: MockServer;
 //# sourceMappingURL=mockServer.d.ts.map

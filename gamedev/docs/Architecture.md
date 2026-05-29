@@ -29,6 +29,7 @@ The UI provides the human player's window into the game:
 - **Player Controls**: Providing an interface for players to issue commands and movements.
 - **State Display**: Showing the current state of visible players and objects.
 - **Settings**: Allowing users to configure local preferences saved in JSON.
+- **Responsive Design**: The UI adapts to all form factors (mobile to desktop) using CSS media queries, flexible units, and touch-friendly controls. The layout shifts from side-by-side (wide screens) to stacked (narrow screens), and the map view scales to fit the viewport.
 
 ### 3.3 Player API
 The Player API abstracts the Game Engine, ensuring that both Human and AI players use the same interface:

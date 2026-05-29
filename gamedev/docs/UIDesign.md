@@ -64,11 +64,24 @@ The project uses a modular CSS approach (e.g., CSS Modules or BEM naming convent
 - **Animations**: CSS Transitions for smooth unit movement and UI panel slides.
 
 ## 7. Responsive Behavior
-The UI is designed to be responsive across different screen sizes.
+The UI is designed to be responsive across all form factors from mobile phones to desktops.
 
-- **Desktop**: Side-by-side layout (Map on left, Controls on right).
-- **Tablet/Mobile**: Stacked layout (Map on top, Controls on bottom).
-- **Scaling**: The `MapView` implements a "fit-to-screen" logic or allows scrolling/panning for maps larger than the viewport.
+### Layout Breakpoints
+- **Desktop (>900px)**: Side-by-side layout. Map on the left (max 400×400px), UI panel on the right (250px).
+- **Tablet (600-900px)**: Stacked layout. Map on top, controls below, both at full available width.
+- **Mobile (<600px)**: Full-width stacked layout. Map scales to `calc(100vw - 40px)`, controls at full width, larger touch targets.
+
+### Map Scaling
+The map container uses `aspect-ratio: 1` to maintain a square grid. Its width is set to `min(400px, calc(100vw - 40px))` for fluid sizing. The `MapView` reads the container's rendered width at render time and computes `cellSize = containerWidth / 20`, so all cell positions scale proportionally.
+
+### Touch Targets
+All control buttons have a minimum size of 44×44px on mobile devices to meet iOS/Android touch target guidelines. The control grid uses CSS Grid with 3 equal columns.
+
+### CSS Strategy
+- **Fluid units**: `min()`, `calc()`, `vw`, `%` used instead of fixed px where possible
+- **Media queries**: Breakpoints at 900px and 600px
+- **No horizontal overflow**: Content never exceeds viewport width on any screen size
+- **Dark theme**: Maintained across all form factors
 
 ## 8. Component Interactions
 1. **User** clicks "Move" $\rightarrow$ `ControlPanel` captures input.

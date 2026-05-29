@@ -82,6 +82,8 @@
 
 3.9. The human player will have a display to make player movements and commands, which will be sent to the game engine through the player API.
 
+3.10. The UI must be responsive and adapt to different form factors from mobile phones to desktops, using CSS media queries, flexible units, and touch-friendly controls.
+
 ## 4. AI Artificial Intelligence
 
 4.1. The AI will interact with the game engine in the same way that the human player user interface does.

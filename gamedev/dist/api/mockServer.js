@@ -74,6 +74,10 @@ export class MockServer {
             this.gameState = parsed;
         }
     }
+    reset() {
+        this.gameState = null;
+        localStorage.removeItem('zombies_game_state');
+    }
 }
 export const mockServer = new MockServer();
 //# sourceMappingURL=mockServer.js.map
