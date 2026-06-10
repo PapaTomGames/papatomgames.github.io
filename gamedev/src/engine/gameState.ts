@@ -44,7 +44,7 @@ export class GameStateUtils {
         const key = `${x},${y}`;
         if (avoidPositions?.has(key)) continue; // Don't stack on zombies/player
         avoidPositions?.add(key);
-        cell.holeDepth = 1;
+        cell.holeDepth = 5; // Auto-generated holes hold up to 5 zombies
         cell.zombiesInHole = 0;
         placed++;
       }

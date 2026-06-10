@@ -26,13 +26,13 @@ Z.2.4. The player starts in the middle of the map (position 10, 10).
 
 Z.2.5. The map will contain various terrain types (grass, forest, mountain, water).
 
-Z.2.7. There are randomly located holes on the map (random positions).
+Z.2.7. There are randomly located holes on the map (random positions). Auto-generated holes have a depth of 5, giving them a capacity of 5 zombies.
 
 Z.2.8. The number of holes is CEILING(Z/5) where Z is the number of zombies.
 
 Z.2.9. The player or zombie dies if it moves into a hole.
 
-Z.2.10. A hole fills up when the number of zombies that have fallen into it equals the hole's depth (capacity = depth).
+Z.2.10. A hole fills up when the number of zombies that have fallen into it equals the hole's depth (capacity = depth). Auto-generated holes start at depth 5. Player-dug holes start at depth 1 and increase with each dig.
 
 Z.2.11. Once filled, the hole disappears and the player or zombies can move over it.
 
