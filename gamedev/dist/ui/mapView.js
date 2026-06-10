@@ -68,7 +68,7 @@ export class MapView {
                 zombieEl.style.justifyContent = 'center';
                 zombieEl.style.alignItems = 'center';
                 zombieEl.style.fontWeight = 'bold';
-                zombieEl.style.zIndex = '5';
+                zombieEl.style.zIndex = '10';
                 this.container.appendChild(zombieEl);
             }
             else if (!obj.isPickedUp) {

@@ -27,22 +27,9 @@ export class ControlPanel {
       });
     });
 
-    // Add Pickup button
-    const pickupBtn = document.createElement('button');
-    pickupBtn.innerText = 'Pickup';
-    pickupBtn.style.marginTop = '10px';
-    pickupBtn.style.width = '100%';
-    pickupBtn.addEventListener('click', () => {
-      this.onActionCallback({
-        unitId: 'player1',
-        actionType: 'PICKUP',
-      });
-    });
-    document.getElementById('control-panel')?.appendChild(pickupBtn);
-
-    // Add Dig/Fill button
+    // Add Dig button
     const digBtn = document.createElement('button');
-    digBtn.innerText = 'Dig/Fill';
+    digBtn.innerText = 'Dig';
     digBtn.style.marginTop = '5px';
     digBtn.style.width = '100%';
     digBtn.addEventListener('click', () => {

@@ -301,7 +301,7 @@ async function testZombieFallsInHole() {
     state.objects.set('hole-zombie', zombie);
     
     // Place a hole at (10, 11) — zombie will walk into it on its turn
-    state.mapState.cells[11][10].holeDepth = 1;
+    state.mapState.cells[11][10].holeDepth = 2;
     state.mapState.cells[11][10].zombiesInHole = 0;
     mockServer.updateState({});
 

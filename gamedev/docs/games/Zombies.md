@@ -32,7 +32,7 @@ Z.2.8. The number of holes is CEILING(Z/5) where Z is the number of zombies.
 
 Z.2.9. The player or zombie dies if it moves into a hole.
 
-Z.2.10. A hole fills up if five zombies move into it.
+Z.2.10. A hole fills up when the number of zombies that have fallen into it equals the hole's depth (capacity = depth).
 
 Z.2.11. Once filled, the hole disappears and the player or zombies can move over it.
 

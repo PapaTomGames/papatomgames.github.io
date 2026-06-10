@@ -94,8 +94,8 @@ async function testHoles() {
     map.cells[5][5] = {
         terrainType: 'GRASS',
         modifiers: [],
-        holeDepth: 1,
-        zombiesInHole: 4 // Almost full
+        holeDepth: 5,
+        zombiesInHole: 4 // Almost full (depth = capacity)
     };
 
     mockServer.updateState({

@@ -404,7 +404,7 @@ export class GameEngine {
       if (cell && cell.holeDepth !== undefined) {
         state.objects.delete(id);
         cell.zombiesInHole = (cell.zombiesInHole || 0) + 1;
-        if (cell.zombiesInHole >= 5) {
+        if (cell.zombiesInHole >= cell.holeDepth) {
           cell.holeDepth = undefined;
           cell.zombiesInHole = undefined;
         }
