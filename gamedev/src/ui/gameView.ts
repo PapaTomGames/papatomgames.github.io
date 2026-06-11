@@ -42,9 +42,7 @@ class GameView {
     // Check win condition
     if (gameEngine.checkWinCondition()) {
       const newState = await playerApi.getState();
-      if (newState.gamePhase === 'FINISHED') {
-        this.log('🎉 VICTORY! You survived all 10 levels!');
-      } else {
+      if (newState.gamePhase !== 'FINISHED') {
         this.log(`🌟 Level ${newState.currentLevel - 1} complete! Advancing to Level ${newState.currentLevel}...`);
         gameEngine.spawnLevel(newState.currentLevel);
       }
@@ -57,11 +55,28 @@ class GameView {
   private checkGameOver() {
     const state = mockServer.getState(); // Shortcut for immediate check
     if (state.gamePhase === 'FINISHED') {
-      const reason = state.endReason;
-      const message = reason === 'zombie_catch' ? 'A zombie caught you!' : 
-                      reason === 'fell_in_hole' ? 'You fell into a hole!' : 'Game Over!';
-      this.log(`💀 ${message} GAME OVER`);
-      
+      let overlayMsg: string;
+      let logMsg: string;
+      switch (state.endReason) {
+        case 'victory':
+          overlayMsg = 'VICTORY! You survived all 10 levels.';
+          logMsg = '🎉 VICTORY! You survived all 10 levels!';
+          break;
+        case 'fell_in_hole':
+          overlayMsg = 'You fell into a hole!';
+          logMsg = '💀 You fell into a hole! GAME OVER';
+          break;
+        case 'zombie_catch':
+          overlayMsg = 'A zombie caught you!';
+          logMsg = '💀 A zombie caught you! GAME OVER';
+          break;
+        default:
+          overlayMsg = 'Game Over!';
+          logMsg = '💀 Game Over!';
+      }
+      this.log(logMsg);
+      this.mapView.showGameOverMessage(overlayMsg);
+
       // Disable controls (keep Restart enabled)
       document.querySelectorAll('#control-panel button:not(#btn-restart)').forEach(btn => {
         (btn as HTMLButtonElement).disabled = true;
@@ -78,8 +93,9 @@ class GameView {
       (btn as HTMLButtonElement).disabled = false;
     });
 
-    // Clear the log
+    // Clear the log and game-over overlay
     this.logElement.innerHTML = '';
+    this.mapView.clearGameOverMessage();
 
     this.log('Game restarted. Welcome back!');
     gameEngine.spawnLevel(1);

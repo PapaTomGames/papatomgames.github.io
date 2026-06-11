@@ -3,6 +3,7 @@ import { GameState, PlayerState } from '../api/types.js';
 export class MapView {
   private container: HTMLElement;
   private gridSize = 20;
+  private overlayEl: HTMLElement | null = null;
 
   constructor(containerId: string) {
     this.container = document.getElementById(containerId)!;
@@ -10,6 +11,26 @@ export class MapView {
 
   private getCellSize(): number {
     return this.container.clientWidth / this.gridSize;
+  }
+
+  public showGameOverMessage(message: string): void {
+    this.clearGameOverMessage();
+    const el = document.createElement('div');
+    el.style.cssText = 'position:fixed;top:0;right:0;bottom:0;left:0;'
+      + 'background:rgba(0,0,0,0.75);display:flex;align-items:center;'
+      + 'justify-content:center;z-index:10000;color:#fff;'
+      + 'font-size:clamp(1.2rem,5vw,2rem);font-weight:bold;'
+      + 'text-align:center;padding:24px;';
+    el.textContent = message;
+    document.body.appendChild(el);
+    this.overlayEl = el;
+  }
+
+  public clearGameOverMessage(): void {
+    if (this.overlayEl) {
+      this.overlayEl.remove();
+      this.overlayEl = null;
+    }
   }
 
   public render(state: GameState): void {
