@@ -16,13 +16,13 @@ export class MapView {
   public showGameOverMessage(message: string): void {
     this.clearGameOverMessage();
     const el = document.createElement('div');
-    el.style.cssText = 'position:fixed;top:0;right:0;bottom:0;left:0;'
+    el.style.cssText = 'position:absolute;top:0;right:0;bottom:0;left:0;'
       + 'background:rgba(0,0,0,0.75);display:flex;align-items:center;'
-      + 'justify-content:center;z-index:10000;color:#fff;'
+      + 'justify-content:center;z-index:200;color:#fff;'
       + 'font-size:clamp(1.2rem,5vw,2rem);font-weight:bold;'
       + 'text-align:center;padding:24px;';
     el.textContent = message;
-    document.body.appendChild(el);
+    this.container.appendChild(el);
     this.overlayEl = el;
   }
 
