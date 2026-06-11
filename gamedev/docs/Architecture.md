@@ -1,4 +1,4 @@
-,# Software Architecture Document: Turn-based Strategic Game
+# Software Architecture Document: Turn-based Strategic Game
 
 ## 1. System Overview
 The system is a modular, turn-based strategic game designed to support both human and AI players. It is built with a focus on flexibility, allowing it to run either as a server-based application with a web interface or as a local single-page application (SPA). The game's behavior, rules, and environment are dynamically configured using JSON files, enabling the same core engine to support multiple different game types.

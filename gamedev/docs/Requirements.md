@@ -1,4 +1,4 @@
-# Game: Turn-based
+# Game Engine Requirements: Turn-based Strategic Game Platform
 
 ## 1. Top Level Architecture
 
