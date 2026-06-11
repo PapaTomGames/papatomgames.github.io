@@ -204,3 +204,21 @@ button:active {
 #inventory p {
     margin: 4px 0;
 }
+
+/* ── Instructions Footer ───────────────────── */
+
+#instructions {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background-color: #2a2a2a;
+    border-radius: 6px;
+    font-size: clamp(0.72rem, 2vw, 0.85rem);
+    line-height: 1.5;
+    text-align: left;
+    color: #ccc;
+    border: 1px solid #444;
+}
+
+#instructions strong {
+    color: #fff;
+}
