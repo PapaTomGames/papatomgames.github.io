@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombies Survival</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Zombies Survival</h1>
+        <div id="game-container">
+            <div id="map-view"></div>
+            <div id="ui-panel">
+                <div id="status-bar">
+                    <p>Level: <span id="level-val">1</span></p>
+                    <p>Turn: <span id="turn-val">1</span></p>
+                </div>
+                <div id="control-panel">
+                    <div class="control-grid">
+                        <button id="btn-up-left">↖</button>
+                        <button id="btn-up">↑</button>
+                        <button id="btn-up-right">↗</button>
+                        <button id="btn-left">←</button>
+                        <button id="btn-stay">●</button>
+                        <button id="btn-right">→</button>
+                        <button id="btn-down-left">↙</button>
+                        <button id="btn-down">↓</button>
+                        <button id="btn-down-right">↘</button>
+                    </div>
+                </div>
+                <div id="log"></div>
+            </div>
+        </div>
+        <div id="instructions">
+            <p><strong>Goal:</strong> Kill all zombies each level to survive. <strong>Move</strong> with the direction buttons. <strong>Stick (St)</strong> kills 1 zombie/turn (5 uses). <strong>Shovel (Sh)</strong> digs a hole to trap zombies. Walk over items to pick them up. Zombies catch you = game over.</p>
+        </div>
+    </div>
+    <script type="module" src="dist/ui/gameView.js"></script>
+</body>
+</html>
